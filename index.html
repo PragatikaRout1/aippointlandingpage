@@ -388,7 +388,8 @@
 .ai-features-image img,
 .ai-features-image video {
   width: 100%;
-  max-height: 420px;
+  max-height: 600px;
+  /* 420px */
   object-fit: contain;
   border-radius: 18px;
 }
@@ -806,10 +807,9 @@ document.addEventListener("keydown", (e) => {
 
     <div style="text-align:center;">
       <!-- <span class="badge">REFINING RECRUITMENT</span> -->
-      <h1 class="setup-title">Human-Centric AI Hiring Workflow</h1>
+      <h1 class="setup-title">Intelligent Workflow</h1>
       <p class="setup-subtitle" style="color: #fff;">
-        A seamless fusion of artificial intelligence and human intuition—designed to surface
-        the best talent while ensuring empathy and control remain central to every hiring decision.
+       Transform your recruitment funnel from manual job intake to automated, data-driven hiring decisions with our end-to-end AI engine.
       </p>
     </div>
 
@@ -933,7 +933,7 @@ Decision insights are securely shared via APIs with ATS and HR systems for revie
 
     <div class="legend">
       <span>Automated — Data-driven AI efficiency</span>
-      <span>Human-Led — Final judgment & decision ownership</span>
+      <span>API-Integrated — Decision data shared across ATS & HR systems</span>
     </div>
 
   </div>
@@ -1009,21 +1009,11 @@ Decision insights are securely shared via APIs with ATS and HR systems for revie
   color: #0284C7;
   margin-bottom: 28px;
   font-weight: 600;
+  text-align: center;
 }
 
 .column {
   position: relative;
-}
-
-.column::before {
-  content: "";
-  position: absolute;
-  top: 34px;
-  bottom: 0;
-  left: 20px;
-  width: 2px;
-  background: linear-gradient(180deg, rgba(62,160,255,0.4) 0%, rgba(62,160,255,0.1) 100%);
-  border-radius: 1px;
 }
 
 /* ---------- STEP ---------- */
@@ -1037,18 +1027,6 @@ Decision insights are securely shared via APIs with ATS and HR systems for revie
 
 .step:last-child {
   padding-bottom: 0;
-}
-
-.step::before {
-  content: "";
-  position: absolute;
-  left: 19px;
-  top: 40px;
-  width: 4px;
-  height: 4px;
-  background: #3ea0ff;
-  border-radius: 50%;
-  box-shadow: 0 0 8px rgba(62,160,255,0.6);
 }
 
 .step-number {
@@ -1121,7 +1099,7 @@ Decision insights are securely shared via APIs with ATS and HR systems for revie
   display: flex;
   justify-content: center;
   gap: 28px;
-  margin-top: 20px;
+  margin-top: 15px;
   font-size: 13px;
   color: #a8b6d8;
   flex-wrap: wrap;
