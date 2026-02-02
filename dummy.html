@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>AI Interview Process</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: "Inter", sans-serif;
+        background: radial-gradient(circle at top, #0f1f3a, #070f1f);
+        color: #ffffff;
+    }
+
+    .process-section {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .process-container {
+        max-width: 900px;
+        width: 100%;
+        padding: 40px 20px;
+        text-align: center;
+    }
+
+    .process-title {
+        font-size: 28px;
+        font-weight: 700;
+        margin-bottom: 60px;
+    }
+
+    .process-grid {
+        display: grid;
+        grid-template-columns: 1fr 80px 1fr;
+        grid-template-rows: auto 80px auto;
+        align-items: center;
+        justify-items: center;
+    }
+
+    /* Card base */
+    .process-card {
+        width: 260px;
+        padding: 18px 16px;
+        border-radius: 14px;
+        border: 2px solid;
+        background: rgba(255, 255, 255, 0.02);
+        box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .process-card h3 {
+        margin: 0 0 10px;
+        font-size: 16px;
+        font-weight: 600;
+    }
+
+    .process-card p {
+        margin: 0;
+        font-size: 13px;
+        line-height: 1.5;
+        opacity: 0.85;
+    }
+
+    /* Color variants */
+    .blue {
+        border-color: #4aa3ff;
+        color: #cfe6ff;
+    }
+
+    .green {
+        border-color: #3ddc97;
+        color: #d2fff0;
+    }
+
+    .cyan {
+        border-color: #4adede;
+        color: #d9ffff;
+    }
+
+    .lime {
+        border-color: #b6ff5f;
+        color: #f1ffd6;
+    }
+
+    /* Arrows */
+    .arrow {
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(to right, #4aa3ff, #3ddc97);
+        position: relative;
+    }
+
+    .arrow::after {
+        content: "";
+        position: absolute;
+        right: -6px;
+        top: -4px;
+        border-left: 8px solid #3ddc97;
+        border-top: 5px solid transparent;
+        border-bottom: 5px solid transparent;
+    }
+
+    .arrow-vertical {
+        width: 2px;
+        height: 100%;
+        background: linear-gradient(to bottom, #3ddc97, #b6ff5f);
+        position: relative;
+    }
+
+    .arrow-vertical::after {
+        content: "";
+        position: absolute;
+        bottom: -6px;
+        left: -4px;
+        border-top: 8px solid #b6ff5f;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+    }
+
+    /* Grid placement */
+    .card-1 { grid-column: 1; grid-row: 1; }
+    .arrow-1 { grid-column: 2; grid-row: 1; }
+    .card-2 { grid-column: 3; grid-row: 1; }
+
+    .arrow-2 { grid-column: 3; grid-row: 2; }
+
+    .card-3 { grid-column: 1; grid-row: 3; }
+    .arrow-3 { grid-column: 2; grid-row: 3; }
+    .card-4 { grid-column: 3; grid-row: 3; }
+
+    @media (max-width: 768px) {
+        .process-grid {
+            grid-template-columns: 1fr;
+            grid-template-rows: auto;
+            gap: 30px;
+        }
+
+        .arrow,
+        .arrow-vertical {
+            display: none;
+        }
+    }
+</style>
+</head>
+
+<body>
+<section class="process-section">
+    <div class="process-container">
+        <h2 class="process-title">AI Interview Process</h2>
+
+        <div class="process-grid">
+            <!-- Step 1 -->
+            <div class="process-card blue card-1">
+                <h3>Dynamic Question Delivery</h3>
+                <p>The system presents customized questions to candidates.</p>
+            </div>
+
+            <div class="arrow arrow-1"></div>
+
+            <!-- Step 2 -->
+            <div class="process-card green card-2">
+                <h3>Candidate Response Capture</h3>
+                <p>Candidates respond via video, audio, or text.</p>
+            </div>
+
+            <div class="arrow-vertical arrow-2"></div>
+
+            <!-- Step 3 -->
+            <div class="process-card cyan card-3">
+                <h3>Scoring and Ranking</h3>
+                <p>Candidates are scored and ranked based on their responses.</p>
+            </div>
+
+            <div class="arrow arrow-3"></div>
+
+            <!-- Step 4 -->
+            <div class="process-card lime card-4">
+                <h3>AI-Powered Analysis</h3>
+                <p>The system analyzes responses using machine learning and NLP.</p>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

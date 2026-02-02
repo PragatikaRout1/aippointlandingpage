@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="See Your Impact - Calculate your ROI with aippoint">
+    <title>AIpoint ROI Calculator Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+    <!-- PDF libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#2563eb", // Professional Blue
+                        secondary: "#2563eb", // Blue CTA accent matching primary theme
+                        "background-light": "#f8fafc",
+                        "background-dark": "#0f172a",
+                        "card-light": "#ffffff",
+                        "card-dark": "#1e293b",
+                    },
+                    fontFamily: {
+                        display: ["Inter", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.75rem",
+                    },
+                },
+            },
+        };
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .slider-thumb::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            background: #2563eb;
+            cursor: pointer;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+        .slider-thumb::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            background: #2563eb;
+            cursor: pointer;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen transition-colors duration-300">
+    <!-- Navigation loaded via components.js -->
+
+    <main class="px-3 py-4 sm:px-4 lg:px-6" style="margin-top: 96px; padding-top: 24px;">
+        <div class="max-w-6xl w-full mx-auto">
+            <div class="flex flex-col lg:flex-row gap-3 items-start">
+                <!-- Left column: controls -->
+                <div class="flex-1 space-y-2 w-full lg:w-2/3">
+                    <!-- Hiring type -->
+                    <section class="bg-white dark:bg-slate-800 p-3 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700">
+                        <div class="mb-3">
+                            <h2 class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Hiring Type</h2>
+                            <p class="text-base font-bold text-slate-800 dark:text-white">What type of hiring are you looking to do?</p>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            <button class="px-4 py-2 rounded-full border border-slate-200 dark:border-slate-700 bg-primary/5 text-primary font-medium text-xs hiring-type-btn" data-value="sales">Sales</button>
+                            <button class="px-4 py-2 rounded-full border border-slate-200 dark:border-slate-700 hover:border-primary/50 text-slate-600 dark:text-slate-300 font-medium text-xs hiring-type-btn" data-value="call-center">Call Center</button>
+                            <button class="px-4 py-2 rounded-full border border-slate-200 dark:border-slate-700 hover:border-primary/50 text-slate-600 dark:text-slate-300 font-medium text-xs hiring-type-btn" data-value="marketing">Marketing</button>
+                            <button class="px-4 py-2 rounded-full border border-slate-200 dark:border-slate-700 hover:border-primary/50 text-slate-600 dark:text-slate-300 font-medium text-xs hiring-type-btn" data-value="ta">TA / HR</button>
+                            <button class="px-4 py-2 rounded-full border border-slate-200 dark:border-slate-700 hover:border-primary/50 text-slate-600 dark:text-slate-300 font-medium text-xs hiring-type-btn" data-value="fresher">Fresher</button>
+                        </div>
+                    </section>
+
+                    <!-- Application volume -->
+                    <section class="bg-white dark:bg-slate-800 p-3 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700">
+                        <div class="flex justify-between items-end mb-4">
+                            <div>
+                                <h2 class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Application Volume</h2>
+                                <p class="text-slate-700 dark:text-slate-300 text-xs">How many applications do you receive annually?</p>
+                            </div>
+                            <div class="bg-slate-100 dark:bg-slate-900 px-3 py-1 rounded text-primary font-bold text-sm border border-slate-200 dark:border-slate-700" id="annualApplicationsValue">
+                                18,000
+                            </div>
+                        </div>
+                        <div class="relative w-full h-2 bg-slate-100 dark:bg-slate-700 rounded-full mb-1">
+                            <input class="absolute top-0 w-full h-2 appearance-none bg-transparent cursor-pointer slider-thumb" max="100000" min="150" step="500" type="range" value="18000" id="annualApplications"/>
+                        </div>
+                        <div class="flex justify-between text-[10px] text-slate-400 font-medium">
+                            <span>150</span>
+                            <span>100,000+</span>
+                        </div>
+                    </section>
+
+                    <!-- Interviewing practices -->
+                    <section class="bg-white dark:bg-slate-800 p-3 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700">
+                        <h2 class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-4">Interviewing Practices</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <p class="text-slate-700 dark:text-slate-300 text-xs mb-3">Interviews conducted per hire?</p>
+                                <div class="inline-flex rounded-lg border border-slate-200 dark:border-slate-700 overflow-hidden w-full">
+                                    <button class="flex-1 py-2 px-3 bg-primary text-white font-semibold text-xs interviews-per-hire" data-value="1">1</button>
+                                    <button class="flex-1 py-2 px-3 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 border-l border-slate-200 dark:border-slate-700 text-xs interviews-per-hire" data-value="2">2</button>
+                                    <button class="flex-1 py-2 px-3 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 border-l border-slate-200 dark:border-slate-700 text-xs interviews-per-hire" data-value="3">3</button>
+                                    <button class="flex-1 py-2 px-3 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 border-l border-slate-200 dark:border-slate-700 text-xs interviews-per-hire" data-value="4">4+</button>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between items-center mb-3">
+                                    <p class="text-slate-700 dark:text-slate-300 text-xs">Team members involved?</p>
+                                    <span class="bg-slate-100 dark:bg-slate-900 px-3 py-1 rounded text-primary font-bold text-xs" id="teamMembersValue">4</span>
+                                </div>
+                                <div class="relative w-full h-2 bg-slate-100 dark:bg-slate-700 rounded-full">
+                                    <input class="absolute top-0 w-full h-2 appearance-none bg-transparent cursor-pointer slider-thumb" max="10" min="1" step="1" type="range" value="4" id="teamMembers"/>
+                                </div>
+                                <div class="flex justify-between text-[10px] text-slate-400 font-medium mt-1">
+                                    <span>1</span>
+                                    <span>10</span>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Additional information -->
+                    <section class="bg-white dark:bg-slate-800 p-3 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700">
+                        <div class="flex justify-between items-end mb-4">
+                            <div>
+                                <h2 class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Additional Information</h2>
+                                <p class="text-slate-700 dark:text-slate-300 text-xs">Annual spend on hiring tools/software?</p>
+                            </div>
+                            <div class="bg-slate-100 dark:bg-slate-900 px-3 py-1 rounded text-primary font-bold text-sm border border-slate-200 dark:border-slate-700" id="annualSpendingValue">
+                                $120,000.00
+                            </div>
+                        </div>
+                        <div class="relative w-full h-2 bg-slate-100 dark:bg-slate-700 rounded-full mb-1">
+                            <input class="absolute top-0 w-full h-2 appearance-none bg-transparent cursor-pointer slider-thumb" max="1000000" min="10000" step="5000" type="range" value="120000" id="annualSpending"/>
+                        </div>
+                        <div class="flex justify-between text-[10px] text-slate-400 font-medium">
+                            <span>$10,000</span>
+                            <span>$1,000,000+</span>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Right column: results -->
+                <div class="w-full lg:w-1/3 lg:sticky lg:top-20 space-y-2">
+                    <div class="bg-gradient-to-br from-[#0083C3] to-[#0052CC] rounded-2xl p-5 text-white shadow-xl shadow-primary/20">
+                        <div class="text-center mb-4 border-b border-white/20 pb-4">
+                            <div class="text-3xl font-extrabold mb-1 tracking-tight" id="roiHoursSaved">97 Hours</div>
+                            <div class="text-[9px] uppercase tracking-widest font-semibold opacity-80 mb-3">Total Savings Annually*</div>
+                            <div class="text-2xl font-extrabold mb-1 tracking-tight" id="roiCostSaved">$3,510</div>
+                            <div class="text-[10px] uppercase tracking-widest font-semibold opacity-80">Total Savings Annually*</div>
+                        </div>
+                        <p class="text-center text-[11px] opacity-90 mb-3 leading-relaxed">
+                            Request a demo to learn how savings are calculated and tailored to your organization.
+                        </p>
+                        <div class="space-y-2.5">
+                            <button class="w-full bg-white text-primary font-bold py-2.5 rounded shadow-lg hover:bg-slate-50 transition-colors flex items-center justify-center gap-2" onclick="window.location.href='index.html#contact'">
+                                Get a Demo
+                            </button>
+                            <button class="w-full bg-white/10 hover:bg-white/20 text-white font-semibold py-2.5 rounded border border-white/30 transition-colors flex items-center justify-center gap-2" onclick="downloadROIReport()">
+                                <span class="material-icons-outlined text-lg">download</span>
+                                Download ROI Report
+                            </button>
+                        </div>
+                        <p class="text-[9px] text-center mt-3 opacity-70 italic">
+                            *Actual results may vary based on specific hiring conditions and internal processes.
+                        </p>
+                    </div>
+                    <div class="p-3 rounded-2xl border border-dashed border-slate-300 dark:border-slate-700 flex items-center gap-3 text-slate-500 dark:text-slate-400">
+                        <span class="material-icons-outlined text-primary text-base">security</span>
+                        <span class="text-[11px] font-medium">Data is encrypted and used only for ROI calculations.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer loaded via components.js -->
+
+    <script src="components.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // Slider updates
+        const annualApplications = document.getElementById('annualApplications');
+        const annualApplicationsValue = document.getElementById('annualApplicationsValue');
+        const teamMembers = document.getElementById('teamMembers');
+        const teamMembersValue = document.getElementById('teamMembersValue');
+        const annualSpending = document.getElementById('annualSpending');
+        const annualSpendingValue = document.getElementById('annualSpendingValue');
+        const roiHoursSaved = document.getElementById('roiHoursSaved');
+        const roiCostSaved = document.getElementById('roiCostSaved');
+
+        // Update annual applications slider
+        if (annualApplications) {
+            annualApplications.addEventListener('input', function() {
+                const value = parseInt(this.value);
+                annualApplicationsValue.textContent = value.toLocaleString();
+                calculateROI();
+            });
+        }
+
+        // Update team members slider
+        if (teamMembers) {
+            teamMembers.addEventListener('input', function() {
+                const value = parseInt(this.value);
+                teamMembersValue.textContent = value;
+                calculateROI();
+            });
+        }
+
+        // Update annual spending slider
+        if (annualSpending) {
+            annualSpending.addEventListener('input', function() {
+                const value = parseInt(this.value);
+                annualSpendingValue.textContent = '$' + value.toLocaleString() + '.00';
+                calculateROI();
+            });
+        }
+
+        // Interview per hire buttons
+        const interviewButtons = document.querySelectorAll('.interviews-per-hire');
+        interviewButtons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                interviewButtons.forEach(b => {
+                    b.classList.remove('bg-primary', 'text-white');
+                    b.classList.add('hover:bg-slate-50', 'dark:hover:bg-slate-800');
+                });
+                this.classList.add('bg-primary', 'text-white');
+                this.classList.remove('hover:bg-slate-50', 'dark:hover:bg-slate-800');
+                calculateROI();
+            });
+        });
+
+        // Hiring type buttons (single-select)
+        const hiringTypeButtons = document.querySelectorAll('.hiring-type-btn');
+        let selectedHiringTypes = ['sales']; // Default selection
+        hiringTypeButtons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const value = this.dataset.value;
+
+                // Clear selection from all buttons
+                hiringTypeButtons.forEach(b => {
+                    b.classList.remove('border-primary', 'bg-primary/5', 'text-primary');
+                    b.classList.add('border-slate-200', 'dark:border-slate-700');
+                });
+
+                // Set selection on clicked button
+                this.classList.add('border-primary', 'bg-primary/5', 'text-primary');
+                this.classList.remove('border-slate-200', 'dark:border-slate-700');
+
+                selectedHiringTypes = [value];
+                calculateROI();
+            });
+        });
+
+        // Hiring type multipliers for ROI calculation
+        const hiringTypeMultipliers = {
+            'sales': 1.1,          // Sales roles benefit from automation
+            'call-center': 1.15,   // Call center roles benefit from automation
+            'marketing': 1.1,      // Marketing roles benefit from automation
+            'ta': 1.15,            // TA / HR roles benefit from bulk processing
+            'fresher': 1.15        // Fresher hiring benefits from bulk processing
+        };
+
+        // Store ROI data for report generation
+        let currentROIData = {
+            applications: 18000,
+            interviews: 1,
+            team: 4,
+            spending: 120000,
+            hiringTypes: ['sales'],
+            hoursSaved: 0,
+            costSaved: 0,
+            // Detailed calculation data
+            baseTimePerApplication: 0.5,
+            timeSavedPerApplication: 0,
+            avgMultiplier: 1.0,
+            totalInterviewHours: 0,
+            avgHourlyRate: 0,
+            efficiencyReduction: 0.7
+        };
+
+        // Calculate ROI based on inputs
+        function calculateROI() {
+            const applications = parseInt(annualApplications?.value || 18000);
+            let interviews = parseInt(document.querySelector('.interviews-per-hire.bg-primary')?.dataset.value || 1);
+            // Handle "4+" case
+            if (isNaN(interviews) || interviews === 0) {
+                interviews = 4; // Default for "4+"
+            }
+            const team = parseInt(teamMembers?.value || 4);
+            const spending = parseInt(annualSpending?.value || 120000);
+
+            // Get selected hiring types
+            const selectedTypes = Array.from(document.querySelectorAll('.hiring-type-btn.border-primary'))
+                .map(btn => btn.dataset.value);
+            
+            // Use selected types or default to 'sales'
+            const activeTypes = selectedTypes.length > 0 ? selectedTypes : ['sales'];
+            
+            // Calculate average multiplier based on selected hiring types
+            const avgMultiplier = activeTypes.reduce((sum, type) => {
+                return sum + (hiringTypeMultipliers[type] || 1.0);
+            }, 0) / activeTypes.length;
+
+            // Base calculation: time savings per application
+            // More interviews and team members = more time spent = more potential savings
+            const baseTimePerApplication = 0.5; // hours per application
+            const efficiencyReduction = 0.7; // 70% reduction
+            const timeSavedPerApplication = baseTimePerApplication * efficiencyReduction * avgMultiplier; // 70% reduction with multiplier
+            
+            // Calculate total hours saved annually
+            const totalHoursSaved = applications * timeSavedPerApplication;
+            
+            // Estimate hourly rate: annual spending / (applications * interviews * team members * avg hours per interview)
+            const avgHoursPerInterview = 1.5; // Average hours per interview
+            const totalInterviewHours = applications * interviews * team * avgHoursPerInterview;
+            const avgHourlyRate = totalInterviewHours > 0 ? spending / totalInterviewHours : 50; // Fallback to $50/hr
+            
+            // Calculate cost savings
+            const totalCostSaved = totalHoursSaved * avgHourlyRate;
+
+            // Store data for report (including detailed calculations)
+            currentROIData = {
+                applications: applications,
+                interviews: interviews,
+                team: team,
+                spending: spending,
+                hiringTypes: activeTypes,
+                hoursSaved: Math.round(totalHoursSaved),
+                costSaved: Math.round(totalCostSaved),
+                avgHourlyRate: Math.round(avgHourlyRate * 100) / 100,
+                // Detailed calculation data
+                baseTimePerApplication: baseTimePerApplication,
+                timeSavedPerApplication: Math.round(timeSavedPerApplication * 1000) / 1000,
+                avgMultiplier: Math.round(avgMultiplier * 100) / 100,
+                totalInterviewHours: Math.round(totalInterviewHours),
+                efficiencyReduction: efficiencyReduction,
+                avgHoursPerInterview: avgHoursPerInterview
+            };
+
+            // Update ROI display
+            if (roiHoursSaved) {
+                roiHoursSaved.textContent = currentROIData.hoursSaved.toLocaleString() + ' Hours';
+            }
+            if (roiCostSaved) {
+                roiCostSaved.textContent = '$' + currentROIData.costSaved.toLocaleString();
+            }
+        }
+
+        // Download ROI Report as PDF (jsPDF-based, no HTML-to-canvas)
+        function downloadROIReport() {
+            // Ensure ROI data is up to date
+            calculateROI();
+
+            // jsPDF from UMD
+            const jsPDFLib = window.jspdf;
+            if (!jsPDFLib || !jsPDFLib.jsPDF) {
+                alert('PDF library failed to load. Please check your internet connection and try again.');
+                return;
+            }
+            const { jsPDF } = jsPDFLib;
+
+            const doc = new jsPDF('p', 'pt', 'a4');
+            const pageWidth = doc.internal.pageSize.getWidth();
+            const margin = 40;
+            let y = margin;
+
+            const reportDate = new Date().toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+
+            // Header
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(18);
+            doc.text('aippoint ROI Analysis Report', margin, y);
+            doc.setFontSize(10);
+            doc.setFont('helvetica', 'normal');
+            y += 20;
+            doc.text(`Generated on ${reportDate}`, margin, y);
+
+            // Summary cards
+            y += 35;
+            const cardWidth = (pageWidth - margin * 2 - 20) / 2;
+            const cardHeight = 80;
+
+            // Total Cost Saved Card
+            doc.setFillColor(37, 99, 235); // primary blue
+            doc.roundedRect(margin, y, cardWidth, cardHeight, 6, 6, 'F');
+            doc.setTextColor(255, 255, 255);
+            doc.setFontSize(10);
+            doc.text('TOTAL ANNUAL COST SAVINGS', margin + 12, y + 18);
+            doc.setFontSize(22);
+            doc.setFont('helvetica', 'bold');
+            doc.text(`$${currentROIData.costSaved.toLocaleString()}`, margin + 12, y + 48);
+
+            // Total Hours Saved Card
+            doc.setFillColor(15, 23, 42); // dark
+            doc.roundedRect(margin + cardWidth + 20, y, cardWidth, cardHeight, 6, 6, 'F');
+            doc.setTextColor(255, 255, 255);
+            doc.setFontSize(10);
+            doc.setFont('helvetica', 'normal');
+            doc.text('TOTAL ANNUAL HOURS SAVED', margin + cardWidth + 32, y + 18);
+            doc.setFontSize(22);
+            doc.setFont('helvetica', 'bold');
+            doc.text(`${currentROIData.hoursSaved.toLocaleString()} hrs`, margin + cardWidth + 32, y + 48);
+
+            // Reset text color
+            doc.setTextColor(30, 41, 59);
+            y += cardHeight + 40;
+
+            // Input Parameters section
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(13);
+            doc.text('Input Parameters', margin, y);
+            y += 20;
+
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(10);
+
+            const paramLines = [
+                ['Annual Applications', currentROIData.applications.toLocaleString()],
+                ['Interviews per Hire', String(currentROIData.interviews)],
+                ['Team Members Involved', String(currentROIData.team)],
+                ['Annual Hiring Tools Spend', `$${currentROIData.spending.toLocaleString()}`],
+                ['Hiring Types', currentROIData.hiringTypes.join(', ')]
+            ];
+
+            paramLines.forEach(([label, value], index) => {
+                doc.text(label, margin, y);
+                doc.text(value, pageWidth - margin - doc.getTextWidth(value), y);
+                y += 18; // Increased spacing between parameter lines
+            });
+
+            y += 25; // More space before calculation breakdown
+
+            // Calculation Breakdown
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(13);
+            doc.text('ROI Calculation Breakdown', margin, y);
+            y += 22;
+
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(10);
+
+            const breakdownLines = [
+                `1. Hiring Type Multiplier: ${currentROIData.avgMultiplier}x based on selected roles`,
+                `2. Time Saved per Application = Base Time (${currentROIData.baseTimePerApplication} hrs) × Efficiency (${(currentROIData.efficiencyReduction * 100).toFixed(0)}%) × Multiplier (${currentROIData.avgMultiplier}) = ${currentROIData.timeSavedPerApplication.toFixed(3)} hrs`,
+                `3. Total Hours Saved = Applications (${currentROIData.applications.toLocaleString()}) × Time Saved per Application (${currentROIData.timeSavedPerApplication.toFixed(3)} hrs) = ${currentROIData.hoursSaved.toLocaleString()} hrs`,
+                `4. Average Hourly Rate = Annual Spend ($${currentROIData.spending.toLocaleString()}) ÷ Total Interview Hours (${currentROIData.totalInterviewHours.toLocaleString()} hrs) = $${currentROIData.avgHourlyRate.toFixed(2)}/hr`,
+                `5. Total Cost Saved = Total Hours Saved (${currentROIData.hoursSaved.toLocaleString()} hrs) × Average Hourly Rate ($${currentROIData.avgHourlyRate.toFixed(2)}/hr) = $${currentROIData.costSaved.toLocaleString()}`
+            ];
+
+            breakdownLines.forEach((line, index) => {
+                // Check if we need a new page
+                if (y > 720) {
+                    doc.addPage();
+                    y = margin;
+                }
+                
+                const split = doc.splitTextToSize(line, pageWidth - margin * 2);
+                doc.text(split, margin, y);
+                y += split.length * 14; // Increased line height for readability
+                
+                // Add extra spacing between calculation steps
+                if (index < breakdownLines.length - 1) {
+                    y += 8;
+                }
+            });
+
+            // Footer note - position it closer to content
+            if (y > 720) {
+                doc.addPage();
+                y = margin;
+            }
+            y += 25; // Reduced spacing before footer
+            doc.setFontSize(9);
+            doc.setTextColor(100, 116, 139);
+            const footerText = 'This ROI calculation is based on your input parameters and industry benchmarks. Actual results may vary based on implementation and usage.';
+            const footerLines = doc.splitTextToSize(footerText, pageWidth - margin * 2);
+            doc.text(footerLines, margin, y);
+            
+            // Add copyright at bottom with minimal spacing
+            y += footerLines.length * 12 + 15;
+            if (y < 750) { // Only add if there's reasonable space
+                doc.setFontSize(8);
+                doc.setTextColor(148, 163, 184);
+                doc.text(`© ${new Date().getFullYear()} Aippoint.AI INC. All rights reserved.`, margin, y);
+            }
+
+            // Save
+            doc.save(`Aippoint_ROI_Report_${new Date().toISOString().split('T')[0]}.pdf`);
+        }
+
+        // Initial calculation
+        calculateROI();
+    </script>
+    
+</body>
+</html>
+
+<!-- 1. Typography 
+Fonts:
+Space Grotesk for headings (H1, H2, H3)
+Plus Jakarta Sans for body text, buttons, labels
+Typography scale:
+H1: clamp(44px, 5vw, 64px) with -0.02em letter-spacing
+H2: clamp(28px, 3vw, 36px) with -0.015em letter-spacing
+H3: clamp(20px, 2vw, 24px)
+Body: clamp(16px, 1.5vw, 18px) with 1.6 line-height
+Buttons: clamp(15px, 1.2vw, 16px) with 0.02em letter-spacing
+Applied globally to headings, paragraphs, buttons, labels, FAQs, testimonials, and footer -->

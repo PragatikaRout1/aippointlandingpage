@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Header Component</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <div class="nav-wrapper">
+                <div class="logo">
+                    <a href="index.html" class="logo-link">
+                        <img src="img/aippoint logo 1.png" alt="aippoint" class="footer-logo-img">
+                    </a>
+                </div>
+                <div class="nav-menu-backdrop" id="navMenuBackdrop"></div>
+                <ul class="nav-menu" id="navMenu">              
+                    <li><a href="how-it-works.html">How It Works</a></li>
+                    <li><a href="features.html">Features</a></li>
+                    <li><a href="pricing.html">Pricing</a></li>
+                    <li><a href="roi.html">ROI Calculator</a></li>
+                    <li><a href="ai-interview.html" class="cta-nav">Try It Free — 1 Min</a></li>
+                </ul>
+                <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Chatbot Modal -->
+    <div class="chatbot-modal" id="chatbotModal" aria-hidden="true">
+        <div class="chatbot-backdrop" onclick="closeChatbot()"></div>
+        <div class="chatbot-container" role="dialog" aria-modal="true" aria-label="AI Chatbot">
+            <div class="chatbot-header">
+                <div class="chatbot-header-content">
+                    <div class="chatbot-avatar">
+                        <span class="material-symbols-outlined">smart_toy</span>
+                    </div>
+                    <div class="chatbot-header-text">
+                        <h3 class="chatbot-title">AI Assistant</h3>
+                        <p class="chatbot-subtitle">Ask me anything about <img src="img/aippoint logo 1.png" alt="aippoint" class="brand-highlight-logo"></p>
+                    </div>
+                </div>
+                <button class="chatbot-close" onclick="closeChatbot()" aria-label="Close chatbot">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <div class="chatbot-messages" id="chatbotMessages">
+                <div class="chatbot-message chatbot-message-bot">
+                    <div class="chatbot-message-avatar">
+                        <span class="material-symbols-outlined">smart_toy</span>
+                    </div>
+                    <div class="chatbot-message-content">
+                        <p>Hello! I'm your AI assistant for <img src="img/aippoint logo 1.png" alt="aippoint" class="brand-highlight-logo">. How can I help you today? You can ask me about our features, pricing, how it works, or anything else!</p>
+                    </div>
+                </div>
+            </div>
+            <div class="chatbot-suggestions" id="chatbotSuggestions">
+                <button class="chatbot-suggestion-btn" onclick="sendChatbotMessage('What is aippoint?')">What is aippoint?</button>
+                <button class="chatbot-suggestion-btn" onclick="sendChatbotMessage('How does AI interview work?')">How does AI interview work?</button>
+                <button class="chatbot-suggestion-btn" onclick="sendChatbotMessage('What are the pricing plans?')">What are the pricing plans?</button>
+                <button class="chatbot-suggestion-btn" onclick="sendChatbotMessage('Is it secure?')">Is it secure?</button>
+            </div>
+            <div class="chatbot-input-container">
+                <input type="text" id="chatbotInput" class="chatbot-input" placeholder="Type your question..." onkeypress="handleChatbotKeyPress(event)">
+                <button class="chatbot-send-btn" onclick="sendChatbotMessageFromInput()" aria-label="Send message">
+                    <span class="material-symbols-outlined">send</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Chatbot functionality
+        const chatbotData = {
+            "what is aippoint": "aippoint is an AI-powered interview assessment platform that helps companies screen candidates faster, assess skills accurately, and make data-driven hiring decisions. We use advanced AI to conduct interviews, evaluate candidates, and provide detailed insights.",
+            "how does ai interview work": "Our AI interview system uses natural language processing and machine learning to conduct structured interviews. Candidates answer questions via video or text, and our AI analyzes their responses for technical skills, communication, problem-solving abilities, and cultural fit. The system provides detailed scorecards and recommendations.",
+            "what are the pricing plans": "We offer flexible pricing plans based on your hiring volume. Plans range from Essentials (1-10 hires/year) to Enterprise (200+ hires/year). All plans include a 7-day free trial. Contact us for a tailored quote based on your specific needs.",
+            "is it secure": "Yes, absolutely! aippoint is SOC 2 Type II certified, GDPR compliant, and follows enterprise-grade security standards. We encrypt all data in transit and at rest, implement strict access controls, and support SSO and audit logging.",
+            "how accurate is the ai": "Our AI assessment system achieves 95% accuracy in skill evaluation, validated through extensive testing with over 1 million assessments. The system continuously learns and improves from each assessment.",
+            "can i customize questions": "Yes! aippoint offers full customization of interview questions. You can create custom question sets, use our AI-generated questions based on job requirements, or import questions from your existing assessment library.",
+            "what programming languages": "We support 50+ programming languages including Python, JavaScript, Java, C++, C#, Go, Ruby, PHP, Swift, Kotlin, and many more. Our platform also supports frameworks and libraries for comprehensive technical assessments.",
+            "how does proctoring work": "Our advanced AI proctoring system uses computer vision and behavioral analysis to monitor assessments. It tracks screen activity, detects suspicious behavior, flags potential cheating attempts, and provides detailed proctoring reports while maintaining candidate privacy.",
+            "free trial": "Yes! We offer a 7-day free trial with full access to all features. No credit card required. You can assess up to 50 candidates during the trial period to experience the full power of aippoint.",
+            "ats integration": "Absolutely! aippoint integrates seamlessly with popular ATS platforms including Greenhouse, Lever, Workday, BambooHR, and many others. We also provide REST APIs for custom integrations with your existing systems.",
+            "time to hire": "On average, our clients see a 60-70% reduction in time-to-hire. The AI-powered screening and assessment process eliminates manual resume review and speeds up candidate evaluation significantly.",
+            "candidate experience": "Our platform provides an excellent candidate experience with user-friendly interfaces, clear instructions, and real-time feedback. Candidates can complete assessments at their convenience, and the AI interview process is designed to be engaging and fair.",
+            "bias reduction": "Yes, our AI is specifically designed to reduce hiring bias. We use standardized evaluation criteria, focus on skills and competencies rather than demographics, and provide objective scoring that helps eliminate unconscious bias in the hiring process.",
+            "support": "We offer comprehensive support including email support for all plans, priority support for Professional and Enterprise plans, and 24/7 support for Enterprise customers. We also provide dedicated account managers for Enterprise clients.",
+            "setup time": "Getting started with aippoint is quick and easy. Most teams are up and running within 24-48 hours. We provide onboarding assistance, training materials, and can help with custom integrations if needed."
+        };
+
+        function openChatbot() {
+            const modal = document.getElementById('chatbotModal');
+            if (modal) {
+                modal.setAttribute('aria-hidden', 'false');
+                modal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+                setTimeout(() => {
+                    document.getElementById('chatbotInput')?.focus();
+                }, 100);
+            }
+        }
+
+        function closeChatbot() {
+            const modal = document.getElementById('chatbotModal');
+            if (modal) {
+                modal.setAttribute('aria-hidden', 'true');
+                modal.style.display = 'none';
+                document.body.style.overflow = '';
+            }
+        }
+
+        function sendChatbotMessage(message) {
+            if (!message || !message.trim()) return;
+            
+            const messagesContainer = document.getElementById('chatbotMessages');
+            const suggestionsContainer = document.getElementById('chatbotSuggestions');
+            
+            // Hide suggestions after first message
+            if (suggestionsContainer) {
+                suggestionsContainer.style.display = 'none';
+            }
+            
+            // Add user message
+            const userMessage = document.createElement('div');
+            userMessage.className = 'chatbot-message chatbot-message-user';
+            userMessage.innerHTML = `
+                <div class="chatbot-message-content">
+                    <p>${message}</p>
+                </div>
+            `;
+            messagesContainer.appendChild(userMessage);
+            
+            // Scroll to bottom
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            
+            // Show typing indicator
+            const typingIndicator = document.createElement('div');
+            typingIndicator.className = 'chatbot-message chatbot-message-bot chatbot-typing';
+            typingIndicator.innerHTML = `
+                <div class="chatbot-message-avatar">
+                    <span class="material-symbols-outlined">smart_toy</span>
+                </div>
+                <div class="chatbot-message-content">
+                    <div class="typing-dots">
+                        <span></span><span></span><span></span>
+                    </div>
+                </div>
+            `;
+            messagesContainer.appendChild(typingIndicator);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            
+            // Get response after delay
+            setTimeout(() => {
+                typingIndicator.remove();
+                const response = getChatbotResponse(message);
+                const botMessage = document.createElement('div');
+                botMessage.className = 'chatbot-message chatbot-message-bot';
+                botMessage.innerHTML = `
+                    <div class="chatbot-message-avatar">
+                        <span class="material-symbols-outlined">smart_toy</span>
+                    </div>
+                    <div class="chatbot-message-content">
+                        <p>${response}</p>
+                    </div>
+                `;
+                messagesContainer.appendChild(botMessage);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }, 1000);
+        }
+
+        function getChatbotResponse(message) {
+            const lowerMessage = message.toLowerCase();
+            
+            // Check for exact matches first
+            for (const [key, value] of Object.entries(chatbotData)) {
+                if (lowerMessage.includes(key)) {
+                    return value;
+                }
+            }
+            
+            // Default responses based on keywords
+            if (lowerMessage.includes('hello') || lowerMessage.includes('hi') || lowerMessage.includes('hey')) {
+                return "Hello! I'm here to help you learn more about aippoint. What would you like to know?";
+            }
+            
+            if (lowerMessage.includes('thank')) {
+                return "You're welcome! Is there anything else you'd like to know about aippoint?";
+            }
+            
+            if (lowerMessage.includes('bye') || lowerMessage.includes('goodbye')) {
+                return "Thank you for chatting! Feel free to come back anytime if you have more questions about aippoint.";
+            }
+            
+            // Generic response
+            return "That's a great question! While I don't have specific information about that right now, I'd be happy to connect you with our team. You can contact us directly for more detailed information. Is there anything else I can help you with?";
+        }
+
+        function sendChatbotMessageFromInput() {
+            const input = document.getElementById('chatbotInput');
+            if (input && input.value.trim()) {
+                sendChatbotMessage(input.value);
+                input.value = '';
+            }
+        }
+
+        function handleChatbotKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendChatbotMessageFromInput();
+            }
+        }
+
+        // Expose functions globally for onclick handlers
+        window.openChatbot = openChatbot;
+        window.closeChatbot = closeChatbot;
+        window.sendChatbotMessage = sendChatbotMessage;
+        window.sendChatbotMessageFromInput = sendChatbotMessageFromInput;
+        window.handleChatbotKeyPress = handleChatbotKeyPress;
+    </script>
+</body>
+</html>

@@ -1,0 +1,379 @@
+<!-- Proactive Chatbot - Auto-opens on page load -->
+<div class="proactive-chatbot" id="proactiveChatbot">
+    <div class="proactive-chatbot-panel">
+        <!-- Header -->
+        <div class="proactive-chatbot-header">
+            <div class="proactive-chatbot-header-content">
+                <div class="proactive-chatbot-avatar">
+                    <span class="material-symbols-outlined">smart_toy</span>
+                </div>
+                <div class="proactive-chatbot-header-text">
+                    <h3 class="proactive-chatbot-title">Welcome to <img src="img/aippoint logo 1.png" alt="aippoint" class="proactive-chatbot-logo">!</h3>
+                    <p class="proactive-chatbot-subtitle">How can we help you today?</p>
+                </div>
+            </div>
+            <button class="proactive-chatbot-close" id="proactiveChatbotClose" aria-label="Close chatbot">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+
+        <!-- Quick Action Buttons -->
+        <div class="proactive-chatbot-actions">
+            <button class="proactive-chatbot-action-btn" onclick="handleChatbotAction('demo')">
+                <span class="material-symbols-outlined">calendar_today</span>
+                <span>Get a Demo</span>
+            </button>
+            <button class="proactive-chatbot-action-btn" onclick="handleChatbotAction('interview')">
+                <span class="material-symbols-outlined">videocam</span>
+                <span>Interview Assistance</span>
+            </button>
+            <button class="proactive-chatbot-action-btn" onclick="handleChatbotAction('support')">
+                <span class="material-symbols-outlined">support_agent</span>
+                <span>Customer Support</span>
+            </button>
+            <button class="proactive-chatbot-action-btn" onclick="handleChatbotAction('chat')">
+                <span class="material-symbols-outlined">chat</span>
+                <span>Chat with AI Assistant</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<style>
+/* Proactive Chatbot Styles */
+.proactive-chatbot {
+    position: fixed;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 380px;
+    max-width: 100%;
+    z-index: 10000;
+    pointer-events: none;
+    transform: translateX(100%);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.proactive-chatbot.active {
+    transform: translateX(0);
+    pointer-events: auto;
+}
+
+.proactive-chatbot-panel {
+    height: 100%;
+    background: #ffffff;
+    box-shadow: -4px 0 24px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    border-left: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.proactive-chatbot-header {
+    padding: 24px;
+    background: linear-gradient(135deg, #0083C3 0%, #006ba3 100%);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.proactive-chatbot-header-content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.proactive-chatbot-avatar {
+    width: 48px;
+    height: 48px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.proactive-chatbot-avatar .material-symbols-outlined {
+    font-size: 28px;
+    color: white;
+}
+
+.proactive-chatbot-header-text {
+    flex: 1;
+}
+
+.proactive-chatbot-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0 0 6px 0;
+    color: white;
+    line-height: 1.3;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.proactive-chatbot-logo {
+    height: 22px;
+    width: auto;
+    vertical-align: middle;
+}
+
+.proactive-chatbot-subtitle {
+    font-size: 14px;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.4;
+}
+
+.proactive-chatbot-close {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.15);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    color: white;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.proactive-chatbot-close:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: rotate(90deg);
+}
+
+.proactive-chatbot-close .material-symbols-outlined {
+    font-size: 20px;
+}
+
+.proactive-chatbot-actions {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex: 1;
+    overflow-y: auto;
+}
+
+.proactive-chatbot-action-btn {
+    width: 100%;
+    padding: 16px 20px;
+    background: #f8fafc;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 15px;
+    font-weight: 600;
+    color: #0f172a;
+    text-align: left;
+    font-family: 'Inter', sans-serif;
+}
+
+.proactive-chatbot-action-btn:hover {
+    background: #0083C3;
+    color: white;
+    border-color: #0083C3;
+    transform: translateX(4px);
+    box-shadow: 0 4px 12px rgba(0, 131, 195, 0.2);
+}
+
+.proactive-chatbot-action-btn:active {
+    transform: translateX(2px);
+}
+
+.proactive-chatbot-action-btn .material-symbols-outlined {
+    font-size: 24px;
+    flex-shrink: 0;
+}
+
+.proactive-chatbot-action-btn span:not(.material-symbols-outlined) {
+    flex: 1;
+}
+
+/* Mobile Styles - Bottom Sheet */
+@media (max-width: 768px) {
+    .proactive-chatbot {
+        right: 0;
+        left: 0;
+        top: auto;
+        bottom: 0;
+        width: 100%;
+        height: auto;
+        max-height: 85vh;
+        transform: translateY(100%);
+        border-radius: 24px 24px 0 0;
+        box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.15);
+    }
+
+    .proactive-chatbot.active {
+        transform: translateY(0);
+    }
+
+    .proactive-chatbot-panel {
+        border-left: none;
+        border-top: 1px solid rgba(0, 0, 0, 0.08);
+        border-radius: 24px 24px 0 0;
+    }
+
+    .proactive-chatbot-header {
+        border-radius: 24px 24px 0 0;
+        padding: 20px;
+    }
+
+    .proactive-chatbot-actions {
+        padding: 20px;
+        max-height: calc(85vh - 140px);
+    }
+
+    .proactive-chatbot-action-btn {
+        padding: 14px 18px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .proactive-chatbot {
+        max-height: 90vh;
+    }
+
+    .proactive-chatbot-header {
+        padding: 16px;
+    }
+
+    .proactive-chatbot-title {
+        font-size: 18px;
+    }
+
+    .proactive-chatbot-subtitle {
+        font-size: 13px;
+    }
+
+    .proactive-chatbot-avatar {
+        width: 40px;
+        height: 40px;
+    }
+
+    .proactive-chatbot-avatar .material-symbols-outlined {
+        font-size: 24px;
+    }
+
+    .proactive-chatbot-actions {
+        padding: 16px;
+        max-height: calc(90vh - 120px);
+    }
+}
+</style>
+
+<script>
+(function() {
+    'use strict';
+
+    // Check if chatbot was closed in this session
+    const CHATBOT_CLOSED_KEY = 'proactiveChatbotClosed';
+    
+    function initProactiveChatbot() {
+        const chatbot = document.getElementById('proactiveChatbot');
+        const closeBtn = document.getElementById('proactiveChatbotClose');
+        
+        if (!chatbot) return;
+
+        // Check if user closed it in this session
+        const wasClosed = sessionStorage.getItem(CHATBOT_CLOSED_KEY);
+        if (wasClosed === 'true') {
+            return; // Don't auto-open if user closed it
+        }
+
+        // Auto-open after 1.5 second delay
+        setTimeout(() => {
+            chatbot.classList.add('active');
+        }, 1500);
+
+        // Close button handler
+        if (closeBtn) {
+            closeBtn.addEventListener('click', () => {
+                chatbot.classList.remove('active');
+                // Remember that user closed it
+                sessionStorage.setItem(CHATBOT_CLOSED_KEY, 'true');
+            });
+        }
+
+        // Close on backdrop click (mobile)
+        chatbot.addEventListener('click', (e) => {
+            if (e.target === chatbot) {
+                chatbot.classList.remove('active');
+                sessionStorage.setItem(CHATBOT_CLOSED_KEY, 'true');
+            }
+        });
+    }
+
+    // Initialize when DOM is ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initProactiveChatbot);
+    } else {
+        initProactiveChatbot();
+    }
+
+    // Handle chatbot actions
+    window.handleChatbotAction = function(action) {
+        console.log('Chatbot action:', action);
+        
+        switch(action) {
+            case 'demo':
+                // Open calendar modal if available
+                if (typeof window.openCalendarModal === 'function') {
+                    window.openCalendarModal();
+                } else {
+                    // Fallback: scroll to contact section
+                    const contactSection = document.getElementById('contact');
+                    if (contactSection) {
+                        contactSection.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+                break;
+            case 'interview':
+                // Navigate to interview page
+                window.location.href = 'ai-interview.html';
+                break;
+            case 'support':
+                // Scroll to contact section or open support
+                const contactSection = document.getElementById('contact');
+                if (contactSection) {
+                    contactSection.scrollIntoView({ behavior: 'smooth' });
+                }
+                break;
+            case 'chat':
+                // Open full chatbot if available (from header.html)
+                if (typeof window.openChatbot === 'function') {
+                    window.openChatbot();
+                } else {
+                    // Fallback: scroll to contact
+                    const contactSection = document.getElementById('contact');
+                    if (contactSection) {
+                        contactSection.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+                break;
+        }
+        
+        // Close proactive chatbot after action
+        const chatbot = document.getElementById('proactiveChatbot');
+        if (chatbot) {
+            chatbot.classList.remove('active');
+        }
+    };
+})();
+</script>
+

@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="aippoint Pricing - Choose the perfect plan for your hiring needs">
+    <title>aippoint - Pricing Plans</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation loaded via components.js -->
+
+    <!-- Pricing Section (Personalized Setup) -->
+    <section class="pricing-section personalized-setup" id="pricing" style="padding: 80px 0 24px;">
+        <div class="container">
+            <!-- Personalized Confirmation Message -->
+            <div class="personalized-confirmation" id="personalizedConfirmation" style="display: none;">
+                <div class="confirmation-content">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" style="flex-shrink: 0;">
+                        <circle cx="12" cy="12" r="12" fill="#0083C3"/>
+                        <path d="M8 12L11 15L16 9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <!-- <div class="confirmation-text">
+                        <strong>Perfect match!</strong> Based on your selection: <span id="confirmationDetails"></span>
+                    </div> -->
+                </div>
+            </div>
+
+            <div class="setup-header" style="margin-top: 35px;">
+                <h1 class="setup-title">Find the right setup for how you hire</h1>
+                <p class="setup-subtitle">Tell us about your team to get a recommended plan card.</p>
+            </div>
+
+            <div class="setup-form-card">
+                <div class="form-question">
+                    <label class="question-label">How many hires do you make per year?</label>
+                    <div class="option-buttons" id="hiresOptions">
+                        <button type="button" class="option-btn" data-group="hires" data-value="1-10" onclick="selectOption(this)">1–10</button>
+                        <button type="button" class="option-btn" data-group="hires" data-value="11-50" onclick="selectOption(this)">11–50</button>
+                        <button type="button" class="option-btn" data-group="hires" data-value="51-200" onclick="selectOption(this)">51–200</button>
+                        <button type="button" class="option-btn" data-group="hires" data-value="200+" onclick="selectOption(this)">200+</button>
+                    </div>
+                    <div class="validation-message" id="hiresValidation" style="display: none;"></div>
+                </div>
+                <div class="form-question">
+                    <label class="question-label">Primary hiring focus?</label>
+                    <select id="focusSelect" class="pricing-input" onchange="handleFocusChange(this)">
+                        <option value="">Select hiring focus</option>
+                        <option value="technology">Technology / Product</option>
+                        <option value="sales">Sales & Marketing</option>
+                        <option value="operations">Operations</option>
+                        <option value="customer-support">Customer Support</option>
+                        <option value="finance">Finance & Accounting</option>
+                        <option value="hr">HR & People</option>
+                        <option value="design">Design & Creative</option>
+                        <option value="other">Other</option>
+                    </select>
+                    <div class="validation-message" id="focusValidation" style="display: none;"></div>
+                </div>
+                <div class="form-question">
+                    <label class="question-label">Company name <span class="required-asterisk">*</span></label>
+                    <input type="text" id="setupCompanyName" class="pricing-input" placeholder="Your company name" />
+                    <div class="validation-message" id="companyNameValidation" style="display: none;"></div>
+                </div>
+                <div class="form-question">
+                    <label class="question-label">Country <span class="required-asterisk">*</span></label>
+                    <select id="setupCountry" class="pricing-input">
+                        <option value="">Select your country</option>
+                        <option value="US">United States</option>
+                        <option value="CA">Canada</option>
+                        <option value="GB">United Kingdom</option>
+                        <option value="AU">Australia</option>
+                        <option value="DE">Germany</option>
+                        <option value="FR">France</option>
+                        <option value="IN">India</option>
+                        <option value="SG">Singapore</option>
+                        <option value="NL">Netherlands</option>
+                        <option value="SE">Sweden</option>
+                        <option value="DK">Denmark</option>
+                        <option value="NO">Norway</option>
+                        <option value="FI">Finland</option>
+                        <option value="CH">Switzerland</option>
+                        <option value="AT">Austria</option>
+                        <option value="BE">Belgium</option>
+                        <option value="IE">Ireland</option>
+                        <option value="NZ">New Zealand</option>
+                        <option value="JP">Japan</option>
+                        <option value="KR">South Korea</option>
+                        <option value="BR">Brazil</option>
+                        <option value="MX">Mexico</option>
+                        <option value="ES">Spain</option>
+                        <option value="IT">Italy</option>
+                        <option value="PT">Portugal</option>
+                        <option value="PL">Poland</option>
+                        <option value="CZ">Czech Republic</option>
+                        <option value="GR">Greece</option>
+                        <option value="IL">Israel</option>
+                        <option value="AE">United Arab Emirates</option>
+                        <option value="SA">Saudi Arabia</option>
+                        <option value="ZA">South Africa</option>
+                        <option value="AR">Argentina</option>
+                        <option value="CL">Chile</option>
+                        <option value="CO">Colombia</option>
+                        <option value="PH">Philippines</option>
+                        <option value="MY">Malaysia</option>
+                        <option value="TH">Thailand</option>
+                        <option value="VN">Vietnam</option>
+                        <option value="ID">Indonesia</option>
+                        <option value="TW">Taiwan</option>
+                        <option value="HK">Hong Kong</option>
+                        <option value="OTHER">Other</option>
+                    </select>
+                    <div class="validation-message" id="countryValidation" style="display: none;"></div>
+                </div>
+                <div class="form-question">
+                    <label class="question-label">Work email <span class="required-asterisk">*</span></label>
+                    <input type="email" id="setupEmail" class="pricing-input" placeholder="you@company.com" />
+                    <div class="validation-message" id="emailValidation" style="display: none;"></div>
+                </div>
+                <button type="button" class="setup-cta-btn" id="setupSubmitBtn" onclick="handleSetupSubmit()">
+                 Get a Custom Plan
+                </button>
+            </div>
+
+            <!-- Recommended Setup View (Hidden by default) -->
+            <div class="recommendation-view" id="recommendedPricingPlan" style="display: none;">
+                <div class="recommendation-header">
+                    <div class="recommendation-header-content">
+                        <h2 class="recommendation-title">Your Recommended Hiring Setup</h2>
+                        <p class="recommendation-subtitle">Based on your hiring volume and role focus.</p>
+                    </div>
+                    <button class="edit-answers-link" onclick="editAnswers()">
+                        Edit answers
+                    </button>
+                </div>
+
+                <div class="recommendation-card">
+                    <div class="setup-card-header">
+                        <h3 class="setup-card-name" id="setupCardName">Growth Setup</h3>
+                        <p class="setup-card-summary" id="setupCardSummary">Best for teams hiring regularly across technical and revenue roles.</p>
+                    </div>
+
+                    <div class="setup-content-grid">
+                        <div class="setup-details">
+                            <div class="whats-included">
+                                <h4 class="section-label">What's Included</h4>
+                                <ul class="included-features" id="includedFeatures">
+                                    <!-- Features will be populated by JavaScript -->
+                                </ul>
+                            </div>
+
+                            <div class="why-this-fits">
+                                <h4 class="section-label">Why This Fits You</h4>
+                                <p class="fit-explanation" id="fitExplanation">
+                                    <!-- Explanation will be populated by JavaScript -->
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="setup-preview">
+                            <h4 class="section-label">What You'll Get</h4>
+                            <div class="preview-card">
+                                <div class="preview-header">
+                                    <div class="preview-candidate">
+                                        <span class="preview-label">Candidate:</span>
+                                        <span class="preview-value">Sarah Chen</span>
+                                    </div>
+                                    <div class="preview-match">
+                                        <span class="match-score">94% MATCH</span>
+                                    </div>
+                                </div>
+                                <div class="preview-section">
+                                    <div class="preview-section-title">LEADERSHIP EVIDENCE</div>
+                                    <div class="preview-bar">
+                                        <div class="preview-bar-fill"></div>
+                                        <span class="preview-bar-text">Strong</span>
+                                    </div>
+                                </div>
+                                <div class="preview-recommendation">
+                                    <strong>Recommendation:</strong> Strong candidate with proven execution. Recommend moving forward.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="setup-actions">
+                        <div class="primary-action">
+                            <button class="btn btn-primary" onclick="window.location.href='index.html#contact'">
+                                Talk to sales
+                            </button>
+                        </div>
+                        <div class="secondary-actions">
+                            <button class="btn btn-secondary" onclick="window.location.href='roi.html'">
+                                Explore ROI Calculator
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   
+
+
+    <!-- Footer loaded via components.js -->
+
+    <script src="script.js"></script>
+    <script>
+        // Personalize Pricing Page Based on Stored Preferences
+        document.addEventListener('DOMContentLoaded', function() {
+            try {
+                // Read stored preferences from sessionStorage or localStorage
+                let userPreferences = null;
+                const sessionData = sessionStorage.getItem('AIPPoint_user_preferences');
+                const localData = localStorage.getItem('AIPPoint_user_preferences');
+                
+                if (sessionData) {
+                    userPreferences = JSON.parse(sessionData);
+                } else if (localData) {
+                    userPreferences = JSON.parse(localData);
+                }
+                
+                if (userPreferences && userPreferences.hiresPerYear && userPreferences.hiringFocus) {
+                    // Show confirmation message
+                    const confirmationDiv = document.getElementById('personalizedConfirmation');
+                    const confirmationDetails = document.getElementById('confirmationDetails');
+                    
+                    if (confirmationDiv && confirmationDetails) {
+                        // Format the confirmation text
+                        const hiresDisplay = userPreferences.hiresPerYear.replace(/-/g, '–').replace('+', '+');
+                        const focusDisplay = userPreferences.hiringFocus === 'technology' 
+                            ? 'Technology / Product' 
+                            : 'Sales & Marketing';
+                        
+                        confirmationDetails.textContent = `${hiresDisplay} hires per year • ${focusDisplay} focus`;
+                        confirmationDiv.style.display = 'block';
+                        
+                        // Smooth scroll to confirmation after a brief delay
+                        setTimeout(() => {
+                            confirmationDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }, 300);
+                    }
+                    
+                    // Determine recommended plan based on hiring volume
+                    let recommendedPlan = 'professional'; // default
+                    const hiresValue = userPreferences.hiresPerYear;
+                    
+                    if (hiresValue === '1-10') {
+                        recommendedPlan = 'starter';
+                    } else if (hiresValue === '11-50' || hiresValue === '51-200') {
+                        recommendedPlan = 'professional';
+                    } else if (hiresValue === '200+') {
+                        recommendedPlan = 'enterprise';
+                    }
+                    
+                    // Highlight the recommended plan
+                    const allCards = document.querySelectorAll('.pricing-card');
+                    allCards.forEach(card => {
+                        card.classList.remove('recommended-plan');
+                        const planType = card.getAttribute('data-plan');
+                        
+                        if (planType === recommendedPlan) {
+                            card.classList.add('recommended-plan');
+                            
+                            // Add recommended badge if it doesn't have one
+                            if (!card.querySelector('.pricing-badge')) {
+                                const badge = document.createElement('div');
+                                badge.className = 'pricing-badge recommended-badge';
+                                badge.textContent = 'Recommended for You';
+                                card.insertBefore(badge, card.firstChild);
+                            }
+                            
+                            // Smooth scroll to recommended plan after confirmation
+                            setTimeout(() => {
+                                card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            }, 800);
+                        }
+                    });
+                    
+                    // Emphasize features based on hiring focus
+                    const hiringFocus = userPreferences.hiringFocus;
+                    const allFeatures = document.querySelectorAll('.pricing-features li');
+                    
+                    allFeatures.forEach(feature => {
+                        const featureType = feature.getAttribute('data-feature');
+                        
+                        // Remove previous emphasis
+                        feature.classList.remove('emphasized-feature');
+                        
+                        // Emphasize relevant features
+                        if (hiringFocus === 'technology' && featureType === 'technology') {
+                            feature.classList.add('emphasized-feature');
+                        } else if (hiringFocus === 'sales' && featureType === 'sales') {
+                            feature.classList.add('emphasized-feature');
+                        } else if (featureType === 'general') {
+                            // General features are always visible but can be emphasized
+                            feature.classList.add('emphasized-feature');
+                        }
+                    });
+                }
+            } catch (error) {
+                console.error('Error personalizing pricing page:', error);
+            }
+        }); // Close DOMContentLoaded event listener
+    </script>
+    <!-- Footer loaded via components.js -->
+    <script src="components.js"></script>
+    <script src="script.js?v=3"></script>
+    <style>
+        /* Override for pricing page personalized setup */
+        .pricing-section.personalized-setup {
+            background: #ffffff;
+        }
+
+        .pricing-section .setup-header {
+            margin-bottom: 32px;
+        }
+
+        .pricing-section .setup-form-card {
+            max-width: 600px;
+            background: #0083C3;
+            padding: 32px 40px;
+            border-radius: 16px;
+        }
+
+        .pricing-section .form-question {
+            margin-bottom: 20px;
+        }
+
+        .pricing-section .question-label {
+            margin-bottom: 8px;
+            font-size: 14px;
+            text-align: left;
+        }
+
+        .pricing-section .setup-cta-btn {
+            margin-top: 4px;
+        }
+    </style>
+</body>
+</html>
+
+<!-- 1. Typography 
+Fonts:
+Space Grotesk for headings (H1, H2, H3)
+Plus Jakarta Sans for body text, buttons, labels
+Typography scale:
+H1: clamp(44px, 5vw, 64px) with -0.02em letter-spacing
+H2: clamp(28px, 3vw, 36px) with -0.015em letter-spacing
+H3: clamp(20px, 2vw, 24px)
+Body: clamp(16px, 1.5vw, 18px) with 1.6 line-height
+Buttons: clamp(15px, 1.2vw, 16px) with 0.02em letter-spacing
+Applied globally to headings, paragraphs, buttons, labels, testimonials, and footer -->
+<!-- </html> -->

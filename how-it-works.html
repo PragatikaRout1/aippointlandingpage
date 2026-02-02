@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>How It Works - Aippoint AI Hiring Platform</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="styles.css">
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#0083C3",
+              "background-light": "#f6f7f8",
+              "background-dark": "#101922",
+            },
+            fontFamily: {
+              "display": ["Work Sans", "sans-serif"],
+              "body": ["Inter", "sans-serif"],
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif; 
+            font-weight: 400;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Work Sans', sans-serif;
+        }
+        h1 {
+            font-weight: 700;
+        }
+        h2, h3 {
+            font-weight: 600;
+        }
+        .sticky-nav-active { border-bottom: 2px solid #0083C3; color: #0083C3; }
+        
+        /* Workflow Steps Dark Theme */
+        .workflow-steps-section {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .workflow-step-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 14px;
+            padding: 32px;
+            margin-bottom: 24px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .workflow-step-card:hover {
+            transform: translateY(-2px);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(0, 212, 255, 0.4);
+        }
+        
+        .step-content {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            padding-bottom: 50px;
+        }
+        
+        .step-no {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.4);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .step-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: white;
+            margin: 12px 0 16px;
+        }
+        
+        .step-description {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+        
+        .step-features {
+            list-style: none;
+            padding: 0;
+            margin: 16px 0;
+        }
+        
+        .step-features li {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+            text-decoration: none !important;
+        }
+        
+        .step-features li a,
+        .step-features li span,
+        .step-features li * {
+            text-decoration: none !important;
+            color: inherit;
+        }
+        
+        .step-features li a:hover,
+        .step-features li:hover {
+            text-decoration: none !important;
+        }
+        
+        .step-features li .material-icons {
+            color: #0083C3;
+            font-size: 20px;
+        }
+        
+        .badge {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            background: #0083C3;
+            color: #001018;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 10px;
+        }
+        
+        .step-image {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .image-container-dark {
+            width: 100%;
+            height: 300px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .step-image-content {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+        
+        .dark-theme-placeholder {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        /* Resume Screening Preview */
+        .resume-screening-preview {
+            width: 100%;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .resume-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+        }
+        
+        .resume-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .resume-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .resume-line {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            width: 60%;
+        }
+        
+        .resume-line.short {
+            width: 40%;
+            height: 6px;
+        }
+        
+        .match-score {
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 6px;
+        }
+        
+        .match-score.high {
+            background: rgba(34, 197, 94, 0.2);
+            color: #22c55e;
+        }
+        
+        .match-score.medium {
+            background: rgba(0, 131, 195, 0.2);
+            color: #0083C3;
+        }
+        
+        /* Match Metrics */
+        .match-metrics {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin: 16px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .match-metrics {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .metric-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 16px;
+            min-width: 0;
+            flex: 1;
+        }
+        
+        .metric-label {
+            display: block;
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.6);
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .metric-value {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+        }
+        
+        /* Match Visualization */
+        .match-visualization {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+        }
+        
+        .match-chart {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100%;
+        }
+        
+        .chart-bar {
+            width: 100%;
+            border-radius: 8px 8px 0 0;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 8px;
+            position: relative;
+            min-height: 40px;
+        }
+        
+        .chart-label {
+            color: white;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        }
+        
+        .chart-label-bottom {
+            margin-top: 8px;
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 600;
+        }
+        
+        /* Assessment Preview */
+        .assessment-preview {
+            width: 100%;
+            height: 100%;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .assessment-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 16px;
+        }
+        
+        .assessment-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        
+        .assessment-icon {
+            font-size: 24px;
+        }
+        
+        .assessment-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: white;
+        }
+        
+        .assessment-progress {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .progress-bar {
+            flex: 1;
+            height: 8px;
+            background: linear-gradient(90deg, #0083C3, #006ba3);
+            border-radius: 4px;
+        }
+        
+        .progress-text {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 600;
+        }
+        
+        /* Interview Preview */
+        .interview-preview {
+            width: 100%;
+            height: 100%;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .video-frame {
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        .video-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .recording-indicator {
+            width: 8px;
+            height: 8px;
+            background: #ef4444;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        .video-status {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 600;
+        }
+        
+        .video-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.3);
+        }
+        
+        .video-footer {
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.3);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: center;
+        }
+        
+        .timer {
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 600;
+        }
+        
+        /* Compare Preview */
+        .compare-preview {
+            width: 100%;
+            height: 100%;
+            padding: 20px;
+        }
+        
+        .compare-candidates {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            height: 100%;
+        }
+        
+        .candidate-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .candidate-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .candidate-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .candidate-name {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: white;
+        }
+        
+        .candidate-scores {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .score-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+        }
+        
+        .score-label {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 600;
+        }
+        
+        .score-value {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #0083C3;
+        }
+        
+        .score-value.pass {
+            color: #22c55e;
+        }
+        
+        .video-indicator {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: auto;
+            padding-top: 8px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .video-indicator .material-icons {
+            font-size: 16px;
+            color: #0083C3;
+        }
+        
+        /* Responsive */
+        @media (max-width: 968px) {
+            .workflow-step-card {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+            
+            .step-image {
+                order: -1;
+            }
+            
+            .image-container-dark {
+                height: 250px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .workflow-steps-section {
+                padding: 50px 20px;
+            }
+            
+            .workflow-step-card {
+                padding: 24px;
+            }
+            
+            .step-title {
+                font-size: 1.5rem;
+            }
+            
+            .step-description {
+                font-size: 0.9rem;
+            }
+            
+            .compare-candidates {
+                grid-template-columns: 1fr;
+            }
+            
+            .match-visualization {
+                flex-direction: column;
+                align-items: center;
+                gap: 16px;
+            }
+            
+            .match-chart {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-body transition-colors duration-300">
+    <!-- Navigation loaded via components.js -->
+
+<section class="pt-16 pb-20 px-6" style="margin-top: 80px;">
+<div class="max-w-4xl mx-auto text-center mb-12">
+<h1 class="text-5xl md:text-6xl font-bold mb-6 tracking-tight text-slate-900 dark:text-white">How <img src="img/aippoint logo 1.png" alt="Aippoint" class="inline-block h-12 md:h-16 align-middle" style="vertical-align: middle;"> Works</h1>
+<p class="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
+                From job intake to signed offer, our platform streamlines every phase of the hiring lifecycle with precision-engineered AI and human oversight.
+            </p>
+</div>
+<div class="max-w-6xl mx-auto relative flex justify-center">
+<div class="aspect-[21/9] max-h-[600px] w-full bg-white dark:bg-slate-900 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 flex items-center justify-center relative group shadow-2xl">
+<video
+  class="absolute inset-0 w-full h-full object-cover"
+  autoplay
+  muted
+  loop
+  playsinline
+  controls
+>
+  <source src="img/appoint.ai - Made with Clipchamp (1).mp4" type="video/mp4">
+</video>
+
+</div>
+</div>
+</section>
+<!-- Steps 1-7: Unified Dark Theme -->
+<section class="py-20 bg-gradient-to-br from-slate-50 via-white to-blue-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 relative overflow-hidden">
+  <!-- Background Elements -->
+  <div class="absolute inset-0 opacity-5">
+    <div class="absolute top-10 left-10 w-72 h-72 bg-primary rounded-full blur-3xl"></div>
+    <div class="absolute bottom-10 right-10 w-96 h-96 bg-blue-500 rounded-full blur-3xl"></div>
+  </div>
+  
+  <div class="max-w-7xl mx-auto px-6 relative z-10">
+
+    <!-- Section Header -->
+    <div class="text-center mb-16">
+      <div class="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-semibold mb-6">
+        <span class="material-symbols-outlined text-lg">auto_awesome</span>
+        AI-Powered Workflow
+      </div>
+      <h2 class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-slate-900 to-slate-600 dark:from-white dark:to-slate-300 bg-clip-text text-transparent mb-6">
+        End-to-End Hiring Workflow
+      </h2>
+      <p class="text-lg text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed">
+        Our AI-powered platform transforms hiring through <span class="font-semibold text-primary">8 intelligent steps</span> that deliver exceptional results
+      </p>
+    </div>
+
+    <!-- Workflow Steps -->
+    <div class="relative">
+      <!-- Connection Line -->
+      <div class="hidden lg:block absolute top-1/2 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-primary/20 to-transparent -translate-y-1/2"></div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+        <!-- Step 1: Intake -->
+        <div class="group relative">
+          <div class="absolute -inset-1 bg-gradient-to-r from-primary/20 to-blue-500/20 rounded-2xl blur opacity-0 group-hover:opacity-75 transition duration-300"></div>
+          <div class="relative bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
+            <!-- Step Number -->
+            <div class="absolute -top-3 -right-3 w-8 h-8 bg-gradient-to-r from-primary to-blue-500 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg">
+              1
+            </div>
+            
+            <!-- Icon -->
+            <div class="w-14 h-14 mx-auto mb-4 bg-gradient-to-br from-primary/10 to-blue-500/10 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+              <span class="material-symbols-outlined text-primary text-2xl">description</span>
+            </div>
+            
+            <!-- Content -->
+            <div class="text-center">
+              <h3 class="font-bold text-lg text-slate-900 dark:text-white mb-2">Intake</h3>
+              <div class="inline-flex items-center gap-1 text-xs font-bold bg-primary/10 text-primary px-3 py-1 rounded-full mb-3">
+                <span class="material-symbols-outlined text-xs">smart_toy</span>
+                AI-Powered
+              </div>
+              <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                AI analyzes job requirements and creates comprehensive hiring blueprint
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2: Source -->
+        <div class="group relative">
+          <div class="absolute -inset-1 bg-gradient-to-r from-primary/20 to-blue-500/20 rounded-2xl blur opacity-0 group-hover:opacity-75 transition duration-300"></div>
+          <div class="relative bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
+            <div class="absolute -top-3 -right-3 w-8 h-8 bg-gradient-to-r from-primary to-blue-500 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg">
+              2
+            </div>
+            
+            <div class="w-14 h-14 mx-auto mb-4 bg-gradient-to-br from-primary/10 to-blue-500/10 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+              <span class="material-symbols-outlined text-primary text-2xl">search</span>
+            </div>
+            
+            <div class="text-center">
+              <h3 class="font-bold text-lg text-slate-900 dark:text-white mb-2">Source</h3>
+              <div class="inline-flex items-center gap-1 text-xs font-bold bg-primary/10 text-primary px-3 py-1 rounded-full mb-3">
+                <span class="material-symbols-outlined text-xs">smart_toy</span>
+                AI-Powered
+              </div>
+              <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                Identifies qualified candidates across multiple platforms automatically
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3: Screen -->
+        <div class="group relative">
+          <div class="absolute -inset-1 bg-gradient-to-r from-primary/20 to-blue-500/20 rounded-2xl blur opacity-0 group-hover:opacity-75 transition duration-300"></div>
+          <div class="relative bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
+            <div class="absolute -top-3 -right-3 w-8 h-8 bg-gradient-to-r from-primary to-blue-500 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg">
+              3
+            </div>
+            
+            <div class="w-14 h-14 mx-auto mb-4 bg-gradient-to-br from-primary/10 to-blue-500/10 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+              <span class="material-symbols-outlined text-primary text-2xl">filter_list</span>
+            </div>
+            
+            <div class="text-center">
+              <h3 class="font-bold text-lg text-slate-900 dark:text-white mb-2">Screen</h3>
+              <div class="inline-flex items-center gap-1 text-xs font-bold bg-primary/10 text-primary px-3 py-1 rounded-full mb-3">
+                <span class="material-symbols-outlined text-xs">smart_toy</span>
+                AI-Powered
+              </div>
+              <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                Reviews resumes and profiles for relevance and skills with precision
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 4: Match -->
+        <div class="group relative">
+          <div class="absolute -inset-1 bg-gradient-to-r from-primary/20 to-blue-500/20 rounded-2xl blur opacity-0 group-hover:opacity-75 transition duration-300"></div>
+          <div class="relative bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
+            <div class="absolute -top-3 -right-3 w-8 h-8 bg-gradient-to-r from-primary to-blue-500 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg">
+              4
+            </div>
+            
+            <div class="w-14 h-14 mx-auto mb-4 bg-gradient-to-br from-primary/10 to-blue-500/10 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+              <span class="material-symbols-outlined text-primary text-2xl">handshake</span>
+            </div>
+            
+            <div class="text-center">
+              <h3 class="font-bold text-lg text-slate-900 dark:text-white mb-2">Match</h3>
+              <div class="inline-flex items-center gap-1 text-xs font-bold bg-primary/10 text-primary px-3 py-1 rounded-full mb-3">
+                <span class="material-symbols-outlined text-xs">smart_toy</span>
+                AI-Powered
+              </div>
+              <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                Multidimensional scoring across skills and experience metrics
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 5: Evaluate -->
+        <div class="group relative">
+          <div class="absolute -inset-1 bg-gradient-to-r from-primary/20 to-blue-500/20 rounded-2xl blur opacity-0 group-hover:opacity-75 transition duration-300"></div>
+          <div class="relative bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
+            <div class="absolute -top-3 -right-3 w-8 h-8 bg-gradient-to-r from-primary to-blue-500 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg">
+              5
+            </div>
+            
+            <div class="w-14 h-14 mx-auto mb-4 bg-gradient-to-br from-primary/10 to-blue-500/10 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+              <span class="material-symbols-outlined text-primary text-2xl">assessment</span>
+            </div>
+            
+            <div class="text-center">
+              <h3 class="font-bold text-lg text-slate-900 dark:text-white mb-2">Evaluate</h3>
+              <div class="inline-flex items-center gap-1 text-xs font-bold bg-primary/10 text-primary px-3 py-1 rounded-full mb-3">
+                <span class="material-symbols-outlined text-xs">smart_toy</span>
+                AI-Powered
+              </div>
+              <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                Structured assessments and AI-powered interview evaluations
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 6: Compare -->
+        <div class="group relative">
+          <div class="absolute -inset-1 bg-gradient-to-r from-primary/20 to-blue-500/20 rounded-2xl blur opacity-0 group-hover:opacity-75 transition duration-300"></div>
+          <div class="relative bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
+            <div class="absolute -top-3 -right-3 w-8 h-8 bg-gradient-to-r from-primary to-blue-500 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg">
+              6
+            </div>
+            
+            <div class="w-14 h-14 mx-auto mb-4 bg-gradient-to-br from-primary/10 to-blue-500/10 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+              <span class="material-symbols-outlined text-primary text-2xl">compare</span>
+            </div>
+            
+            <div class="text-center">
+              <h3 class="font-bold text-lg text-slate-900 dark:text-white mb-2">Compare</h3>
+              <div class="inline-flex items-center gap-1 text-xs font-bold bg-primary/10 text-primary px-3 py-1 rounded-full mb-3">
+                <span class="material-symbols-outlined text-xs">smart_toy</span>
+                AI-Powered
+              </div>
+              <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                Side-by-side candidate comparisons with intelligent insights
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 7: Decide -->
+        <div class="group relative">
+          <div class="absolute -inset-1 bg-gradient-to-r from-primary/20 to-blue-500/20 rounded-2xl blur opacity-0 group-hover:opacity-75 transition duration-300"></div>
+          <div class="relative bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
+            <div class="absolute -top-3 -right-3 w-8 h-8 bg-gradient-to-r from-primary to-blue-500 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg">
+              7
+            </div>
+            
+            <div class="w-14 h-14 mx-auto mb-4 bg-gradient-to-br from-primary/10 to-blue-500/10 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+              <span class="material-symbols-outlined text-primary text-2xl">gavel</span>
+            </div>
+            
+            <div class="text-center">
+              <h3 class="font-bold text-lg text-slate-900 dark:text-white mb-2">Decide</h3>
+              <div class="inline-flex items-center gap-1 text-xs font-bold bg-primary/10 text-primary px-3 py-1 rounded-full mb-3">
+                <span class="material-symbols-outlined text-xs">smart_toy</span>
+                AI-Powered
+              </div>
+              <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                Data-driven hiring decisions with AI recommendations
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 8: Onboard -->
+        <div class="group relative">
+          <div class="absolute -inset-1 bg-gradient-to-r from-primary/20 to-blue-500/20 rounded-2xl blur opacity-0 group-hover:opacity-75 transition duration-300"></div>
+          <div class="relative bg-gradient-to-br from-primary/5 to-blue-500/5 dark:from-primary/10 dark:to-blue-500/10 rounded-2xl border border-primary/20 dark:border-primary/30 p-6 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
+            <div class="absolute -top-3 -right-3 w-8 h-8 bg-gradient-to-r from-primary to-blue-500 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg">
+              8
+            </div>
+            
+            <div class="w-14 h-14 mx-auto mb-4 bg-gradient-to-br from-primary to-blue-500 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+              <span class="material-symbols-outlined text-white text-2xl">rocket_launch</span>
+            </div>
+            
+            <div class="text-center">
+              <h3 class="font-bold text-lg text-slate-900 dark:text-white mb-2">Onboard</h3>
+              <div class="inline-flex items-center gap-1 text-xs font-bold bg-gradient-to-r from-primary/20 to-blue-500/20 text-primary px-3 py-1 rounded-full mb-3">
+                <span class="material-symbols-outlined text-xs">stars</span>
+                Complete
+              </div>
+              <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                Seamless integration and automated onboarding workflows
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom CTA -->
+    <div class="text-center mt-16">
+      <div class="inline-flex items-center gap-4 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-2xl border border-slate-200 dark:border-slate-700 p-6 shadow-xl">
+        <div class="text-left">
+          <h4 class="font-bold text-slate-900 dark:text-white mb-1">Ready to transform your hiring?</h4>
+          <p class="text-sm text-slate-600 dark:text-slate-400">Join 500+ companies using AI to hire better</p>
+        </div>
+        <a href="index.html#contact" class="bg-gradient-to-r from-primary to-blue-500 text-white px-6 py-3 rounded-xl font-semibold hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+          Get Started
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Final CTA -->
+<!-- <section class="how-it-works-cta-section">
+    <div class="how-it-works-cta-container">
+        <div class="how-it-works-cta-content">
+            <h2 class="how-it-works-cta-title">Ready to Transform Your Hiring Process?</h2>
+            <p class="how-it-works-cta-subtitle">
+                Join 500+ forward-thinking companies already using <span style="color: #0083C3;">aipponi</span> to build world-class teams.
+            </p>
+            <div class="how-it-works-cta-buttons">
+                <a href="index.html#contact" class="how-it-works-cta-btn how-it-works-cta-btn-primary">
+                    Try aiipoint Free
+                    <span class="material-symbols-outlined">arrow_forward</span>
+                </a>
+                <a href="javascript:void(0)" onclick="window.openCalendarModal && openCalendarModal()" class="how-it-works-cta-btn how-it-works-cta-btn-secondary">
+                    Book a Demo
+                </a>
+            </div>
+        </div>
+    </div>
+</section> -->
+
+<style>
+    .how-it-works-cta-section {
+        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        padding: 20px 24px;
+        margin-top: 30px;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .how-it-works-cta-section::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 800px;
+        height: 400px;
+        background: rgba(0, 131, 195, 0.1);
+        border-radius: 50%;
+        filter: blur(100px);
+        z-index: 0;
+    }
+    
+    .how-it-works-cta-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .how-it-works-cta-content {
+        text-align: center;
+        max-width: 700px;
+        margin: 0 auto;
+    }
+    
+    .how-it-works-cta-title {
+        font-size: clamp(32px, 5vw, 48px);
+        font-weight: 700;
+        color: #0f172a;
+        margin-bottom: 20px;
+        line-height: 1.2;
+    }
+    
+    .how-it-works-cta-subtitle {
+        font-size: clamp(16px, 2vw, 18px);
+        color: #475569;
+        margin-bottom: 40px;
+        line-height: 1.6;
+    }
+    
+    .how-it-works-cta-logo {
+        height: 24px;
+        width: auto;
+        vertical-align: middle;
+        margin: 0 4px;
+    }
+    
+    .how-it-works-cta-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .how-it-works-cta-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 14px 32px;
+        font-size: 16px;
+        font-weight: 600;
+        border-radius: 12px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        white-space: nowrap;
+    }
+    
+    .how-it-works-cta-btn-primary {
+        background: #0083C3;
+        color: white;
+        box-shadow: 0 4px 12px rgba(0, 131, 195, 0.3);
+    }
+    
+    .how-it-works-cta-btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 131, 195, 0.4);
+        background: #006ba3;
+    }
+    
+    .how-it-works-cta-btn-secondary {
+        background: white;
+        color: #0f172a;
+        border: 2px solid #e2e8f0;
+    }
+    
+    .how-it-works-cta-btn-secondary:hover {
+        background: #f8fafc;
+        border-color: #cbd5e1;
+    }
+    
+    .how-it-works-cta-btn-logo {
+        height: 20px;
+        width: auto;
+        vertical-align: middle;
+    }
+    
+    .how-it-works-cta-btn .material-symbols-outlined {
+        font-size: 20px;
+    }
+    
+    @media (max-width: 768px) {
+        .how-it-works-cta-section {
+            padding: 60px 20px;
+        }
+        
+        .how-it-works-cta-buttons {
+            flex-direction: column;
+            width: 100%;
+        }
+        
+        .how-it-works-cta-btn {
+            width: 100%;
+            max-width: 300px;
+        }
+    }
+</style>
+
+    <!-- Footer loaded via components.js -->
+
+    <script src="components.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

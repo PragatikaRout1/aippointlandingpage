@@ -1,0 +1,2004 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Interview Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .interview-container {
+            display: flex;
+            height: 100vh;
+            background: #000;
+        }
+
+        /* Left Panel - Webcam */
+        .webcam-panel {
+            flex: 0 0 55%;
+            position: relative;
+            background: #000;
+        }
+
+        #webcamVideo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            background: #000;
+        }
+
+        /* Right Panel - Interview Interface */
+        .interview-panel {
+            flex: 0 0 45%;
+            display: flex;
+            flex-direction: column;
+            background: #000;
+            padding: 1rem;
+        }
+
+        /* AI Interviewer Section */
+        .ai-interviewer {
+            flex: 0 0 220px;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 0.75rem;
+        }
+
+        #aiVideo {
+            width: 100%;
+            max-width: 520px;
+            height: 220px;
+            background: transparent;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            object-fit: cover;
+        }
+
+        /* Question Display Section */
+        .question-section {
+            flex: 1;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-start;
+        }
+
+        .glass-card {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 1rem;
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            width: 100%;
+            max-width: 520px;
+            margin: 0 auto;
+        }
+
+        .question-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .question-counter {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-right: 1rem;
+        }
+
+        .status-indicators {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Timer Display */
+        .timer-display {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .timer-icon {
+            font-size: 14px;
+        }
+
+        .timer-text {
+            font-size: 14px;
+            font-weight: 600;
+            color: #fff;
+            min-width: 35px;
+            text-align: center;
+        }
+
+        .timer-display.warning {
+            background: rgba(255, 152, 0, 0.2);
+            border-color: rgba(255, 152, 0, 0.5);
+        }
+
+        .timer-display.danger {
+            background: rgba(244, 67, 54, 0.2);
+            border-color: rgba(244, 67, 54, 0.5);
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.6; }
+            100% { opacity: 1; }
+        }
+
+        .status-icon {
+            font-size: 20px;
+        }
+
+        .mic-icon {
+            color: #fff;
+        }
+
+        .mic-icon.recording {
+            color: #f44336;
+        }
+
+        .check-icon {
+            color: #4caf50;
+            font-size: 24px;
+        }
+
+        .recording-dot {
+            width: 8px;
+            height: 8px;
+            background: #f44336;
+            border-radius: 50%;
+            animation: pulse 1s infinite;
+        }
+
+        .tts-status {
+            font-size: 12px;
+            color: #ffa726;
+            margin-left: 0.5rem;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .question-text {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+
+        .answer-display {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 8px;
+            min-height: 80px;
+            display: none; /* Hidden in production */
+        }
+
+        .answer-label {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .answer-text {
+            font-size: 0.875rem;
+        }
+
+        .answer-text.placeholder {
+            font-style: italic;
+            color: #bbb;
+        }
+
+        /* Control Panel */
+        .control-panel {
+            flex: 0 0 auto;
+            display: flex;
+            flex-direction: column;
+            width: 90%;
+            padding: 5px;
+        }
+
+        .control-bar {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .icon-button {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: #0284C7;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .icon-button:hover:not(:disabled) {
+            background: #0369a1;
+            transform: scale(1.05);
+        }
+
+        .icon-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .action-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            min-width: 150px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .action-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .btn-next {
+            background: #2196f3;
+            color: white;
+        }
+
+        .btn-next:hover:not(:disabled) {
+            background: #1976d2;
+        }
+
+        .btn-submit {
+            background: #4caf50;
+            color: white;
+        }
+
+        .btn-submit:hover:not(:disabled) {
+            background: #388e3c;
+        }
+
+        .btn-end {
+            background: #2196f3;
+            color: white;
+            border: 2px solid #2196f3;
+        }
+
+        .btn-end:hover:not(:disabled) {
+            background: #1976d2;
+            border-color: #1976d2;
+        }
+
+        .spinner {
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top: 2px solid white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            margin-right: 8px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Loading Overlay */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            backdrop-filter: blur(8px);
+        }
+
+        .loading-overlay.active {
+            display: flex;
+        }
+
+        .loader-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2rem 3rem;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            min-width: 300px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .loader-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid #e0e0e0;
+            border-top: 4px solid #1976d2;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1.5rem;
+            filter: drop-shadow(0 4px 8px rgba(25, 118, 210, 0.3));
+        }
+
+        .loader-message {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: #333;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #e0e0e0;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #1976d2;
+            transition: width 0.3s ease;
+        }
+
+        .progress-text {
+            margin-top: 0.5rem;
+            font-size: 0.875rem;
+            color: #666;
+        }
+
+        /* Modal Dialogs */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 5;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-dialog {
+            background: white;
+            border-radius: 16px;
+            padding: 8px;
+            max-width: 500px;
+            width: 90%;
+        }
+
+        .modal-title {
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.5rem;
+            padding: 1rem;
+            color: #333;
+        }
+
+        .modal-content {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+
+        .modal-content p {
+            margin-bottom: 1rem;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: center;
+            padding: 16px;
+            gap: 12px;
+        }
+
+        /* Interview Limit Modal Styles */
+        .interview-limit-modal {
+            max-width: 520px;
+            padding: 32px;
+        }
+
+        .interview-limit-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .interview-limit-content {
+            text-align: center;
+            padding: 0;
+        }
+
+        .interview-limit-message {
+            font-size: 16px;
+            color: #475569;
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        .interview-limit-helper {
+            font-size: 14px;
+            color: #64748b;
+            margin-top: 8px;
+            font-style: italic;
+        }
+
+        .interview-limit-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+            flex-direction: column;
+        }
+
+        .modal-btn-primary {
+            background: #0083C3;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .modal-btn-primary:hover {
+            background: #006ba3;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 131, 195, 0.3);
+        }
+
+        .modal-btn-secondary {
+            background: #f8fafc;
+            color: #0f172a;
+            border: 2px solid #e2e8f0;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .modal-btn-secondary:hover {
+            background: #f1f5f9;
+            border-color: #cbd5e1;
+        }
+
+        .modal-btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .modal-btn-cancel {
+            background: white;
+            color: #2196f3;
+            border: 2px solid #2196f3;
+        }
+
+        .modal-btn-cancel:hover {
+            background: #f5f5f5;
+        }
+
+        .modal-btn-confirm {
+            background: #2196f3;
+            color: white;
+        }
+
+        .modal-btn-confirm:hover {
+            background: #1976d2;
+        }
+
+        .modal-btn-submit {
+            background: #4caf50;
+            color: white;
+        }
+
+        .modal-btn-submit:hover {
+            background: #388e3c;
+        }
+
+        /* Code Editor Modal */
+        .editor-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60%;
+            height: 45vh;
+            background: #1e1e1e;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            padding: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            z-index: 4;
+            display: none;
+        }
+
+        .editor-modal.active {
+            display: block;
+        }
+
+        #codeEditor {
+            width: 100%;
+            height: 100%;
+            background: #1e1e1e;
+            color: #d4d4d4;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 14px;
+            border: none;
+            outline: none;
+            padding: 1rem;
+            border-radius: 8px;
+            resize: none;
+        }
+
+        /* Icons using Unicode */
+        .icon-mic::before { content: "🎤"; }
+        .icon-video::before { content: "📹"; }
+        .icon-code::before { content: "</>"; font-style: normal; }
+        .icon-attach::before { content: "📎"; }
+        .icon-check::before { content: "✓"; }
+
+        /* Hidden file input */
+        #fileInput {
+            display: none;
+        }
+
+        /* Pre-Interview Modal */
+        .pre-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .pre-modal-card {
+            background: white;
+            border-radius: 20px;
+            padding: 24px 28px;
+            max-width: 480px;
+            width: 90%;
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+        }
+
+        .pre-modal-header {
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .pre-modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 4px;
+        }
+
+        .pre-modal-subtitle {
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+
+        .pre-form {
+            margin-top: 12px;
+        }
+
+        .pre-form-row {
+            margin-bottom: 12px;
+        }
+
+        .pre-label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #0f172a;
+            margin-bottom: 4px;
+        }
+
+        .pre-input {
+            width: 100%;
+            padding: 10px 12px;
+            border-radius: 8px;
+            border: 1px solid #cbd5e1;
+            font-size: 0.9rem;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .pre-input:focus {
+            border-color: #0284c7;
+            box-shadow: 0 0 0 1px rgba(2, 132, 199, 0.4);
+        }
+
+        .pre-input-error {
+            border-color: #dc2626;
+        }
+
+        .pre-error-text {
+            font-size: 0.75rem;
+            color: #dc2626;
+            margin-top: 2px;
+        }
+
+        .pre-modal-footer {
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .pre-start-btn {
+            padding: 10px 24px;
+            border-radius: 999px;
+            background: #0284c7;
+            color: white;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+            min-width: 180px;
+        }
+
+        .pre-start-btn:hover {
+            background: #0369a1;
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.2);
+            transform: translateY(-1px);
+        }
+
+        .pre-start-btn:active {
+            transform: translateY(0);
+            box-shadow: none;
+        }
+
+        .pre-helper-text {
+            margin-top: 8px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #6b7280;
+        }
+
+        /* Notification Modal */
+        .notification-dialog {
+            background: white;
+            border-radius: 16px;
+            padding: 8px;
+            max-width: 420px;
+            width: 90%;
+        }
+
+        .notification-title {
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.3rem;
+            padding: 1rem;
+            color: #111827;
+        }
+
+        .notification-content {
+            text-align: center;
+            padding: 0 20px 20px;
+            color: #4b5563;
+            font-size: 0.95rem;
+        }
+
+        .notification-actions {
+            display: flex;
+            justify-content: center;
+            padding: 0 0 16px;
+        }
+
+        .notification-btn {
+            padding: 8px 22px;
+            border-radius: 999px;
+            border: none;
+            background: #2563eb;
+            color: white;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+        }
+
+        .notification-btn:hover {
+            background: #1d4ed8;
+            transform: translateY(-1px);
+        }
+
+        .notification-btn:active {
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Pre-Interview Details Modal -->
+    <div class="pre-modal-overlay" id="preInterviewModal">
+        <div class="pre-modal-card">
+            <div class="pre-modal-header">
+                <div class="pre-modal-title">Before You Start</div>
+                <div class="pre-modal-subtitle">
+                    Please share a few basic details so we can personalize your interview experience.
+                </div>
+            </div>
+            <div class="pre-form">
+                <div class="pre-form-row">
+                    <label class="pre-label" for="candidateName">Full Name</label>
+                    <input type="text" id="candidateName" class="pre-input" placeholder="Enter your full name">
+                    <div class="pre-error-text" id="candidateNameError" style="display: none;"></div>
+                </div>
+                <div class="pre-form-row">
+                    <label class="pre-label" for="candidateEmail">Email</label>
+                    <input type="email" id="candidateEmail" class="pre-input" placeholder="you@example.com">
+                    <div class="pre-error-text" id="candidateEmailError" style="display: none;"></div>
+                </div>
+                <div class="pre-form-row">
+                    <label class="pre-label" for="candidatePhone">Mobile Number</label>
+                    <input type="tel" id="candidatePhone" class="pre-input" placeholder="+1 555 000 0000">
+                    <div class="pre-error-text" id="candidatePhoneError" style="display: none;"></div>
+                </div>
+                <div class="pre-form-row">
+                    <label class="pre-label" for="candidateCompany">Company</label>
+                    <input type="text" id="candidateCompany" class="pre-input" placeholder="Current or target company">
+                    <div class="pre-error-text" id="candidateCompanyError" style="display: none;"></div>
+                </div>
+            </div>
+            <div class="pre-modal-footer">
+                <button class="pre-start-btn" id="startInterviewBtn">
+                    Start Interview
+                </button>
+            </div>
+            <div class="pre-helper-text">
+                Camera and microphone permissions will be requested on the next step.
+            </div>
+        </div>
+    </div>
+
+    <!-- Question Selection Modal -->
+    <div class="pre-modal-overlay" id="questionSelectionModal" style="display: none;">
+        <div class="pre-modal-card">
+            <div class="pre-modal-header">
+                <div class="pre-modal-title">Select Interview Type</div>
+                <div class="pre-modal-subtitle">
+                    Choose the type of interview questions you'd like to answer.
+                </div>
+            </div>
+            <div class="pre-form">
+                <div class="pre-form-row">
+                    <label class="pre-label" for="roleSelect">Interview Type</label>
+                    <select id="roleSelect" class="pre-input">
+                        <option value="">-- Select Interview Type --</option>
+                        <option value="nonTechnical">Non Technical</option>
+                        <option value="technicalGeneral">Technical (General)</option>
+                        <option value="salesBDE">Sales / BDE</option>
+                        <option value="javaDeveloper">Java Developer</option>
+                        <option value="pythonDeveloper">Python Developer</option>
+                        <option value="aiMLEngineer">AI / ML Engineer</option>
+                    </select>
+                    <div class="pre-error-text" id="roleSelectError" style="display: none;">Please select an interview type</div>
+                </div>
+            </div>
+            <div class="pre-modal-footer">
+                <button class="pre-start-btn" id="continueToInterviewBtn">
+                    Continue
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Interview Container -->
+    <div class="interview-container">
+        <!-- Left Panel: Webcam Feed -->
+        <div class="webcam-panel">
+            <video id="webcamVideo" autoplay muted playsinline></video>
+        </div>
+
+        <!-- Right Panel: Interview Interface -->
+        <div class="interview-panel">
+            <!-- AI Interviewer Video -->
+            <div class="ai-interviewer">
+                <video id="aiVideo" muted>
+                    <source src="img/20240913132119-119 (online-video-cutter.com).mp4" type="video/mp4">
+                </video>
+            </div>
+
+            <!-- Question Display -->
+            <div class="question-section">
+                <div class="glass-card">
+                    <div class="question-header">
+                        <div class="question-counter" id="questionCounter">Question 1/5</div>
+                        <div class="timer-display" id="timerDisplay" style="display: none;">
+                            <span class="timer-icon">⏱️</span>
+                            <span class="timer-text" id="timerText">1:00</span>
+                        </div>
+                        <div class="status-indicators" id="statusIndicators">
+                            <span class="status-icon mic-icon" id="micIcon">🎤</span>
+                            <div class="recording-dot" id="recordingDot" style="display: none;"></div>
+                            <span class="tts-status" id="ttsStatus" style="display: none;">Reading question...</span>
+                        </div>
+                    </div>
+                    <div class="question-text" id="questionText">
+                        Waiting for webcam to initialize...
+                    </div>
+                    <div class="answer-display" id="answerDisplay">
+                        <div class="answer-label">Your Answer:</div>
+                        <div class="answer-text placeholder" id="answerText">
+                            Start speaking to see your answer here...
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Control Panel -->
+            <div class="control-panel">
+                <div class="control-bar">
+                    <button class="icon-button" disabled>
+                        <span class="icon-mic"></span>
+                    </button>
+                    <button class="icon-button" disabled>
+                        <span class="icon-video"></span>
+                    </button>
+                    <button class="icon-button" id="codeBtn">
+                        <span class="icon-code"></span>
+                    </button>
+                    <button class="icon-button" id="uploadBtn">
+                        <span class="icon-attach"></span>
+                    </button>
+                    <button class="action-button btn-next" id="nextBtn">
+                        Next Question
+                    </button>
+                    <button class="action-button btn-submit" id="submitBtn" style="display: none;">
+                        Submit Interview
+                    </button>
+                    <button class="action-button btn-end" id="endBtn">
+                        End Interview
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loader-card">
+            <div class="loader-spinner"></div>
+            <div class="loader-message" id="loaderMessage">Processing...</div>
+            <div class="progress-bar-container" id="progressContainer" style="display: none;">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                </div>
+                <div class="progress-text" id="progressText">0% Complete</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Next Question Modal -->
+    <div class="modal-overlay" id="nextModal">
+        <div class="modal-dialog">
+            <div class="modal-title">Proceed to Next Question</div>
+            <div class="modal-content">
+                <p>Are you ready to move to the next question? Your current answer will be saved.</p>
+            </div>
+            <div class="modal-actions">
+                <button class="modal-btn modal-btn-cancel" id="nextCancelBtn">Cancel</button>
+                <button class="modal-btn modal-btn-confirm" id="nextConfirmBtn">Yes, Continue</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Submit / End Interview Modal -->
+    <div class="modal-overlay" id="submitModal">
+        <div class="modal-dialog">
+            <div class="modal-title" id="submitModalTitle">Submit Interview</div>
+            <div class="modal-content">
+                <p id="submitModalMessage">Are you sure you want to submit your interview? This action cannot be undone.</p>
+                <p id="submitModalSubtext" style="color: #999; font-size: 0.875rem;">
+                    We will process your responses and send you feedback via email.
+                </p>
+            </div>
+            <div class="modal-actions">
+                <button class="modal-btn modal-btn-cancel" id="submitCancelBtn">Cancel</button>
+                <button class="modal-btn modal-btn-submit" id="submitConfirmBtn">Submit Interview</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Interview Limit Reached Modal -->
+    <div class="modal-overlay" id="interviewLimitModal" style="display: none;">
+        <div class="modal-dialog interview-limit-modal">
+            <div class="modal-title interview-limit-title">Interview Limit Reached</div>
+            <div class="modal-content interview-limit-content">
+                <p class="interview-limit-message">You have used all 3 free interview attempts for this email address.</p>
+                <p class="interview-limit-helper">Upgrade your plan to unlock unlimited AI interviews.</p>
+            </div>
+            <div class="modal-actions interview-limit-actions">
+                <button class="modal-btn modal-btn-secondary" id="interviewLimitContactBtn">Contact Us</button>
+                <button class="modal-btn modal-btn-primary" id="interviewLimitSubscribeBtn">Subscribe to Continue</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Free Trial Over Modal -->
+    <div class="modal-overlay" id="freeTrialModal" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-title">Free Trial Over</div>
+            <div class="modal-content">
+                <p>Your 1-minute free trial has ended!</p>
+                <p style="color: #666; font-size: 0.9rem; margin-top: 8px;">Thank you for trying our AI Interview Platform.</p>
+            </div>
+            <div class="modal-actions">
+                <button class="modal-btn modal-btn-confirm" id="freeTrialOkBtn">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Modal -->
+    <div class="modal-overlay" id="notificationModal">
+        <div class="notification-dialog">
+            <div class="notification-title" id="notificationTitle">Notification</div>
+            <div class="notification-content" id="notificationMessage">
+                Message
+            </div>
+            <div class="notification-actions">
+                <button class="notification-btn" id="notificationOkBtn">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Code Editor Modal -->
+    <div class="editor-modal" id="editorModal">
+        <textarea id="codeEditor" placeholder="// Write your code here..."></textarea>
+    </div>
+
+    <!-- Hidden File Input -->
+    <input type="file" id="fileInput" accept="*/*">
+
+    <script>
+        // Application State
+        const state = {
+            currentQuestion: 0,
+            questions: [
+                { question: "Tell me about yourself and your background.", answer: "" },
+                { question: "What are your greatest strengths as a developer?", answer: "" },
+                { question: "Describe a challenging project you worked on.", answer: "" },
+                { question: "How do you stay updated with new technologies?", answer: "" },
+                { question: "Where do you see yourself in 5 years?", answer: "" }
+            ],
+            isRecording: false,
+            isReadingQuestion: false,
+            isProcessing: false,
+            uploadStatus: [false, false, false, false, false],
+            transcript: "",
+            interimTranscript: "",
+            recognition: null,
+            mediaRecorder: null,
+            recordedChunks: [],
+            isVideoReady: false,
+            earlyEnd: false,
+            candidate: {
+                name: "",
+                email: "",
+                phone: "",
+                company: ""
+            },
+            notificationCallback: null,
+            freeTrialTimer: null,
+            freeTrialStarted: false
+        };
+
+        // Question Bank for different roles
+        const QUESTION_BANK = {
+            nonTechnical: [
+                "Tell me about yourself and your background.",
+                "What are your greatest strengths?",
+                "Describe a challenging situation you faced.",
+                "How do you handle stress and pressure?",
+                "Where do you see yourself in 5 years?"
+            ],
+            technicalGeneral: [
+                "What programming languages are you most comfortable with?",
+                "Describe your experience with version control systems.",
+                "How do you approach debugging complex issues?",
+                "What's your experience with database design?",
+                "How do you ensure code quality and testing?"
+            ],
+            salesBDE: [
+                "How do you approach lead generation?",
+                "Describe your most successful sales deal.",
+                "How do you handle objections from clients?",
+                "What strategies do you use for market research?",
+                "How do you build long-term client relationships?"
+            ],
+            javaDeveloper: [
+                "Explain the difference between ArrayList and LinkedList.",
+                "What is the Java Memory Model?",
+                "Describe Spring Boot and its advantages.",
+                "How do you handle concurrency in Java?",
+                "What is Java 8 Stream API and how do you use it?"
+            ],
+            pythonDeveloper: [
+                "Explain Python's GIL and its implications.",
+                "What are decorators in Python?",
+                "Describe Django vs Flask.",
+                "How do you handle asynchronous operations in Python?",
+                "What is list comprehension and when would you use it?"
+            ],
+            aiMLEngineer: [
+                "Explain the bias-variance tradeoff.",
+                "What's the difference between supervised and unsupervised learning?",
+                "Describe neural network architecture.",
+                "How do you handle overfitting in ML models?",
+                "What experience do you have with deep learning frameworks?"
+            ]
+        };
+
+        // DOM Elements
+        const webcamVideo = document.getElementById('webcamVideo');
+        const aiVideo = document.getElementById('aiVideo');
+        const questionCounter = document.getElementById('questionCounter');
+        const timerDisplay = document.getElementById('timerDisplay');
+        const timerText = document.getElementById('timerText');
+        const questionText = document.getElementById('questionText');
+        const answerText = document.getElementById('answerText');
+        const statusIndicators = document.getElementById('statusIndicators');
+        const nextBtn = document.getElementById('nextBtn');
+        const submitBtn = document.getElementById('submitBtn');
+        const endBtn = document.getElementById('endBtn');
+        const codeBtn = document.getElementById('codeBtn');
+        const uploadBtn = document.getElementById('uploadBtn');
+        const loadingOverlay = document.getElementById('loadingOverlay');
+        const loaderMessage = document.getElementById('loaderMessage');
+        const progressContainer = document.getElementById('progressContainer');
+        const progressFill = document.getElementById('progressFill');
+        const progressText = document.getElementById('progressText');
+        const nextModal = document.getElementById('nextModal');
+        const submitModal = document.getElementById('submitModal');
+        const submitModalTitle = document.getElementById('submitModalTitle');
+        const submitModalMessage = document.getElementById('submitModalMessage');
+        const submitModalSubtext = document.getElementById('submitModalSubtext');
+        const editorModal = document.getElementById('editorModal');
+        const fileInput = document.getElementById('fileInput');
+        const preInterviewModal = document.getElementById('preInterviewModal');
+        const questionSelectionModal = document.getElementById('questionSelectionModal');
+        const roleSelect = document.getElementById('roleSelect');
+        const roleSelectError = document.getElementById('roleSelectError');
+        const continueToInterviewBtn = document.getElementById('continueToInterviewBtn');
+        const freeTrialModal = document.getElementById('freeTrialModal');
+        const freeTrialOkBtn = document.getElementById('freeTrialOkBtn');
+        const notificationModal = document.getElementById('notificationModal');
+        const notificationTitle = document.getElementById('notificationTitle');
+        const notificationMessage = document.getElementById('notificationMessage');
+        const notificationOkBtn = document.getElementById('notificationOkBtn');
+
+        // Interview Limit Modal
+        function showInterviewLimitModal() {
+            const modal = document.getElementById('interviewLimitModal');
+            if (modal) {
+                modal.style.display = 'flex';
+                modal.classList.add('active');
+            }
+        }
+
+        function hideInterviewLimitModal() {
+            const modal = document.getElementById('interviewLimitModal');
+            if (modal) {
+                modal.style.display = 'none';
+                modal.classList.remove('active');
+            }
+        }
+
+        // Handle interview limit modal buttons
+        const interviewLimitSubscribeBtn = document.getElementById('interviewLimitSubscribeBtn');
+        const interviewLimitContactBtn = document.getElementById('interviewLimitContactBtn');
+
+        if (interviewLimitSubscribeBtn) {
+            interviewLimitSubscribeBtn.addEventListener('click', () => {
+                hideInterviewLimitModal();
+                // Navigate to pricing or subscription page
+                window.location.href = 'pricing.html';
+            });
+        }
+
+        if (interviewLimitContactBtn) {
+            interviewLimitContactBtn.addEventListener('click', () => {
+                hideInterviewLimitModal();
+                // Navigate to contact section or contact page
+                window.location.href = 'index.html#contact';
+            });
+        }
+
+        // Notification helpers
+        function showNotification(title, message, callback) {
+            notificationTitle.textContent = title || 'Notification';
+            notificationMessage.textContent = message || '';
+            state.notificationCallback = typeof callback === 'function' ? callback : null;
+            notificationModal.classList.add('active');
+        }
+
+        notificationOkBtn.addEventListener('click', () => {
+            notificationModal.classList.remove('active');
+            if (state.notificationCallback) {
+                const cb = state.notificationCallback;
+                state.notificationCallback = null;
+                cb();
+            }
+        });
+
+        // Initialize Application
+        async function initializeApp() {
+            showLoading('Initializing interview...');
+            
+            try {
+                // Try to get webcam stream
+                const stream = await navigator.mediaDevices.getUserMedia({ 
+                    audio: true, 
+                    video: true 
+                });
+                webcamVideo.srcObject = stream;
+                
+                webcamVideo.onloadedmetadata = () => {
+                    webcamVideo.play();
+                    state.isVideoReady = true;
+                    hideLoading();
+                    initializeSpeechRecognition();
+                    loadQuestion(state.currentQuestion);
+                    
+                    // Start the 1-minute free trial timer
+                    startFreeTrialTimer();
+                };
+
+                // Initialize media recorder
+                state.mediaRecorder = new MediaRecorder(stream);
+                state.mediaRecorder.ondataavailable = (event) => {
+                    if (event.data.size > 0) {
+                        state.recordedChunks.push(event.data);
+                    }
+                };
+
+            } catch (error) {
+                console.error('Failed to access media devices:', error);
+                
+                // Still show the interview even if media access fails
+                hideLoading();
+                initializeSpeechRecognition();
+                loadQuestion(state.currentQuestion);
+                startFreeTrialTimer();
+                
+                // Show a notification but don't block the interview
+                showNotification(
+                    'Camera/Microphone Access',
+                    'Camera and microphone access were denied. You can still proceed with the interview using text input only.'
+                );
+            }
+        }
+
+        // Speech Recognition
+        function initializeSpeechRecognition() {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            
+            if (!SpeechRecognition) {
+                console.error('Speech recognition not supported');
+                return;
+            }
+
+            state.recognition = new SpeechRecognition();
+            state.recognition.continuous = true;
+            state.recognition.interimResults = true;
+            state.recognition.lang = 'en-US';
+
+            state.recognition.onresult = (event) => {
+                if (state.isReadingQuestion || state.isProcessing) return;
+
+                let interim = '';
+                let final = '';
+
+                for (let i = event.resultIndex; i < event.results.length; i++) {
+                    const transcript = event.results[i][0].transcript;
+                    if (event.results[i].isFinal) {
+                        final += transcript + ' ';
+                    } else {
+                        interim = transcript;
+                    }
+                }
+
+                if (final) {
+                    state.transcript += final;
+                    state.questions[state.currentQuestion].answer = state.transcript;
+                    updateAnswerDisplay();
+                }
+                
+                state.interimTranscript = interim;
+                updateAnswerDisplay();
+            };
+
+            state.recognition.onerror = (event) => {
+                console.error('Speech recognition error:', event.error);
+            };
+
+            state.recognition.onend = () => {
+                if (state.isRecording && !state.isProcessing && !state.isReadingQuestion) {
+                    try {
+                        state.recognition.start();
+                    } catch (error) {
+                        console.error('Failed to restart recognition:', error);
+                    }
+                }
+            };
+        }
+
+        // Load Question
+        function loadQuestion(index) {
+            const question = state.questions[index];
+            questionCounter.textContent = `Question ${index + 1}/${state.questions.length}`;
+            questionText.textContent = question.question;
+            
+            // Reset transcript
+            state.transcript = question.answer || '';
+            state.interimTranscript = '';
+            updateAnswerDisplay();
+
+            // Update status indicators
+            if (state.uploadStatus[index]) {
+                statusIndicators.innerHTML = '<span class="check-icon">✓</span>';
+            } else {
+                statusIndicators.innerHTML = `
+                    <span class="status-icon mic-icon" id="micIcon">🎤</span>
+                    <div class="recording-dot" id="recordingDot" style="display: none;"></div>
+                    <span class="tts-status" id="ttsStatus" style="display: none;">Reading question...</span>
+                `;
+            }
+
+            // Show submit button on last question
+            if (index === state.questions.length - 1) {
+                nextBtn.style.display = 'none';
+                submitBtn.style.display = 'flex';
+            } else {
+                nextBtn.style.display = 'flex';
+                submitBtn.style.display = 'none';
+            }
+
+            // Read question aloud
+            setTimeout(() => speakQuestion(question.question), 500);
+        }
+
+        // Text-to-Speech
+        function speakQuestion(text) {
+            state.isReadingQuestion = true;
+            const ttsStatusEl = document.getElementById('ttsStatus');
+            if (ttsStatusEl) ttsStatusEl.style.display = 'block';
+            
+            if (state.recognition) {
+                state.recognition.stop();
+            }
+
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'en-US';
+            
+            // Try to find a female voice
+            const voices = speechSynthesis.getVoices();
+            const femaleVoice = voices.find(voice => 
+                voice.name.includes('Female') || 
+                voice.name.includes('Samantha') ||
+                voice.name.includes('Google US English')
+            );
+            if (femaleVoice) {
+                utterance.voice = femaleVoice;
+            }
+
+            utterance.onstart = () => {
+                aiVideo.play().catch(e => console.log('AI video play error:', e));
+            };
+
+            utterance.onend = () => {
+                state.isReadingQuestion = false;
+                if (ttsStatusEl) ttsStatusEl.style.display = 'none';
+                aiVideo.pause();
+                aiVideo.currentTime = 0;
+                startRecording();
+            };
+
+            utterance.onerror = () => {
+                state.isReadingQuestion = false;
+                if (ttsStatusEl) ttsStatusEl.style.display = 'none';
+            };
+
+            speechSynthesis.speak(utterance);
+        }
+
+        // Recording Controls
+        function startRecording() {
+            if (!state.isRecording && state.mediaRecorder) {
+                state.recordedChunks = [];
+                state.mediaRecorder.start();
+                state.isRecording = true;
+                
+                const micIconEl = document.getElementById('micIcon');
+                const recordingDotEl = document.getElementById('recordingDot');
+                
+                if (micIconEl) micIconEl.classList.add('recording');
+                if (recordingDotEl) recordingDotEl.style.display = 'block';
+
+                if (state.recognition) {
+                    try {
+                        state.recognition.start();
+                    } catch (error) {
+                        console.error('Recognition start error:', error);
+                    }
+                }
+            }
+        }
+
+        function stopRecording() {
+            if (state.isRecording && state.mediaRecorder) {
+                state.mediaRecorder.stop();
+                state.isRecording = false;
+                
+                const micIconEl = document.getElementById('micIcon');
+                const recordingDotEl = document.getElementById('recordingDot');
+                
+                if (micIconEl) micIconEl.classList.remove('recording');
+                if (recordingDotEl) recordingDotEl.style.display = 'none';
+
+                if (state.recognition) {
+                    state.recognition.stop();
+                }
+            }
+        }
+
+        // Update Answer Display
+        function updateAnswerDisplay() {
+            const displayText = (state.transcript || '') + (state.interimTranscript || '');
+            answerText.textContent = displayText || 
+                (state.isReadingQuestion ? 'Please wait for the question to finish...' : 'Start speaking to see your answer here...');
+            answerText.className = displayText ? 'answer-text' : 'answer-text placeholder';
+        }
+
+        // Loading Functions
+        function showLoading(message, showProgress = false) {
+            loaderMessage.textContent = message;
+            loadingOverlay.classList.add('active');
+            
+            if (showProgress) {
+                progressContainer.style.display = 'block';
+            } else {
+                progressContainer.style.display = 'none';
+            }
+        }
+
+        function hideLoading() {
+            loadingOverlay.classList.remove('active');
+            progressContainer.style.display = 'none';
+            progressFill.style.width = '0%';
+            progressText.textContent = '0% Complete';
+        }
+
+        function updateProgress(percent) {
+            progressFill.style.width = percent + '%';
+            progressText.textContent = Math.round(percent) + '% Complete';
+        }
+
+        // Process Question (Simulated)
+        async function processQuestion(index) {
+            state.isProcessing = true;
+            showLoading(`Processing Question ${index + 1}...`, true);
+
+            // Simulate upload progress
+            for (let i = 0; i <= 100; i += 10) {
+                await new Promise(resolve => setTimeout(resolve, 100));
+                updateProgress(i);
+            }
+
+            // Mark as uploaded
+            state.uploadStatus[index] = true;
+
+            hideLoading();
+            state.isProcessing = false;
+        }
+
+        // Event Handlers
+        nextBtn.addEventListener('click', () => {
+            stopRecording();
+            // Capture any interim transcript
+            if (state.interimTranscript) {
+                state.transcript += state.interimTranscript;
+                state.questions[state.currentQuestion].answer = state.transcript;
+                state.interimTranscript = '';
+            }
+            nextModal.classList.add('active');
+        });
+
+        document.getElementById('nextConfirmBtn').addEventListener('click', async () => {
+            nextModal.classList.remove('active');
+            await processQuestion(state.currentQuestion);
+            state.currentQuestion++;
+            loadQuestion(state.currentQuestion);
+        });
+
+        document.getElementById('nextCancelBtn').addEventListener('click', () => {
+            nextModal.classList.remove('active');
+            startRecording();
+        });
+
+        submitBtn.addEventListener('click', () => {
+            stopRecording();
+            state.earlyEnd = false;
+            submitModalTitle.textContent = 'Submit Interview';
+            submitModalMessage.textContent = 'Are you sure you want to submit your interview? This action cannot be undone.';
+            submitModalSubtext.style.display = 'block';
+            submitModal.classList.add('active');
+        });
+
+        endBtn.addEventListener('click', () => {
+            stopRecording();
+            state.earlyEnd = true;
+            submitModalTitle.textContent = 'End Interview';
+            submitModalMessage.textContent = 'Are you sure you want to end the interview and return home? Your current progress will not be processed.';
+            submitModalSubtext.style.display = 'none';
+            submitModal.classList.add('active');
+        });
+
+        document.getElementById('submitConfirmBtn').addEventListener('click', async () => {
+            submitModal.classList.remove('active');
+            if (state.earlyEnd) {
+                // Just navigate home on early end
+                window.location.href = 'index.html';
+            } else {
+                await submitInterview();
+            }
+        });
+
+        document.getElementById('submitCancelBtn').addEventListener('click', () => {
+            submitModal.classList.remove('active');
+            startRecording();
+        });
+
+        // Submit Interview
+        async function submitInterview() {
+            showLoading('Submitting your interview...', true);
+
+            // Process current question
+            await processQuestion(state.currentQuestion);
+
+            // Simulate API calls
+            const apis = [
+                'Sending thank you email',
+                'Updating interview status',
+                'Generating feedback',
+                'Analyzing questions',
+                'Processing analysis',
+                'Extracting soft skills',
+                'Extracting strengths',
+                'Calculating tech scores'
+            ];
+
+            for (let i = 0; i < apis.length; i++) {
+                loaderMessage.textContent = `${apis[i]} (${i + 1} of ${apis.length})...`;
+                await new Promise(resolve => setTimeout(resolve, 800));
+                updateProgress(((i + 1) / apis.length) * 100);
+            }
+
+            // Send confirmation email only after successful submission
+            const candidateEmail = state.candidate.email;
+            const candidateName = state.candidate.name;
+            
+            if (candidateEmail) {
+                try {
+                    loaderMessage.textContent = 'Sending confirmation email...';
+                    const apiBaseUrl = 'http://127.0.0.1:3000';
+                    
+                    // Send confirmation to candidate
+                    const emailResponse = await fetch(`${apiBaseUrl}/api/send-confirmation`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            email: candidateEmail,
+                            candidateName: candidateName
+                        })
+                    });
+
+                    if (emailResponse.ok) {
+                        const contentType = emailResponse.headers.get('content-type');
+                        if (contentType && contentType.includes('application/json')) {
+                            try {
+                                const emailData = await emailResponse.json();
+                                console.log('Confirmation email sent successfully', emailData);
+                            } catch (e) {
+                                console.log('Confirmation email sent (non-JSON response)');
+                            }
+                        } else {
+                            console.log('Confirmation email sent successfully');
+                        }
+                    } else {
+                        console.warn('Failed to send confirmation email, but interview was submitted');
+                    }
+                } catch (error) {
+                    console.error('Error sending confirmation email:', error);
+                    // Don't fail the submission if email fails
+                }
+
+                // Send notification to hr@aippoint.ai
+                try {
+                    loaderMessage.textContent = 'Notifying hiring team...';
+                    const notifyResponse = await fetch(`${apiBaseUrl}/api/send-contact-email`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            name: candidateName,
+                            email: candidateEmail,
+                            company: state.candidate.company || 'N/A',
+                            message: `AI Interview Completed\nRole: ${state.candidate.role || 'N/A'}\nPhone: ${state.candidate.phone || 'N/A'}\nQuestions Answered: ${state.answers.length}\nDuration: ${Math.round((Date.now() - state.startTime) / 60000)} minutes`,
+                            formType: 'interview'
+                        })
+                    });
+
+                    if (notifyResponse.ok) {
+                        console.log('HR notification sent successfully');
+                    } else {
+                        console.warn('Failed to send HR notification');
+                    }
+                } catch (error) {
+                    console.error('Error sending HR notification:', error);
+                }
+            }
+
+            loaderMessage.textContent = 'All processing complete, redirecting...';
+            await new Promise(resolve => setTimeout(resolve, 1000));
+
+            // Hide interview interface before redirecting
+            hideLoading();
+            
+            // Hide all interview elements
+            const interviewContainer = document.querySelector('.interview-container');
+            if (interviewContainer) {
+                interviewContainer.style.display = 'none';
+            }
+            
+            // Hide any modals
+            const allModals = document.querySelectorAll('.modal-overlay, .pre-modal-overlay, .loading-overlay');
+            allModals.forEach(modal => {
+                modal.style.display = 'none';
+                modal.classList.remove('active');
+            });
+            
+            // Show notification and redirect
+            showNotification('Interview Submitted', 'Interview submitted successfully! Thank you.', () => {
+                window.location.href = 'index.html';
+            });
+        }
+
+        // Code Editor
+        codeBtn.addEventListener('click', () => {
+            editorModal.classList.add('active');
+        });
+
+        // Close editor when clicking outside
+        document.addEventListener('click', (e) => {
+            if (editorModal.classList.contains('active') && 
+                !editorModal.contains(e.target) && 
+                e.target !== codeBtn) {
+                editorModal.classList.remove('active');
+            }
+        });
+
+        // File Upload
+        uploadBtn.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                showLoading('Uploading file...');
+                // Simulate upload
+                setTimeout(() => {
+                    hideLoading();
+                    showNotification('Upload Complete', 'File uploaded successfully!');
+                }, 1500);
+            }
+        });
+
+        // Pre-Interview Form Handling
+        document.getElementById('startInterviewBtn').addEventListener('click', () => {
+            const nameInput = document.getElementById('candidateName');
+            const emailInput = document.getElementById('candidateEmail');
+            const phoneInput = document.getElementById('candidatePhone');
+            const companyInput = document.getElementById('candidateCompany');
+
+            const nameError = document.getElementById('candidateNameError');
+            const emailError = document.getElementById('candidateEmailError');
+            const phoneError = document.getElementById('candidatePhoneError');
+            const companyError = document.getElementById('candidateCompanyError');
+
+            // Reset errors
+            [nameInput, emailInput, phoneInput, companyInput].forEach(input => {
+                input.classList.remove('pre-input-error');
+            });
+            [nameError, emailError, phoneError, companyError].forEach(el => {
+                el.style.display = 'none';
+                el.textContent = '';
+            });
+
+            let valid = true;
+
+            if (!nameInput.value.trim()) {
+                nameInput.classList.add('pre-input-error');
+                nameError.textContent = 'Please enter your name.';
+                nameError.style.display = 'block';
+                valid = false;
+            }
+
+            const emailVal = emailInput.value.trim();
+            if (!emailVal) {
+                emailInput.classList.add('pre-input-error');
+                emailError.textContent = 'Please enter your email.';
+                emailError.style.display = 'block';
+                valid = false;
+            } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)) {
+                emailInput.classList.add('pre-input-error');
+                emailError.textContent = 'Please enter a valid email address.';
+                emailError.style.display = 'block';
+                valid = false;
+            }
+
+            const phoneVal = phoneInput.value.trim();
+            if (!phoneVal) {
+                phoneInput.classList.add('pre-input-error');
+                phoneError.textContent = 'Please enter your mobile number.';
+                phoneError.style.display = 'block';
+                valid = false;
+            }
+
+            if (!companyInput.value.trim()) {
+                companyInput.classList.add('pre-input-error');
+                companyError.textContent = 'Please enter your company.';
+                companyError.style.display = 'block';
+                valid = false;
+            }
+
+            if (!valid) return;
+
+            // Save candidate info
+            state.candidate = {
+                name: nameInput.value.trim(),
+                email: emailVal,
+                phone: phoneVal,
+                company: companyInput.value.trim()
+            };
+
+            // Hide modal and show question selection
+            preInterviewModal.style.display = 'none';
+            questionSelectionModal.style.display = 'flex';
+        });
+
+        // Question Selection Modal Handling
+        continueToInterviewBtn.addEventListener('click', async () => {
+            // Reset error
+            roleSelect.classList.remove('pre-input-error');
+            roleSelectError.style.display = 'none';
+            roleSelectError.textContent = '';
+
+            // Validate role selection
+            const selectedRole = roleSelect.value;
+            if (!selectedRole) {
+                roleSelect.classList.add('pre-input-error');
+                roleSelectError.textContent = 'Please select an interview type';
+                roleSelectError.style.display = 'block';
+                return;
+            }
+
+            // Check interview attempts before starting
+            const candidateEmail = state.candidate.email;
+            if (!candidateEmail) {
+                alert('Email address is required to start the interview.');
+                return;
+            }
+
+            try {
+                // Check if user can start interview (max 3 attempts)
+                const apiBaseUrl = 'http://127.0.0.1:3000';
+                const checkResponse = await fetch(`${apiBaseUrl}/api/interview-attempts/check`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email: candidateEmail,
+                        action: 'check'
+                    })
+                });
+
+                // Check if response is ok and has content
+                if (!checkResponse.ok) {
+                    throw new Error(`HTTP error! status: ${checkResponse.status}`);
+                }
+
+                const contentType = checkResponse.headers.get('content-type');
+                if (!contentType || !contentType.includes('application/json')) {
+                    throw new Error('Response is not JSON');
+                }
+
+                const checkData = await checkResponse.json();
+
+                if (!checkData.canStart) {
+                    // Show interview limit modal
+                    showInterviewLimitModal();
+                    return; // Block interview initialization
+                }
+
+                // Increment attempt count (interview is starting)
+                const incrementResponse = await fetch(`${apiBaseUrl}/api/interview-attempts/check`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email: candidateEmail,
+                        action: 'increment'
+                    })
+                });
+
+                if (!incrementResponse.ok) {
+                    throw new Error(`HTTP error! status: ${incrementResponse.status}`);
+                }
+
+                const incrementContentType = incrementResponse.headers.get('content-type');
+                if (!incrementContentType || !incrementContentType.includes('application/json')) {
+                    throw new Error('Response is not JSON');
+                }
+
+                const incrementData = await incrementResponse.json();
+
+                if (incrementData.error) {
+                    // If increment fails (e.g., max reached between check and increment)
+                    alert('Unable to start interview. Please contact support.');
+                return;
+            }
+
+            // Replace state.questions with selected role's questions
+            state.questions = QUESTION_BANK[selectedRole].map(q => ({
+                question: q,
+                answer: ""
+            }));
+
+            // Reset current question
+            state.currentQuestion = 0;
+
+            // Close modal and initialize app
+            questionSelectionModal.style.display = 'none';
+            
+            // Ensure interview container is visible
+            const interviewContainer = document.querySelector('.interview-container');
+            if (interviewContainer) {
+                interviewContainer.style.display = 'flex';
+                interviewContainer.style.visibility = 'visible';
+                console.log('Interview container made visible');
+            }
+            
+            console.log('Initializing app with questions:', state.questions.length);
+            initializeApp();
+            } catch (error) {
+                console.error('Error checking interview attempts:', error);
+                // For development: allow interview to proceed if API is unavailable
+                // In production, you may want to block or show an error
+                if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.hostname === '') {
+                    console.warn('API unavailable in development, allowing interview to proceed');
+                    state.questions = QUESTION_BANK[selectedRole].map(q => ({
+                        question: q,
+                        answer: ""
+                    }));
+                    state.currentQuestion = 0;
+                    questionSelectionModal.style.display = 'none';
+                    
+                    // Ensure interview container is visible
+                    const interviewContainer = document.querySelector('.interview-container');
+                    if (interviewContainer) {
+                        interviewContainer.style.display = 'flex';
+                        interviewContainer.style.visibility = 'visible';
+                        console.log('Interview container made visible (fallback)');
+                    }
+                    
+                    console.log('Initializing app with questions (fallback):', state.questions.length);
+                    initializeApp();
+                } else {
+                    // In production, show error but allow to proceed with warning
+                    console.warn('API unavailable, proceeding with interview');
+                    state.questions = QUESTION_BANK[selectedRole].map(q => ({
+                        question: q,
+                        answer: ""
+                    }));
+                    state.currentQuestion = 0;
+                    questionSelectionModal.style.display = 'none';
+                    
+                    // Ensure interview container is visible
+                    const interviewContainer = document.querySelector('.interview-container');
+                    if (interviewContainer) {
+                        interviewContainer.style.display = 'flex';
+                        interviewContainer.style.visibility = 'visible';
+                        console.log('Interview container made visible (production fallback)');
+                    }
+                    
+                    console.log('Initializing app with questions (production fallback):', state.questions.length);
+                    initializeApp();
+                }
+            }
+        });
+
+        // Free Trial Timer Functions
+        function startFreeTrialTimer() {
+            if (state.freeTrialStarted) return;
+            
+            state.freeTrialStarted = true;
+            
+            // Show timer display
+            timerDisplay.style.display = 'flex';
+            
+            let timeLeft = 60; // 60 seconds
+            
+            // Update display immediately
+            updateTimerDisplay(timeLeft);
+            
+            // Start countdown
+            state.freeTrialTimer = setInterval(() => {
+                timeLeft--;
+                updateTimerDisplay(timeLeft);
+                
+                if (timeLeft <= 0) {
+                    clearInterval(state.freeTrialTimer);
+                    showFreeTrialOver();
+                }
+            }, 1000);
+        }
+
+        function updateTimerDisplay(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            const display = `${minutes}:${secs.toString().padStart(2, '0')}`;
+            timerText.textContent = display;
+            
+            // Update styling based on time left
+            timerDisplay.classList.remove('warning', 'danger');
+            if (seconds <= 10) {
+                timerDisplay.classList.add('danger');
+            } else if (seconds <= 30) {
+                timerDisplay.classList.add('warning');
+            }
+        }
+
+        function showFreeTrialOver() {
+            // Clear timer
+            if (state.freeTrialTimer) {
+                clearInterval(state.freeTrialTimer);
+            }
+            
+            // Hide timer display
+            timerDisplay.style.display = 'none';
+            
+            // Stop any ongoing recording
+            if (state.isRecording) {
+                stopRecording();
+            }
+            
+            // Stop speech recognition
+            if (state.recognition) {
+                state.recognition.stop();
+            }
+            
+            // Stop webcam
+            if (webcamVideo.srcObject) {
+                webcamVideo.srcObject.getTracks().forEach(track => track.stop());
+            }
+            
+            // Show free trial over modal
+            freeTrialModal.style.display = 'flex';
+        }
+
+        function endFreeTrial() {
+            // Hide interview interface
+            const interviewContainer = document.querySelector('.interview-container');
+            if (interviewContainer) {
+                interviewContainer.style.display = 'none';
+            }
+            
+            // Hide all modals
+            const allModals = document.querySelectorAll('.modal-overlay, .pre-modal-overlay, .loading-overlay');
+            allModals.forEach(modal => {
+                modal.style.display = 'none';
+                modal.classList.remove('active');
+            });
+            
+            // Redirect to home page
+            window.location.href = 'index.html';
+        }
+
+        // Free Trial Modal Event Handler
+        freeTrialOkBtn.addEventListener('click', () => {
+            endFreeTrial();
+        });
+
+        // Initialize on page load
+        window.addEventListener('load', () => {
+            // Load voices for speech synthesis
+            speechSynthesis.getVoices();
+            window.speechSynthesis.onvoiceschanged = () => {
+                speechSynthesis.getVoices();
+            };
+
+            // Show pre-interview modal by default
+            preInterviewModal.style.display = 'flex';
+        });
+
+        // Cleanup on page unload
+        window.addEventListener('beforeunload', () => {
+            if (webcamVideo.srcObject) {
+                webcamVideo.srcObject.getTracks().forEach(track => track.stop());
+            }
+            if (state.recognition) {
+                state.recognition.stop();
+            }
+            speechSynthesis.cancel();
+        });
+    </script>
+</body>
+</html>

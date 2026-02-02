@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Features | AI-Powered Hiring Platform</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#0083C3",
+                        "background-light": "#f8fafc",
+                        "background-dark": "#020617",
+                        "card-dark": "#0f172a",
+                        "card-light": "#ffffff",
+                    },
+                    fontFamily: {
+                        display: ["Work Sans", "sans-serif"],
+                        body: ["Inter", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.75rem",
+                    },
+                },
+            },
+        };
+    </script>
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif; 
+            font-weight: 400;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Work Sans', sans-serif;
+        }
+        h1 {
+            font-weight: 700;
+        }
+        h2, h3 {
+            font-weight: 600;
+        }
+        .glass-card {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 transition-colors duration-300">
+    <!-- Navigation loaded via components.js -->
+    <header class="pt-32 pb-20 px-6" style="margin-top: 80px;">
+        <div class="max-w-4xl mx-auto text-center">
+            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400 bg-clip-text text-transparent">
+                Smarter Hiring Starts With AI
+            </h1>
+            <p class="text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
+                A unified AI-powered platform that automates, evaluates, and optimizes every step of your hiring workflow
+            </p>
+        </div>
+    </header>
+    <main class="max-w-7xl mx-auto px-6 space-y-20 pb-32">
+        <!-- Back to Home Button -->
+        <div class="mb-8">
+            <a href="index.html#ai-features" class="inline-flex items-center gap-2 text-slate-600 hover:text-primary transition-colors font-medium">
+                <span class="material-icons-round">arrow_back</span>
+                Back to Features Overview
+            </a>
+        </div>
+        
+        <section id="resume-scoring" class="grid md:grid-cols-2 gap-12 items-center scroll-mt-20">
+            <div class="order-2 md:order-1">
+                <!-- Back Button -->
+                <div class="mb-6">
+                    <a href="index.html#ai-features" class="inline-flex items-center gap-2 text-slate-600 hover:text-primary transition-colors font-medium">
+                        <span class="material-icons-round">arrow_back</span>
+                        Back to Features Overview
+                    </a>
+                </div>
+                
+                <div class="inline-flex items-center gap-2 text-primary font-bold text-sm uppercase tracking-wider mb-4">
+                    <span class="material-icons-round text-lg">description</span>
+                    Smart Score
+                </div>
+                <h2 class="text-3xl font-bold mb-6">AI-Powered Resume Scoring</h2>
+                <p class="text-slate-600 dark:text-slate-400 mb-8 leading-relaxed text-lg">
+                    Instantly ranks candidates using AI-driven skill matching. Our AI analyzes resumes against job descriptions, extracting skills, experience, and relevance.
+                </p>
+                <ul class="space-y-4 mb-8">
+                    <li class="flex items-start gap-3">
+                        <span class="material-icons-round text-primary mt-1">check_circle</span>
+                        <div><strong class="dark:text-white">What it does:</strong> Candidates are instantly ranked using advanced matching algorithms, allowing recruiters to focus only on the best-fit profiles.</div>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="material-icons-round text-primary mt-1">check_circle</span>
+                        <div><strong class="dark:text-white">How it helps:</strong> Reduces screening time by 75% and ensures diversity by focusing on objective merit.</div>
+                    </li>
+                    <li class="flex items-start gap-3 text-slate-500 dark:text-slate-500 italic">
+                        <span>Best for: High-volume recruiting teams and staffing agencies.</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="order-1 md:order-2 bg-slate-100 dark:bg-slate-900 rounded-2xl p-8 border border-slate-200 dark:border-slate-800 shadow-xl overflow-hidden group">
+                <div class="relative aspect-[16/9] max-h-[300px] flex items-center justify-center">
+                    <video autoplay loop muted playsinline class="rounded-xl shadow-2xl transition-transform group-hover:scale-105 duration-500 w-full h-full object-cover">
+                        <source src="img/features/Resume Scoring.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                </div>
+            </div>
+        </section>
+        <section id="ai-interviews" class="grid md:grid-cols-2 gap-12 items-center scroll-mt-20">
+            <div class="bg-slate-100 dark:bg-slate-900 rounded-2xl p-8 border border-slate-200 dark:border-slate-800 shadow-xl overflow-hidden group">
+                <div class="relative aspect-[16/9] max-h-[300px] flex items-center justify-center">
+                    <video autoplay loop muted playsinline class="rounded-xl shadow-2xl transition-transform group-hover:scale-105 duration-500 w-full h-full object-cover">
+                        <source src="img/features/AI Interviews.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                </div>
+
+            </div>
+            <div>
+                <!-- Back Button -->
+                <div class="mb-6">
+                    <a href="index.html#ai-features" class="inline-flex items-center gap-2 text-slate-600 hover:text-primary transition-colors font-medium">
+                        <span class="material-icons-round">arrow_back</span>
+                        Back to Features Overview
+                    </a>
+                </div>
+                
+                <div class="inline-flex items-center gap-2 text-primary font-bold text-sm uppercase tracking-wider mb-4">
+                    <span class="material-icons-round text-lg">videocam</span>
+                    AI Interview
+                </div>
+                <h2 class="text-3xl font-bold mb-6">Automated AI Interviews</h2>
+                <p class="text-slate-600 dark:text-slate-400 mb-8 leading-relaxed text-lg">
+                    Evaluates communication and intent using NLP interviews. AI-led interviews evaluate communication, intent, confidence, and sentiment using NLP.
+                </p>
+                <ul class="space-y-4 mb-8">
+                    <li class="flex items-start gap-3">
+                        <span class="material-icons-round text-primary mt-1">check_circle</span>
+                        <div><strong class="dark:text-white">What it does:</strong> This removes interviewer bias and saves hours of manual interview effort.</div>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="material-icons-round text-primary mt-1">check_circle</span>
+                        <div><strong class="dark:text-white">How it helps:</strong> Standardized evaluation ensures every candidate is assessed fairly and consistently.</div>
+                    </li>
+                    <li class="flex items-start gap-3 text-slate-500 dark:text-slate-500 italic">
+                        <span>Best for: DE&I focused organizations and technical hiring.</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+     
+        <section id="bias-free-hiring" class="grid md:grid-cols-2 gap-12 items-center scroll-mt-20">
+            <div class="order-2 md:order-1">
+                <!-- Back Button -->
+                <div class="mb-6">
+                    <a href="index.html#ai-features" class="inline-flex items-center gap-2 text-slate-600 hover:text-primary transition-colors font-medium">
+                        <span class="material-icons-round">arrow_back</span>
+                        Back to Features Overview
+                    </a>
+                </div>
+                
+                <div class="inline-flex items-center gap-2 text-primary font-bold text-sm uppercase tracking-wider mb-4">
+                    <span class="material-icons-round text-lg">balance</span>
+                    Fair Hire
+                </div>
+                <h2 class="text-3xl font-bold mb-6">Bias-Free Hiring Decisions</h2>
+                <p class="text-slate-600 dark:text-slate-400 mb-8 leading-relaxed text-lg">
+                    Ensures fair, data-backed candidate evaluation. Standardized AI evaluation ensures every candidate is assessed fairly.
+                </p>
+                <ul class="space-y-4 mb-8">
+                    <li class="flex items-start gap-3">
+                        <span class="material-icons-round text-primary mt-1">check_circle</span>
+                        <div><strong class="dark:text-white">What it does:</strong> Decisions are based on skills, experience, and performance — not unconscious bias.</div>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="material-icons-round text-primary mt-1">check_circle</span>
+                        <div><strong class="dark:text-white">How it helps:</strong> Eliminates bias with multi-dimensional scoring for accurate matching and fair evaluation.</div>
+                    </li>
+                    <li class="flex items-start gap-3 text-slate-500 dark:text-slate-500 italic">
+                        <span>Best for: Workforce planning and strategic HR leadership.</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="order-1 md:order-2 bg-slate-100 dark:bg-slate-900 rounded-2xl p-8 border border-slate-200 dark:border-slate-800 shadow-xl overflow-hidden group">
+                <div class="relative aspect-[16/9] max-h-[300px] flex items-center justify-center">
+                    <video autoplay loop muted playsinline class="rounded-xl shadow-2xl transition-transform group-hover:scale-105 duration-500 w-full h-full object-cover">
+                        <source src="img/features/skill match.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                </div>
+            </div>
+        </section>
+        <section id="cost-effective-hiring" class="grid md:grid-cols-2 gap-12 items-center scroll-mt-20">
+            <div class="bg-slate-100 dark:bg-slate-900 rounded-2xl p-8 border border-slate-200 dark:border-slate-800 shadow-xl overflow-hidden group">
+                <div class="relative aspect-[16/9] max-h-[300px] flex items-center justify-center">
+                    <video autoplay loop muted playsinline class="rounded-xl shadow-2xl transition-transform group-hover:scale-105 duration-500 w-full h-full object-cover">
+                        <source src="img/features/interview_scheduling.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                </div>
+
+            </div>
+            <div>
+                <!-- Back Button -->
+                <div class="mb-6">
+                    <a href="index.html#ai-features" class="inline-flex items-center gap-2 text-slate-600 hover:text-primary transition-colors font-medium">
+                        <span class="material-icons-round">arrow_back</span>
+                        Back to Features Overview
+                    </a>
+                </div>
+                
+                <div class="inline-flex items-center gap-2 text-primary font-bold text-sm uppercase tracking-wider mb-4">
+                    <span class="material-icons-round text-lg">speed</span>
+                    Fast Hire
+                </div>
+                <h2 class="text-3xl font-bold mb-6">Faster & Cost-Effective Hiring</h2>
+                <p class="text-slate-600 dark:text-slate-400 mb-8 leading-relaxed text-lg">
+                    Reduces time-to-hire with intelligent automation. Automate screening, interviews, and evaluations to significantly reduce time-to-hire.
+                </p>
+                <ul class="space-y-4 mb-8">
+                    <li class="flex items-start gap-3">
+                        <span class="material-icons-round text-primary mt-1">check_circle</span>
+                        <div><strong class="dark:text-white">What it does:</strong> Reduces recruitment costs without compromising quality through intelligent automation.</div>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="material-icons-round text-primary mt-1">check_circle</span>
+                        <div><strong class="dark:text-white">How it helps:</strong> Drastically reduces time-to-hire by automating manual processes and streamlining workflows.</div>
+                    </li>
+                    <li class="flex items-start gap-3 text-slate-500 dark:text-slate-500 italic">
+                        <span>Best for: High-growth startups and coordination-heavy teams.</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+        <section id="candidate-sourcing" class="grid md:grid-cols-2 gap-12 items-center scroll-mt-20">
+            <div class="bg-slate-100 dark:bg-slate-900 rounded-2xl p-8 border border-slate-200 dark:border-slate-800 shadow-xl overflow-hidden group">
+                <div class="relative aspect-[16/9] max-h-[300px] flex items-center justify-center">
+                    <video autoplay loop muted playsinline class="rounded-xl shadow-2xl transition-transform group-hover:scale-105 duration-500 w-full h-full object-cover">
+                        <source src="img/features/Candidate Sourcings.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                </div>
+            </div>
+            <div>
+                <!-- Back Button -->
+                <div class="mb-6">
+                    <a href="index.html#ai-features" class="inline-flex items-center gap-2 text-slate-600 hover:text-primary transition-colors font-medium">
+                        <span class="material-icons-round">arrow_back</span>
+                        Back to Features Overview
+                    </a>
+                </div>
+                
+                <div class="inline-flex items-center gap-2 text-primary font-bold text-sm uppercase tracking-wider mb-4">
+                    <span class="material-icons-round text-lg">search</span>
+                    Talent Find
+                </div>
+                <h2 class="text-3xl font-bold mb-6">Smart Candidate Sourcing</h2>
+                <p class="text-slate-600 dark:text-slate-400 mb-8 leading-relaxed text-lg">
+                    Finds top talent across platforms automatically. AI proactively sources top candidates from multiple job boards, databases, and platforms.
+                </p>
+                <ul class="space-y-4 mb-8">
+                    <li class="flex items-start gap-3">
+                        <span class="material-icons-round text-primary mt-1">check_circle</span>
+                        <div><strong class="dark:text-white">What it does:</strong> Including passive talent that's not actively looking but open to opportunities.</div>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="material-icons-round text-primary mt-1">check_circle</span>
+                        <div><strong class="dark:text-white">How it helps:</strong> Expands your talent pool exponentially and reduces time-to-fill for critical positions.</div>
+                    </li>
+                    <li class="flex items-start gap-3 text-slate-500 dark:text-slate-500 italic">
+                        <span>Best for: Engineering managers and technical recruiters.</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+        <section id="hiring-analytics" class="grid md:grid-cols-2 gap-12 items-center scroll-mt-20">
+            <div class="order-2 md:order-1">
+                <!-- Back Button -->
+                <div class="mb-6">
+                    <a href="index.html#ai-features" class="inline-flex items-center gap-2 text-slate-600 hover:text-primary transition-colors font-medium">
+                        <span class="material-icons-round">arrow_back</span>
+                        Back to Features Overview
+                    </a>
+                </div>
+                
+                <div class="inline-flex items-center gap-2 text-primary font-bold text-sm uppercase tracking-wider mb-4">
+                    <span class="material-icons-round text-lg">query_stats</span>
+                    Performance View
+                </div>
+                <h2 class="text-3xl font-bold mb-6">Real-Time Hiring Analytics</h2>
+                <p class="text-slate-600 dark:text-slate-400 mb-8 leading-relaxed text-lg">
+                    Monitor pipeline health and hiring ROI. Track hiring KPIs, pipeline health, recruiter performance, and ROI in real time.
+                </p>
+                <ul class="space-y-4 mb-8">
+                    <li class="flex items-start gap-3">
+                        <span class="material-icons-round text-primary mt-1">check_circle</span>
+                        <div><strong class="dark:text-white">What it does:</strong> With actionable insights and dashboards for data-driven decision making.</div>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="material-icons-round text-primary mt-1">check_circle</span>
+                        <div><strong class="dark:text-white">How it helps:</strong> Data-driven optimization of the recruitment pipeline to lower cost-per-hire.</div>
+                    </li>
+                    <li class="flex items-start gap-3 text-slate-500 dark:text-slate-500 italic">
+                        <span>Best for: HR operations and executive reporting.</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="order-1 md:order-2 bg-slate-100 dark:bg-slate-900 rounded-2xl p-8 border border-slate-200 dark:border-slate-800 shadow-xl overflow-hidden group">
+                <div class="relative aspect-[16/9] max-h-[300px] flex items-center justify-center">
+                    <video autoplay loop muted playsinline class="rounded-xl shadow-2xl transition-transform group-hover:scale-105 duration-500 w-full h-full object-cover">
+                        <source src="img/features/Real-Time Hiring Analytics.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- CTA Section -->
+    <section class="features-cta-section">
+        <div class="features-cta-container">
+            <div class="features-cta-content">
+                <h2 class="features-cta-title">Ready to Transform Your Hiring Process?</h2>
+                <p class="features-cta-subtitle">
+                    Join 500+ forward-thinking companies already using <span style="color: #0083C3;">aipponi</span> to build world-class teams.
+                </p>
+                <div class="features-cta-buttons">
+                    <a href="index.html#contact" class="features-cta-btn features-cta-btn-primary">
+                        Try aippoint Free
+                        <span class="material-icons-round">arrow_forward</span>
+                    </a>
+                    <a href="javascript:void(0)" onclick="window.openCalendarModal && openCalendarModal()" class="features-cta-btn features-cta-btn-secondary">
+                        Book a Demo
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <style>
+        .features-cta-section {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            padding: 20px 24px;
+            margin-top: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .features-cta-section::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 800px;
+            height: 400px;
+            background: rgba(0, 131, 195, 0.1);
+            border-radius: 50%;
+            filter: blur(100px);
+            z-index: 0;
+        }
+        
+        .features-cta-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .features-cta-content {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .features-cta-title {
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .features-cta-subtitle {
+            font-size: clamp(16px, 2vw, 18px);
+            color: #475569;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+        
+        .features-cta-logo {
+            height: 24px;
+            width: auto;
+            vertical-align: middle;
+            margin: 0 4px;
+        }
+        
+        .features-cta-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .features-cta-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px 32px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 12px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        
+        .features-cta-btn-primary {
+            background: #0083C3;
+            color: white;
+            box-shadow: 0 4px 12px rgba(0, 131, 195, 0.3);
+        }
+        
+        .features-cta-btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 131, 195, 0.4);
+            background: #006ba3;
+        }
+        
+        .features-cta-btn-secondary {
+            background: white;
+            color: #0f172a;
+            border: 2px solid #e2e8f0;
+        }
+        
+        .features-cta-btn-secondary:hover {
+            background: #f8fafc;
+            border-color: #cbd5e1;
+        }
+        
+        .features-cta-btn-logo {
+            height: 20px;
+            width: auto;
+            vertical-align: middle;
+        }
+        
+        .features-cta-btn .material-icons-round {
+            font-size: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .features-cta-section {
+                padding: 60px 20px;
+            }
+            
+            .features-cta-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .features-cta-btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
+    <!-- Footer loaded via components.js -->
+    <script src="components.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+
+

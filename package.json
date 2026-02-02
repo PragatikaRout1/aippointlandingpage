@@ -1,0 +1,25 @@
+{
+  "name": "aippoint-interview-api",
+  "version": "1.0.0",
+  "description": "API server for interview attempt tracking and email confirmation",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "interview",
+    "api",
+    "express"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^4.22.1"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "type": "commonjs"
+}
