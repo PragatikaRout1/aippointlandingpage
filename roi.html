@@ -388,51 +388,51 @@
 
             // Header
             doc.setFont('helvetica', 'bold');
-            doc.setFontSize(18);
+            doc.setFontSize(22); // Increased from 18
             doc.text('aippoint ROI Analysis Report', margin, y);
-            doc.setFontSize(10);
+            doc.setFontSize(12); // Increased from 10
             doc.setFont('helvetica', 'normal');
-            y += 20;
+            y += 30; // Increased from 20
             doc.text(`Generated on ${reportDate}`, margin, y);
 
             // Summary cards
-            y += 35;
-            const cardWidth = (pageWidth - margin * 2 - 20) / 2;
-            const cardHeight = 80;
+            y += 45; // Increased from 35
+            const cardWidth = (pageWidth - margin * 2 - 30) / 2; // Increased gap
+            const cardHeight = 90; // Increased from 80
 
             // Total Cost Saved Card
             doc.setFillColor(37, 99, 235); // primary blue
-            doc.roundedRect(margin, y, cardWidth, cardHeight, 6, 6, 'F');
+            doc.roundedRect(margin, y, cardWidth, cardHeight, 8, 8, 'F'); // Increased radius
             doc.setTextColor(255, 255, 255);
-            doc.setFontSize(10);
-            doc.text('TOTAL ANNUAL COST SAVINGS', margin + 12, y + 18);
-            doc.setFontSize(22);
+            doc.setFontSize(12); // Increased from 10
+            doc.text('TOTAL ANNUAL COST SAVINGS', margin + 15, y + 22); // Adjusted position
+            doc.setFontSize(26); // Increased from 22
             doc.setFont('helvetica', 'bold');
-            doc.text(`$${currentROIData.costSaved.toLocaleString()}`, margin + 12, y + 48);
+            doc.text(`$${currentROIData.costSaved.toLocaleString()}`, margin + 15, y + 55); // Adjusted position
 
             // Total Hours Saved Card
             doc.setFillColor(15, 23, 42); // dark
-            doc.roundedRect(margin + cardWidth + 20, y, cardWidth, cardHeight, 6, 6, 'F');
+            doc.roundedRect(margin + cardWidth + 30, y, cardWidth, cardHeight, 8, 8, 'F'); // Increased gap and radius
             doc.setTextColor(255, 255, 255);
-            doc.setFontSize(10);
+            doc.setFontSize(12); // Increased from 10
             doc.setFont('helvetica', 'normal');
-            doc.text('TOTAL ANNUAL HOURS SAVED', margin + cardWidth + 32, y + 18);
-            doc.setFontSize(22);
+            doc.text('TOTAL ANNUAL HOURS SAVED', margin + cardWidth + 45, y + 22); // Adjusted position
+            doc.setFontSize(26); // Increased from 22
             doc.setFont('helvetica', 'bold');
-            doc.text(`${currentROIData.hoursSaved.toLocaleString()} hrs`, margin + cardWidth + 32, y + 48);
+            doc.text(`${currentROIData.hoursSaved.toLocaleString()} hrs`, margin + cardWidth + 45, y + 55); // Adjusted position
 
             // Reset text color
             doc.setTextColor(30, 41, 59);
-            y += cardHeight + 40;
+            y += cardHeight + 35; // Increased from 25
 
             // Input Parameters section
             doc.setFont('helvetica', 'bold');
-            doc.setFontSize(13);
+            doc.setFontSize(16); // Increased from 13
             doc.text('Input Parameters', margin, y);
-            y += 20;
+            y += 25; // Increased from 15
 
             doc.setFont('helvetica', 'normal');
-            doc.setFontSize(10);
+            doc.setFontSize(12); // Increased from 10
 
             const paramLines = [
                 ['Annual Applications', currentROIData.applications.toLocaleString()],
@@ -445,19 +445,19 @@
             paramLines.forEach(([label, value], index) => {
                 doc.text(label, margin, y);
                 doc.text(value, pageWidth - margin - doc.getTextWidth(value), y);
-                y += 18; // Increased spacing between parameter lines
+                y += 20; // Increased from 14
             });
 
-            y += 25; // More space before calculation breakdown
+            y += 30; // Increased from 18
 
             // Calculation Breakdown
             doc.setFont('helvetica', 'bold');
-            doc.setFontSize(13);
+            doc.setFontSize(16); // Increased from 13
             doc.text('ROI Calculation Breakdown', margin, y);
-            y += 22;
+            y += 30; // Increased from 22
 
             doc.setFont('helvetica', 'normal');
-            doc.setFontSize(10);
+            doc.setFontSize(11); // Increased from 10
 
             const breakdownLines = [
                 `1. Hiring Type Multiplier: ${currentROIData.avgMultiplier}x based on selected roles`,
@@ -469,35 +469,35 @@
 
             breakdownLines.forEach((line, index) => {
                 // Check if we need a new page
-                if (y > 720) {
+                if (y > 700) { // Adjusted for larger fonts
                     doc.addPage();
                     y = margin;
                 }
                 
                 const split = doc.splitTextToSize(line, pageWidth - margin * 2);
                 doc.text(split, margin, y);
-                y += split.length * 14; // Increased line height for readability
+                y += split.length * 16; // Increased from 12 for better readability
                 
-                // Add extra spacing between calculation steps
+                // Add generous spacing between calculation steps
                 if (index < breakdownLines.length - 1) {
-                    y += 8;
+                    y += 10; // Increased from 5
                 }
             });
 
             // Footer note - position it closer to content
-            if (y > 720) {
+            if (y > 700) {
                 doc.addPage();
                 y = margin;
             }
-            y += 25; // Reduced spacing before footer
-            doc.setFontSize(9);
+            y += 25; // Increased from 12
+            doc.setFontSize(10); // Increased from 9
             doc.setTextColor(100, 116, 139);
             const footerText = 'This ROI calculation is based on your input parameters and industry benchmarks. Actual results may vary based on implementation and usage.';
             const footerLines = doc.splitTextToSize(footerText, pageWidth - margin * 2);
             doc.text(footerLines, margin, y);
             
             // Add copyright at bottom with minimal spacing
-            y += footerLines.length * 12 + 15;
+            y += footerLines.length * 12 + 8; // Increased for better spacing
             if (y < 750) { // Only add if there's reasonable space
                 doc.setFontSize(8);
                 doc.setTextColor(148, 163, 184);
