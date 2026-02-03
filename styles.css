@@ -9132,3 +9132,198 @@ give a subscribe option to catch the attention */
         padding: 14px 24px;
     }
 }
+
+/* table */
+.table-container {
+            /* max-w-[1200px]; */
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
+            background: white;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            background: white;
+        }
+
+        thead tr {
+            background: linear-gradient(to bottom, #f8fafc, #f1f5f9);
+        }
+
+        th {
+            padding: 20px 24px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: #0f172a;
+            border-bottom: 2px solid #e2e8f0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+
+        th:nth-child(3) {
+            color: #0284C7;
+        }
+
+        tbody tr {
+            transition: all 0.2s ease;
+            background: white;
+        }
+
+        tbody tr:hover {
+            background: #f8fafc;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+        }
+
+        td {
+            padding: 10px;
+            vertical-align: middle;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 0.9rem;
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Column 1: Traditional Challenge */
+        td:nth-child(1) {
+            color: #475569;
+            font-weight: 500;
+            width: 22%;
+        }
+
+        /* Column 2: What Breaks */
+        td:nth-child(2) {
+            color: #64748b;
+            width: 28%;
+            line-height: 1.6;
+        }
+
+        /* Column 3: AI Solution */
+        td:nth-child(3) {
+            color: #0284C7;
+            font-weight: 600;
+            width: 25%;
+        }
+
+        /* Column 4: Impact */
+        td:nth-child(4) {
+            width: 25%;
+            text-align: center;
+        }
+
+        .icon-text {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .material-symbols-outlined {
+            font-size: 20px;
+            color: #94a3b8;
+        }
+
+        td:nth-child(3) .material-symbols-outlined {
+            color: #0284C7;
+        }
+
+        .impact-metric {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .impact-value {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #0f172a;
+            line-height: 1;
+        }
+
+        .impact-label {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #059669;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .impact-label .material-symbols-outlined {
+            font-size: 14px;
+            color: #059669;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .setup-title {
+                font-size: 2.5rem;
+            }
+
+            th, td {
+                padding: 16px;
+                font-size: 0.85rem;
+            }
+
+            .impact-value {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .ps-section {
+                padding: 60px 16px;
+            }
+
+            .setup-title {
+                font-size: 2rem;
+            }
+
+            .setup-subtitle {
+                font-size: 1rem;
+            }
+
+            .table-wrapper {
+                border-radius: 12px;
+            }
+
+            th {
+                font-size: 0.75rem;
+                padding: 14px 12px;
+            }
+
+            td {
+                padding: 16px 12px;
+                font-size: 0.8rem;
+            }
+
+            .icon-text {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 6px;
+            }
+
+            .impact-value {
+                font-size: 1.25rem;
+            }
+
+            .impact-label {
+                font-size: 0.65rem;
+            }
+        }
+    
