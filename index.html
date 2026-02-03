@@ -994,14 +994,14 @@ document.addEventListener("keydown", (e) => {
   padding: 10px;
   margin-bottom: 10px;
   position: relative;
-  background: rgba(255,255,255,0.03);
+  background: rgba(255,255,255,0.95);
   border: 1px solid rgba(62,160,255,0.2);
   border-radius: 12px;
   transition: all 0.3s ease;
 }
 
 .step:hover {
-  background: rgba(255,255,255,0.06);
+  background: rgba(255,255,255,1);
   border-color: rgba(62,160,255,0.4);
   transform: translateY(-2px);
   box-shadow: 0 8px 25px rgba(0,0,0,0.3);
@@ -1014,16 +1014,16 @@ document.addEventListener("keydown", (e) => {
 .step-number {
   font-size: 20px;
   font-weight: 700;
-  color: #3ea0ff;
+  color: #0284C7;
   line-height: 1;
-  background: rgba(62,160,255,0.1);
+  background: rgba(62,160,255,0.2);
   width: 30px;
   height: 30px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid rgba(148, 182, 216, 0.3);
+  border: 2px solid rgba(62,160,255,0.5);
   position: relative;
   z-index: 2;
   transition: all 0.3s ease;
@@ -1047,24 +1047,24 @@ document.addEventListener("keydown", (e) => {
   font-size: 18px;
   font-weight: 600;
   margin-bottom: 8px;
-  color: #e9f1ff;
+  color: #111827;
   transition: color 0.3s ease;
 }
 
 .step:hover .step-title {
-  color: #ffffff;
+  color: #0284C7;
 }
 
 .step-desc {
   font-size: 15px;
-  color: #a8b6d8;
+  color: #4b5563;
   max-width: 320px;
   line-height: 1.6;
   transition: color 0.3s ease;
 }
 
 .step:hover .step-desc {
-  color: #c4d4e8;
+  color: #374151;
 }
 
 .tag {
@@ -1072,15 +1072,15 @@ document.addEventListener("keydown", (e) => {
   font-size: 12px;
   padding: 5px 10px;
   border-radius: 6px;
-  background: rgba(255,255,255,0.06);
-  color: #a8b6d8;
+  background: rgba(251, 146, 60, 0.1);
+  color: #fb923c;
   flex-shrink: 0;
   margin-left: 12px;
 }
 
 .tag.human {
   background: rgba(62,160,255,0.18);
-  color: #d8ebff;
+  color: #0284C7;
   font-weight: 500;
 }
 
@@ -1230,178 +1230,178 @@ document.addEventListener("keydown", (e) => {
   </div>
 
 <!-- Comparison Table Section -->
-<div class="px-4 md:px-20 lg:px-40 py-5">
-  <div class="max-w-[1100px] mx-auto flex flex-col flex-1">
-    <div class="px-4 py-3 @container">
-      <div class="overflow-hidden rounded-xl border border-[#dbdfe6] dark:border-gray-700 bg-white dark:bg-gray-900 shadow-sm">
-        <table class="w-full text-left border-collapse">
-          <thead>
-            <tr class="bg-gray-50 dark:bg-gray-800/50">
-              <th class="px-6 py-4 text-[#111318] dark:text-gray-300 text-sm font-semibold border-b border-[#dbdfe6] dark:border-gray-700 w-1/4">
-                Traditional Hiring Challenge
-              </th>
-              <th class="px-6 py-4 text-[#111318] dark:text-gray-300 text-sm font-semibold border-b border-[#dbdfe6] dark:border-gray-700 w-1/4">
-                What Breaks in Reality
-              </th>
-              <th class="px-6 py-4 text-primary dark:text-primary text-sm font-bold border-b border-[#dbdfe6] dark:border-gray-700 w-1/4">
-                How Appoint.ai Fixes It
-              </th>
-              <th class="px-6 py-4 text-[#111318] dark:text-gray-300 text-sm font-semibold border-b border-[#dbdfe6] dark:border-gray-700 w-1/4">
-                Business Impact
-              </th>
-            </tr>
-          </thead>
-          <tbody class="divide-y divide-[#dbdfe6] dark:divide-gray-800">
-            <!-- Row 1 -->
-            <tr class="hover:bg-gray-50/50 dark:hover:bg-gray-800/30 transition-colors">
-              <td class="px-6 py-5 text-[#616f89] dark:text-gray-400 text-sm align-middle">
-                <div class="flex items-center gap-2">
-                  <span class="material-symbols-outlined text-gray-400 text-lg">description</span>
-                  Fragmented notes
-                </div>
-              </td>
-              <td class="px-6 py-5 text-[#616f89] dark:text-gray-400 text-sm align-middle">Inconsistent data and lost context</td>
-              <td class="px-6 py-5 text-[#111318] dark:text-white text-sm font-semibold align-middle">
-                <div class="flex items-center gap-2 text-primary">
-                  <span class="material-symbols-outlined text-lg">account_circle</span>
-                  Unified AI Profiles
-                </div>
-              </td>
-              <td class="px-6 py-5 align-middle">
-                <div class="flex flex-col">
-                  <span class="text-xl font-bold text-[#111318] dark:text-white">30-40%</span>
-                  <span class="text-xs font-medium text-green-600 dark:text-green-400 flex items-center uppercase tracking-tight">
-                    <span class="material-symbols-outlined text-xs mr-1">trending_up</span>Faster
-                  </span>
-                </div>
-              </td>
-            </tr>
-            <!-- Row 2 -->
-            <tr class="hover:bg-gray-50/50 dark:hover:bg-gray-800/30 transition-colors">
-              <td class="px-6 py-5 text-[#616f89] dark:text-gray-400 text-sm align-middle">
-                <div class="flex items-center gap-2">
-                  <span class="material-symbols-outlined text-gray-400 text-lg">psychology_alt</span>
-                  Gut decisions
-                </div>
-              </td>
-              <td class="px-6 py-5 text-[#616f89] dark:text-gray-400 text-sm align-middle">Subjective hiring and missed talent</td>
-              <td class="px-6 py-5 text-[#111318] dark:text-white text-sm font-semibold align-middle">
-                <div class="flex items-center gap-2 text-primary">
-                  <span class="material-symbols-outlined text-lg">fact_check</span>
-                  Standardized AI Evaluations
-                </div>
-              </td>
-              <td class="px-6 py-5 align-middle">
-                <div class="flex flex-col">
-                  <span class="text-xl font-bold text-[#111318] dark:text-white">2x</span>
-                  <span class="text-xs font-medium text-green-600 dark:text-green-400 flex items-center uppercase tracking-tight">
-                    <span class="material-symbols-outlined text-xs mr-1">star</span>Stronger Quality
-                  </span>
-                </div>
-              </td>
-            </tr>
-            <!-- Row 3 -->
-            <tr class="hover:bg-gray-50/50 dark:hover:bg-gray-800/30 transition-colors">
-              <td class="px-6 py-5 text-[#616f89] dark:text-gray-400 text-sm align-middle">
-                <div class="flex items-center gap-2">
-                  <span class="material-symbols-outlined text-gray-400 text-lg">balance</span>
-                  Interviewer bias
-                </div>
-              </td>
-              <td class="px-6 py-5 text-[#616f89] dark:text-gray-400 text-sm align-middle">Unconscious patterns affect diversity</td>
-              <td class="px-6 py-5 text-[#111318] dark:text-white text-sm font-semibold align-middle">
-                <div class="flex items-center gap-2 text-primary">
-                  <span class="material-symbols-outlined text-lg">diversity_3</span>
-                  Bias-aware workflows
-                </div>
-              </td>
-              <td class="px-6 py-5 align-middle">
-                <div class="flex flex-col">
-                  <span class="text-xl font-bold text-[#111318] dark:text-white">25-35%</span>
-                  <span class="text-xs font-medium text-green-600 dark:text-green-400 flex items-center uppercase tracking-tight">
-                    <span class="material-symbols-outlined text-xs mr-1">group_add</span>Better Diversity
-                  </span>
-                </div>
-              </td>
-            </tr>
-            <!-- Row 4 -->
-            <tr class="hover:bg-gray-50/50 dark:hover:bg-gray-800/30 transition-colors">
-              <td class="px-6 py-5 text-[#616f89] dark:text-gray-400 text-sm align-middle">
-                <div class="flex items-center gap-2">
-                  <span class="material-symbols-outlined text-gray-400 text-lg">work_history</span>
-                  Recruiter overload
-                </div>
-              </td>
-              <td class="px-6 py-5 text-[#616f89] dark:text-gray-400 text-sm align-middle">Burnout and slow candidate response</td>
-              <td class="px-6 py-5 text-[#111318] dark:text-white text-sm font-semibold align-middle">
-                <div class="flex items-center gap-2 text-primary">
-                  <span class="material-symbols-outlined text-lg">settings_suggest</span>
-                  AI Orchestration
-                </div>
-              </td>
-              <td class="px-6 py-5 align-middle">
-                <div class="flex flex-col">
-                  <span class="text-xl font-bold text-[#111318] dark:text-white">20-30%</span>
-                  <span class="text-xs font-medium text-green-600 dark:text-green-400 flex items-center uppercase tracking-tight">
-                    <span class="material-symbols-outlined text-xs mr-1">savings</span>Lower Cost
-                  </span>
-                </div>
-              </td>
-            </tr>
-            <!-- Row 5 -->
-            <tr class="hover:bg-gray-50/50 dark:hover:bg-gray-800/30 transition-colors">
-              <td class="px-6 py-5 text-[#616f89] dark:text-gray-400 text-sm align-middle">
-                <div class="flex items-center gap-2">
-                  <span class="material-symbols-outlined text-gray-400 text-lg">query_stats</span>
-                  Performance prediction
-                </div>
-              </td>
-              <td class="px-6 py-5 text-[#616f89] dark:text-gray-400 text-sm align-middle">High turnover from poor fit</td>
-              <td class="px-6 py-5 text-[#111318] dark:text-white text-sm font-semibold align-middle">
-                <div class="flex items-center gap-2 text-primary">
-                  <span class="material-symbols-outlined text-lg">map</span>
-                  AI Competency Mapping
-                </div>
-              </td>
-              <td class="px-6 py-5 align-middle">
-                <div class="flex flex-col">
-                  <span class="text-xl font-bold text-[#111318] dark:text-white">25-40%</span>
-                  <span class="text-xs font-medium text-green-600 dark:text-green-400 flex items-center uppercase tracking-tight">
-                    <span class="material-symbols-outlined text-xs mr-1">handshake</span>Lower Attrition
-                  </span>
-                </div>
-              </td>
-            </tr>
-            <!-- Row 6 -->
-            <tr class="hover:bg-gray-50/50 dark:hover:bg-gray-800/30 transition-colors">
-              <td class="px-6 py-5 text-[#616f89] dark:text-gray-400 text-sm align-middle">
-                <div class="flex items-center gap-2">
-                  <span class="material-symbols-outlined text-gray-400 text-lg">timer</span>
-                  Slow decisions
-                </div>
-              </td>
-              <td class="px-6 py-5 text-[#616f89] dark:text-gray-400 text-sm align-middle">Top talent lost to competitors</td>
-              <td class="px-6 py-5 text-[#111318] dark:text-white text-sm font-semibold align-middle">
-                <div class="flex items-center gap-2 text-primary">
-                  <span class="material-symbols-outlined text-lg">dashboard</span>
-                  Shared AI Dashboards
-                </div>
-              </td>
-              <td class="px-6 py-5 align-middle">
-                <div class="flex flex-col">
-                  <span class="text-xl font-bold text-[#111318] dark:text-white">50%</span>
-                  <span class="text-xs font-medium text-green-600 dark:text-green-400 flex items-center uppercase tracking-tight">
-                    <span class="material-symbols-outlined text-xs mr-1">bolt</span>Faster Decisions
-                  </span>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-</div>
+        <div class="table-container">
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Traditional Hiring Challenge</th>
+                            <th>What Breaks in Reality</th>
+                            <th>How aippoint.ai Fixes It</th>
+                            <th>Business Impact</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Row 1 -->
+                        <tr>
+                            <td>
+                                <div class="icon-text">
+                                    <span class="material-symbols-outlined">description</span>
+                                    <span>Fragmented notes</span>
+                                </div>
+                            </td>
+                            <td>Inconsistent data and lost context</td>
+                            <td>
+                                <div class="icon-text">
+                                    <span class="material-symbols-outlined">account_circle</span>
+                                    <span>Unified AI Profiles</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="impact-metric">
+                                    <span class="impact-value">30-40%</span>
+                                    <span class="impact-label">
+                                        <span class="material-symbols-outlined">trending_up</span>
+                                        Faster
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- Row 2 -->
+                        <tr>
+                            <td>
+                                <div class="icon-text">
+                                    <span class="material-symbols-outlined">psychology_alt</span>
+                                    <span>Gut decisions</span>
+                                </div>
+                            </td>
+                            <td>Subjective hiring and missed talent</td>
+                            <td>
+                                <div class="icon-text">
+                                    <span class="material-symbols-outlined">fact_check</span>
+                                    <span>Standardized AI Evaluations</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="impact-metric">
+                                    <span class="impact-value">2x</span>
+                                    <span class="impact-label">
+                                        <span class="material-symbols-outlined">star</span>
+                                        Stronger Quality
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- Row 3 -->
+                        <tr>
+                            <td>
+                                <div class="icon-text">
+                                    <span class="material-symbols-outlined">balance</span>
+                                    <span>Interviewer bias</span>
+                                </div>
+                            </td>
+                            <td>Unconscious patterns affect diversity</td>
+                            <td>
+                                <div class="icon-text">
+                                    <span class="material-symbols-outlined">diversity_3</span>
+                                    <span>Bias-aware workflows</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="impact-metric">
+                                    <span class="impact-value">25-35%</span>
+                                    <span class="impact-label">
+                                        <span class="material-symbols-outlined">group_add</span>
+                                        Better Diversity
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- Row 4 -->
+                        <tr>
+                            <td>
+                                <div class="icon-text">
+                                    <span class="material-symbols-outlined">work_history</span>
+                                    <span>Recruiter overload</span>
+                                </div>
+                            </td>
+                            <td>Burnout and slow candidate response</td>
+                            <td>
+                                <div class="icon-text">
+                                    <span class="material-symbols-outlined">settings_suggest</span>
+                                    <span>AI Orchestration</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="impact-metric">
+                                    <span class="impact-value">20-30%</span>
+                                    <span class="impact-label">
+                                        <span class="material-symbols-outlined">savings</span>
+                                        Lower Cost
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- Row 5 -->
+                        <tr>
+                            <td>
+                                <div class="icon-text">
+                                    <span class="material-symbols-outlined">query_stats</span>
+                                    <span>Performance prediction</span>
+                                </div>
+                            </td>
+                            <td>High turnover from poor fit</td>
+                            <td>
+                                <div class="icon-text">
+                                    <span class="material-symbols-outlined">map</span>
+                                    <span>AI Competency Mapping</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="impact-metric">
+                                    <span class="impact-value">25-40%</span>
+                                    <span class="impact-label">
+                                        <span class="material-symbols-outlined">handshake</span>
+                                        Lower Attrition
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- Row 6 -->
+                        <tr>
+                            <td>
+                                <div class="icon-text">
+                                    <span class="material-symbols-outlined">timer</span>
+                                    <span>Slow decisions</span>
+                                </div>
+                            </td>
+                            <td>Top talent lost to competitors</td>
+                            <td>
+                                <div class="icon-text">
+                                    <span class="material-symbols-outlined">dashboard</span>
+                                    <span>Shared AI Dashboards</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="impact-metric">
+                                    <span class="impact-value">50%</span>
+                                    <span class="impact-label">
+                                        <span class="material-symbols-outlined">bolt</span>
+                                        Faster Decisions
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
 </section>
     <!-- Contact Section -->
     <section class="contact-section" id="contact">
