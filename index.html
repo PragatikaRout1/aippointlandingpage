@@ -64,8 +64,15 @@
                     </div>
                 </div>
                 <div class="hero-right">
-                    <img src="img/hero.png" alt="AI-Powered Hiring Platform" class="hero-image">
-                </div>
+                  <video autoplay loop muted playsinline class="hero-video">
+          <source src="img/features/landing_page_animation_2.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+                    <!-- <video autoplay loop muted playsinline class="hero-image"></video>
+                        <source src="img/features/landing_page_animation_2.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video> -->
+                </div> 
             </div>
         </div>
     </section>
@@ -233,37 +240,18 @@
 
       <!-- RIGHT IMAGE -->
       <div class="ai-features-image">
-        <video autoplay loop muted playsinline class="ai-features-video">
+                            <img src="img/howitwork/Promoting.png" alt="AI-Powered Hiring Platform" class="ai-features-image">
+
+        <!-- <video autoplay loop muted playsinline class="ai-features-video">
           <source src="img/features/landing_page_animation_2.mp4" type="video/mp4">
           Your browser does not support the video tag.
-        </video>
+        </video> -->
       </div>
 
     </div>
   </div>
 </section>
 
-<!-- FEATURE MODAL -->
-<!-- <div class="feature-modal" id="featureModal">
-  <div class="modal-backdrop"></div>
-  <div class="modal-content">
-    <button class="modal-close" aria-label="Close modal">
-      <span class="material-symbols-outlined">close</span>
-    </button>
-    <div class="modal-layout">
-      <div class="modal-text-content">
-        <h2 id="modalTitle" class="modal-title"></h2>
-        <p id="modalDesc" class="modal-description"></p>
-      </div>
-      <div class="modal-video-content">
-        <video id="modalVideo" class="modal-video" autoplay loop muted playsinline>
-          <source src="" type="video/mp4" id="modalVideoSource">
-          Your browser does not support the video tag.
-        </video>
-      </div>
-    </div>
-  </div>
-</div> -->
 
 <style>
 /* SECTION */
@@ -388,7 +376,7 @@
 .ai-features-image img,
 .ai-features-image video {
   width: 100%;
-  max-height: 600px;
+  max-height: 500px;
   /* 420px */
   object-fit: contain;
   border-radius: 18px;
@@ -821,35 +809,29 @@ document.addEventListener("keydown", (e) => {
 
         <div class="step">
           <div class="step-number">01</div>
-          <div>
+          <div class="step-content">
             <div class="step-title">Intake</div>
-            <div class="step-desc">
-              Analyzes role requirements to create structured, data-driven candidate profiles.
-            </div>
-            <span class="tag">Automated</span>
+            <div class="step-desc">Creates structured candidate profiles from role requirements.</div>
           </div>
+          <span class="tag">AI</span>
         </div>
 
         <div class="step">
           <div class="step-number">02</div>
-          <div>
+          <div class="step-content">
             <div class="step-title">Source</div>
-            <div class="step-desc">
-              Identifies qualified and passive talent using multi-channel AI signals.
-            </div>
-            <span class="tag">Automated</span>
+            <div class="step-desc">Finds qualified and passive talent across multiple channels.</div>
           </div>
+          <span class="tag">AI</span>
         </div>
 
         <div class="step">
           <div class="step-number">03</div>
-          <div>
+          <div class="step-content">
             <div class="step-title">Screen</div>
-            <div class="step-desc">
-              Reviews resumes and digital profiles to shortlist the most relevant candidates.
-            </div>
-            <span class="tag">Automated</span>
+            <div class="step-desc">Shortlists the most relevant candidates from profiles.</div>
           </div>
+          <span class="tag">AI</span>
         </div>
       </div>
 
@@ -859,35 +841,29 @@ document.addEventListener("keydown", (e) => {
 
         <div class="step">
           <div class="step-number">04</div>
-          <div>
+          <div class="step-content">
             <div class="step-title">Matching</div>
-            <div class="step-desc">
-              Scores candidates by skill alignment and role fit using consistent benchmarks.
-            </div>
-            <span class="tag">Automated</span>
+            <div class="step-desc">Scores candidates by skill match and role fit.</div>
           </div>
+          <span class="tag">AI</span>
         </div>
 
         <div class="step">
           <div class="step-number">05</div>
-          <div>
+          <div class="step-content">
             <div class="step-title">Assess</div>
-            <div class="step-desc">
-              Evaluates technical capability and behavioral traits through structured assessments.
-            </div>
-            <span class="tag">Automated</span>
+            <div class="step-desc">Assesses technical and behavioral capabilities.</div>
           </div>
+          <span class="tag">AI</span>
         </div>
 
         <div class="step">
           <div class="step-number">06</div>
-          <div>
+          <div class="step-content">
             <div class="step-title">Interview</div>
-            <div class="step-desc">
-              AI-assisted interviews capture consistent insights to support fair decision-making.
-            </div>
-            <span class="tag">Automated</span>
+            <div class="step-desc">Captures consistent interview insights using AI.</div>
           </div>
+          <span class="tag">AI</span>
         </div>
       </div>
 
@@ -897,42 +873,36 @@ document.addEventListener("keydown", (e) => {
 
         <div class="step">
           <div class="step-number">07</div>
-          <div>
+          <div class="step-content">
             <div class="step-title">Compare</div>
-            <div class="step-desc">
-              Side-by-side comparison of finalists highlights strengths and growth potential.
-            </div>
-            <span class="tag">Automated</span>
+            <div class="step-desc">Compares finalists to highlight strengths and potential.</div>
           </div>
+          <span class="tag">AI</span>
         </div>
 
         <div class="step">
           <div class="step-number">08</div>
-          <div>
+          <div class="step-content">
             <div class="step-title">Human Review</div>
-            <div class="step-desc">
-Decision insights are securely shared via APIs with ATS and HR systems for review and compliance.
-            </div>
-            <span class="tag human">API-Integrated</span>
+            <div class="step-desc">Shares decision insights via secure ATS integrations.</div>
           </div>
+          <span class="tag human">API</span>
         </div>
 
         <div class="step">
           <div class="step-number">09</div>
-          <div>
+          <div class="step-content">
             <div class="step-title">Offer</div>
-            <div class="step-desc">
-              Generates compliant, market-aligned offers designed for acceptance and retention.
-            </div>
-            <span class="tag">Automated</span>
+            <div class="step-desc">Generates compliant, market-aligned job offers.</div>
           </div>
+          <span class="tag">AI</span>
         </div>
       </div>
 
     </section>
 
     <div class="legend">
-      <span>Automated — Data-driven AI efficiency</span>
+      <span>AI — Automated Data-driven AI efficiency</span>
       <span>API-Integrated — Decision data shared across ATS & HR systems</span>
     </div>
 
@@ -952,7 +922,7 @@ Decision insights are securely shared via APIs with ATS and HR systems for revie
 .how-it-works .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 80px 24px 100px;
+  padding: 60px 24px 80px;
 }
 
 /* ---------- HEADER ---------- */
@@ -960,24 +930,24 @@ Decision insights are securely shared via APIs with ATS and HR systems for revie
   display: inline-block;
   font-size: 12px;
   letter-spacing: 0.08em;
-  padding: 6px 12px;
+  padding: 6px 10px;
   border-radius: 999px;
   background: rgba(62,160,255,0.12);
   color: #0284C7;
-  margin-bottom: 18px;
+  margin-bottom: 10px;
 }
 
 .how-it-works h1 {
   font-size: clamp(28px, 4vw, 44px);
   font-weight: 700;
-  margin: 0 0 16px;
+  margin: 0 0 10px;
   text-align: center;
   color: #e9f1ff;
 }
 
 .subtitle {
   max-width: 760px;
-  margin: 0 auto 60px;
+  margin: 0 auto 40px;
   text-align: center;
   color: #a8b6d8;
   font-size: 16px;
@@ -987,14 +957,14 @@ Decision insights are securely shared via APIs with ATS and HR systems for revie
 .workflow {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 48px;
-  margin-top: 40px;
+  gap: 28px;
+  margin-top: 20px;
 }
 
 @media (max-width: 900px) {
   .workflow {
     grid-template-columns: 1fr;
-    gap: 56px;
+    gap: 40px;
   }
 }
 
@@ -1007,7 +977,7 @@ Decision insights are securely shared via APIs with ATS and HR systems for revie
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: #0284C7;
-  margin-bottom: 28px;
+  margin-bottom: 15px;
   font-weight: 600;
   text-align: center;
 }
@@ -1018,33 +988,47 @@ Decision insights are securely shared via APIs with ATS and HR systems for revie
 
 /* ---------- STEP ---------- */
 .step {
-  display: grid;
-  grid-template-columns: 40px 1fr;
-  gap: 16px;
-  padding-bottom: 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 10px;
+  margin-bottom: 10px;
   position: relative;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(62,160,255,0.2);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.step:hover {
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(62,160,255,0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.3);
 }
 
 .step:last-child {
-  padding-bottom: 0;
+  margin-bottom: 0;
 }
 
 .step-number {
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 700;
   color: #3ea0ff;
   line-height: 1;
   background: rgba(62,160,255,0.1);
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid rgba(62,160,255,0.3);
+  border: 2px solid rgba(148, 182, 216, 0.3);
   position: relative;
   z-index: 2;
   transition: all 0.3s ease;
+  flex-shrink: 0;
+  margin-left: 16px;
 }
 
 .step:hover .step-number {
@@ -1052,6 +1036,11 @@ Decision insights are securely shared via APIs with ATS and HR systems for revie
   border-color: rgba(62,160,255,0.6);
   transform: scale(1.05);
   box-shadow: 0 0 15px rgba(62,160,255,0.4);
+}
+
+.step-content {
+  flex: 1;
+  min-width: 0;
 }
 
 .step-title {
@@ -1080,12 +1069,13 @@ Decision insights are securely shared via APIs with ATS and HR systems for revie
 
 .tag {
   display: inline-block;
-  margin-top: 10px;
   font-size: 12px;
   padding: 5px 10px;
   border-radius: 6px;
   background: rgba(255,255,255,0.06);
   color: #a8b6d8;
+  flex-shrink: 0;
+  margin-left: 12px;
 }
 
 .tag.human {
@@ -1119,283 +1109,300 @@ Decision insights are securely shared via APIs with ATS and HR systems for revie
     
     <!-- Personalized Setup Section -->
     <section class="personalized-setup" id="pricing">
-        <div class="container">
-            <div class="setup-header">
-                <h2 class="setup-title">Find the right setup for how you hire</h2>
-                <p class="setup-subtitle">Tell us about your team to get a recommended plan card.</p>
-            </div>
-            <div class="setup-form-card">
-                <div class="form-question">
-                    <label class="question-label">How many hires do you make per year?</label>
-                    <div class="option-buttons" id="hiresOptions">
-                        <button type="button" class="option-btn" data-group="hires" data-value="1-10" onclick="selectOption(this)">1–10</button>
-                        <button type="button" class="option-btn" data-group="hires" data-value="11-50" onclick="selectOption(this)">11–50</button>
-                        <button type="button" class="option-btn" data-group="hires" data-value="51-200" onclick="selectOption(this)">51–200</button>
-                        <button type="button" class="option-btn" data-group="hires" data-value="200+" onclick="selectOption(this)">200+</button>
-                    </div>
-                    <div class="validation-message" id="hiresValidation" style="display: none;"></div>
-                </div>
-                <div class="form-question">
-                    <label class="question-label">Primary hiring focus?</label>
-                    <select id="focusSelect" class="pricing-input" onchange="handleFocusChange(this)">
-                        <option value="">Select hiring focus</option>
-                        <option value="technology">Technology / Product</option>
-                        <option value="sales">Sales & Marketing</option>
-                        <option value="operations">Operations</option>
-                        <option value="customer-support">Customer Support</option>
-                        <option value="finance">Finance & Accounting</option>
-                        <option value="hr">HR & People</option>
-                        <option value="design">Design & Creative</option>
-                        <option value="other">Other</option>
-                    </select>
-                    <div class="validation-message" id="focusValidation" style="display: none;"></div>
-                </div>
-                <div class="form-question">
-                    <label class="question-label">Company name <span class="required-asterisk">*</span></label>
-                    <input type="text" id="setupCompanyName" class="pricing-input" placeholder="Your company name" />
-                    <div class="validation-message" id="companyNameValidation" style="display: none;"></div>
-                </div>
-                <div class="form-question">
-                    <label class="question-label">Country <span class="required-asterisk">*</span></label>
-                    <select id="setupCountry" class="pricing-input">
-                        <option value="">Select your country</option>
-                        <option value="US">United States</option>
-                        <option value="CA">Canada</option>
-                        <option value="GB">United Kingdom</option>
-                        <option value="AU">Australia</option>
-                        <option value="DE">Germany</option>
-                        <option value="FR">France</option>
-                        <option value="IN">India</option>
-                        <option value="SG">Singapore</option>
-                        <option value="NL">Netherlands</option>
-                        <option value="SE">Sweden</option>
-                        <option value="DK">Denmark</option>
-                        <option value="NO">Norway</option>
-                        <option value="FI">Finland</option>
-                        <option value="CH">Switzerland</option>
-                        <option value="AT">Austria</option>
-                        <option value="BE">Belgium</option>
-                        <option value="IE">Ireland</option>
-                        <option value="NZ">New Zealand</option>
-                        <option value="JP">Japan</option>
-                        <option value="KR">South Korea</option>
-                        <option value="BR">Brazil</option>
-                        <option value="MX">Mexico</option>
-                        <option value="ES">Spain</option>
-                        <option value="IT">Italy</option>
-                        <option value="PT">Portugal</option>
-                        <option value="PL">Poland</option>
-                        <option value="CZ">Czech Republic</option>
-                        <option value="GR">Greece</option>
-                        <option value="IL">Israel</option>
-                        <option value="AE">United Arab Emirates</option>
-                        <option value="SA">Saudi Arabia</option>
-                        <option value="ZA">South Africa</option>
-                        <option value="AR">Argentina</option>
-                        <option value="CL">Chile</option>
-                        <option value="CO">Colombia</option>
-                        <option value="PH">Philippines</option>
-                        <option value="MY">Malaysia</option>
-                        <option value="TH">Thailand</option>
-                        <option value="VN">Vietnam</option>
-                        <option value="ID">Indonesia</option>
-                        <option value="TW">Taiwan</option>
-                        <option value="HK">Hong Kong</option>
-                        <option value="OTHER">Other</option>
-                    </select>
-                    <div class="validation-message" id="countryValidation" style="display: none;"></div>
-                </div>
-                <div class="form-question">
-                    <label class="question-label">Work email <span class="required-asterisk">*</span></label>
-                    <input type="email" id="setupEmail" class="pricing-input" placeholder="you@company.com" />
-                    <div class="validation-message" id="emailValidation" style="display: none;"></div>
-                </div>
-                <button type="button" class="setup-cta-btn" id="setupSubmitBtn" onclick="handleSetupSubmit()">
-                   Get a Custom Plan
-                </button>
-            </div>
-            
-            <!-- Recommended Setup View (Hidden by default) -->
-            <div class="recommendation-view" id="recommendedPricingPlan" style="display: none;">
-                <div class="recommendation-header">
-                    <div class="recommendation-header-content">
-                        <h2 class="recommendation-title">Your Recommended Hiring Setup</h2>
-                        <p class="recommendation-subtitle">Based on your hiring volume and role focus.</p>
-                    </div>
-                    <button class="edit-answers-link" onclick="editAnswers()">
-                        Edit answers
-                    </button>
-                </div>
-
-                <div class="recommendation-card">
-                    <div class="setup-card-header">
-                        <h3 class="setup-card-name" id="setupCardName">Growth Setup</h3>
-                        <p class="setup-card-summary" id="setupCardSummary">Best for teams hiring regularly across technical and revenue roles.</p>
-                    </div>
-
-                    <div class="setup-content-grid">
-                        <div class="setup-details">
-                            <div class="whats-included">
-                                <h4 class="section-label">What's Included</h4>
-                                <ul class="included-features" id="includedFeatures">
-                                    <!-- Features will be populated by JavaScript -->
-                                </ul>
-                            </div>
-
-                            <div class="why-this-fits">
-                                <h4 class="section-label">Why This Fits You</h4>
-                                <p class="fit-explanation" id="fitExplanation">
-                                    <!-- Explanation will be populated by JavaScript -->
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="setup-preview">
-                            <h4 class="section-label">What You'll Get</h4>
-                            <div class="preview-card">
-                                <div class="preview-header">
-                                    <div class="preview-candidate">
-                                        <span class="preview-label">Candidate:</span>
-                                        <span class="preview-value">Sarah Chen</span>
-                                    </div>
-                                    <div class="preview-match">
-                                        <span class="match-score">94% MATCH</span>
-                                    </div>
-                                </div>
-                                <div class="preview-section">
-                                    <div class="preview-section-title">LEADERSHIP EVIDENCE</div>
-                                    <div class="preview-bar">
-                                        <div class="preview-bar-fill"></div>
-                                        <span class="preview-bar-text">Strong</span>
-                                    </div>
-                                </div>
-                                <div class="preview-recommendation">
-                                    <strong>Recommendation:</strong> Strong candidate with proven execution. Recommend moving forward.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="setup-actions">
-                        <div class="primary-action">
-                            <button class="btn btn-primary btn-large" onclick="scrollToSection('contact')">
-                                Get a tailored quote
-                            </button>
-                            <p class="action-microcopy">No commitment • Designed around your hiring process</p>
-                        </div>
-                        <div class="secondary-action">
-                            <button class="btn btn-secondary btn-large" onclick="openCalendarModal()">
-                                Book a 30-min walkthrough
-                            </button>
-                            <p class="action-microcopy">See how this would work with your team</p>
-                        </div>
-                    </div>
-
-                    <div class="trust-footer">
-                        <div class="trust-item">
-                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                <path d="M16 6L8 14L4 10" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                            <span>Works with your ATS</span>
-                        </div>
-                        <div class="trust-item">
-                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                <path d="M16 6L8 14L4 10" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                            <span>Human-led decisions</span>
-                        </div>
-                        <div class="trust-item">
-                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                <path d="M16 6L8 14L4 10" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                            <span>No black-box automation</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
- <!-- Problem/Solution Comparison Section -->
- <section class="ps-section">
   <div class="container">
 
-    <!-- HEADER -->
-    <!-- <div class="ps-header">
-      <h1></h1>
-      <p></p>
-    </div> -->
     <div class="setup-header">
-      <h2 class="setup-title">Transform Your Hiring Process</h2>
-      <p class="setup-subtitle">From chaos to clarity with <span>AI-powered intelligence</span></p>
-  </div>
-    <!-- CONTENT -->
-    <div class="ps-grid">
-
-      <!-- PROBLEM CARD -->
-      <div class="ps-card problem">
-        <div class="ps-card-header">
-          <span class="badge danger">✕</span>
-          <h3>Problem Areas</h3>
-        </div>
-
-        <ul class="ps-list">
-          <li>
-            <h4>Fragmented Notes</h4>
-            <p>Feedback scattered in Slack, emails, and notebooks.</p>
-          </li>
-          <li>
-            <h4>Subjective Opinions</h4>
-            <p>Decisions based on “culture fit” and charisma.</p>
-          </li>
-          <li>
-            <h4>Bias & Misalignment</h4>
-            <p>Stakeholders evaluate candidates using different criteria.</p>
-          </li>
-        </ul>
-
-        <img
-          src="img/Stressed office worker in a cluttered space.png"
-          alt="Hiring chaos"
-          class="card-illustration"
-        />
-      </div>
-
-      <!-- VS -->
-      <div class="ps-vs">VS</div>
-
-      <!-- SOLUTION CARD -->
-      <div class="ps-card solution">
-        <div class="ps-card-header">
-          <span class="badge success">✓</span>
-          <h3>How <span style="color: #0284C7;">aippoint</span> Works</h3>
-        </div>
-
-        <ul class="ps-list">
-          <li>
-            <h4>Unified Profiles</h4>
-            <p>AI synthesizes interviews into structured profiles.</p>
-          </li>
-          <li>
-            <h4>Standardized Evaluation</h4>
-            <p>Objective criteria ensure consistent assessments.</p>
-          </li>
-          <li>
-            <h4>Aligned Decisions</h4>
-            <p>Teams collaborate with shared, data-driven insights.</p>
-          </li>
-        </ul>
-
-        <img
-          src="img/aippointprefer.png"
-          alt="AI hiring clarity"
-          class="card-illustration"
-        />
-      </div>
-
+      <h2 class="setup-title">Find the right setup for how you hire</h2>
+      <p class="setup-subtitle">
+        Tell us about your team to get a recommended plan card.
+      </p>
     </div>
+
+    <!-- FORM START -->
+    <form
+      class="setup-form-card"
+      id="pricingForm"
+      method="POST"
+    >
+
+      <!-- REQUIRED: Web3Forms -->
+      <input type="hidden" name="access_key" value="dc9a0cba-80ff-48f3-bb4c-2a3f32355474">
+      <input type="hidden" name="subject" value="New Custom Plan Request">
+      <input type="hidden" name="from_name" value="Pricing Setup Form">
+
+      <!-- Hire Count -->
+      <div class="form-question">
+        <label class="question-label">How many hires do you make per year?</label>
+        <select name="hires_per_year" id="hiresInput" class="pricing-input">
+          <option value="">Select hiring volume</option>
+          <option value="1-10">1–10 hires per year</option>
+          <option value="11-50">11–50 hires per year</option>
+          <option value="51-200">51–200 hires per year</option>
+          <option value="200+">200+ hires per year</option>
+        </select>
+      </div>
+
+      <!-- Hiring Focus -->
+      <div class="form-question">
+        <label class="question-label">Primary hiring focus?</label>
+        <select name="hiring_focus" id="focusSelect" class="pricing-input" onchange="handleFocusChange(this)">
+          <option value="">Select hiring focus</option>
+          <option value="Technology / Product">Technology / Product</option>
+          <option value="Sales & Marketing">Sales & Marketing</option>
+          <option value="Operations">Operations</option>
+          <option value="Customer Support">Customer Support</option>
+          <option value="Finance & Accounting">Finance & Accounting</option>
+          <option value="HR & People">HR & People</option>
+          <option value="Design & Creative">Design & Creative</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+
+      <!-- Company -->
+      <div class="form-question">
+        <label class="question-label">Company name <span class="required-asterisk">*</span></label>
+        <input
+          type="text"
+          name="company"
+          id="setupCompanyName"
+          class="pricing-input"
+          placeholder="Your company name"
+          required
+        >
+      </div>
+
+      <!-- Country -->
+      <div class="form-question">
+        <label class="question-label">Country <span class="required-asterisk">*</span></label>
+        <select name="country" id="setupCountry" class="pricing-input" required>
+          <option value="">Select your country</option>
+          <option value="India">India</option>
+          <option value="United States">United States</option>
+          <option value="United Kingdom">United Kingdom</option>
+          <option value="Canada">Canada</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+
+      <!-- Email -->
+      <div class="form-question">
+        <label class="question-label">Work email <span class="required-asterisk">*</span></label>
+        <input
+          type="email"
+          name="email"
+          id="setupEmail"
+          class="pricing-input"
+          placeholder="you@company.com"
+          required
+        >
+      </div>
+
+      <!-- SUBMIT -->
+      <button type="submit" class="setup-cta-btn" id="pricingSubmitBtn">
+        <span class="btn-text">Get a Custom Plan</span>
+        <span class="btn-loading" style="display: none;">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" class="spinner">
+            <circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="2"
+              stroke-dasharray="50" stroke-dashoffset="25" stroke-linecap="round">
+              <animateTransform attributeName="transform" type="rotate" values="0 10 10;360 10 10"
+                dur="1s" repeatCount="indefinite" />
+            </circle>
+          </svg>
+        </span>
+      </button>
+
+    </form>
+    <!-- FORM END -->
+
   </div>
 </section>
 
+ <!-- Enterprise Comparison Section -->
+
+<section class="ps-section">
+  <div class="setup-header">
+    <h1 class="setup-title">
+      Traditional Hiring vs. <span class="text-primary">AI-Powered Excellence</span>
+    </h1>
+    <p class="setup-subtitle">
+      See how Appoint.ai transforms the friction of legacy recruiting into measurable business growth through advanced orchestration.
+    </p>
+  </div>
+
+<!-- Comparison Table Section -->
+<div class="px-4 md:px-20 lg:px-40 py-5">
+  <div class="max-w-[1100px] mx-auto flex flex-col flex-1">
+    <div class="px-4 py-3 @container">
+      <div class="overflow-hidden rounded-xl border border-[#dbdfe6] dark:border-gray-700 bg-white dark:bg-gray-900 shadow-sm">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="bg-gray-50 dark:bg-gray-800/50">
+              <th class="px-6 py-4 text-[#111318] dark:text-gray-300 text-sm font-semibold border-b border-[#dbdfe6] dark:border-gray-700 w-1/4">
+                Traditional Hiring Challenge
+              </th>
+              <th class="px-6 py-4 text-[#111318] dark:text-gray-300 text-sm font-semibold border-b border-[#dbdfe6] dark:border-gray-700 w-1/4">
+                What Breaks in Reality
+              </th>
+              <th class="px-6 py-4 text-primary dark:text-primary text-sm font-bold border-b border-[#dbdfe6] dark:border-gray-700 w-1/4">
+                How Appoint.ai Fixes It
+              </th>
+              <th class="px-6 py-4 text-[#111318] dark:text-gray-300 text-sm font-semibold border-b border-[#dbdfe6] dark:border-gray-700 w-1/4">
+                Business Impact
+              </th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-[#dbdfe6] dark:divide-gray-800">
+            <!-- Row 1 -->
+            <tr class="hover:bg-gray-50/50 dark:hover:bg-gray-800/30 transition-colors">
+              <td class="px-6 py-5 text-[#616f89] dark:text-gray-400 text-sm align-middle">
+                <div class="flex items-center gap-2">
+                  <span class="material-symbols-outlined text-gray-400 text-lg">description</span>
+                  Fragmented notes
+                </div>
+              </td>
+              <td class="px-6 py-5 text-[#616f89] dark:text-gray-400 text-sm align-middle">Inconsistent data and lost context</td>
+              <td class="px-6 py-5 text-[#111318] dark:text-white text-sm font-semibold align-middle">
+                <div class="flex items-center gap-2 text-primary">
+                  <span class="material-symbols-outlined text-lg">account_circle</span>
+                  Unified AI Profiles
+                </div>
+              </td>
+              <td class="px-6 py-5 align-middle">
+                <div class="flex flex-col">
+                  <span class="text-xl font-bold text-[#111318] dark:text-white">30-40%</span>
+                  <span class="text-xs font-medium text-green-600 dark:text-green-400 flex items-center uppercase tracking-tight">
+                    <span class="material-symbols-outlined text-xs mr-1">trending_up</span>Faster
+                  </span>
+                </div>
+              </td>
+            </tr>
+            <!-- Row 2 -->
+            <tr class="hover:bg-gray-50/50 dark:hover:bg-gray-800/30 transition-colors">
+              <td class="px-6 py-5 text-[#616f89] dark:text-gray-400 text-sm align-middle">
+                <div class="flex items-center gap-2">
+                  <span class="material-symbols-outlined text-gray-400 text-lg">psychology_alt</span>
+                  Gut decisions
+                </div>
+              </td>
+              <td class="px-6 py-5 text-[#616f89] dark:text-gray-400 text-sm align-middle">Subjective hiring and missed talent</td>
+              <td class="px-6 py-5 text-[#111318] dark:text-white text-sm font-semibold align-middle">
+                <div class="flex items-center gap-2 text-primary">
+                  <span class="material-symbols-outlined text-lg">fact_check</span>
+                  Standardized AI Evaluations
+                </div>
+              </td>
+              <td class="px-6 py-5 align-middle">
+                <div class="flex flex-col">
+                  <span class="text-xl font-bold text-[#111318] dark:text-white">2x</span>
+                  <span class="text-xs font-medium text-green-600 dark:text-green-400 flex items-center uppercase tracking-tight">
+                    <span class="material-symbols-outlined text-xs mr-1">star</span>Stronger Quality
+                  </span>
+                </div>
+              </td>
+            </tr>
+            <!-- Row 3 -->
+            <tr class="hover:bg-gray-50/50 dark:hover:bg-gray-800/30 transition-colors">
+              <td class="px-6 py-5 text-[#616f89] dark:text-gray-400 text-sm align-middle">
+                <div class="flex items-center gap-2">
+                  <span class="material-symbols-outlined text-gray-400 text-lg">balance</span>
+                  Interviewer bias
+                </div>
+              </td>
+              <td class="px-6 py-5 text-[#616f89] dark:text-gray-400 text-sm align-middle">Unconscious patterns affect diversity</td>
+              <td class="px-6 py-5 text-[#111318] dark:text-white text-sm font-semibold align-middle">
+                <div class="flex items-center gap-2 text-primary">
+                  <span class="material-symbols-outlined text-lg">diversity_3</span>
+                  Bias-aware workflows
+                </div>
+              </td>
+              <td class="px-6 py-5 align-middle">
+                <div class="flex flex-col">
+                  <span class="text-xl font-bold text-[#111318] dark:text-white">25-35%</span>
+                  <span class="text-xs font-medium text-green-600 dark:text-green-400 flex items-center uppercase tracking-tight">
+                    <span class="material-symbols-outlined text-xs mr-1">group_add</span>Better Diversity
+                  </span>
+                </div>
+              </td>
+            </tr>
+            <!-- Row 4 -->
+            <tr class="hover:bg-gray-50/50 dark:hover:bg-gray-800/30 transition-colors">
+              <td class="px-6 py-5 text-[#616f89] dark:text-gray-400 text-sm align-middle">
+                <div class="flex items-center gap-2">
+                  <span class="material-symbols-outlined text-gray-400 text-lg">work_history</span>
+                  Recruiter overload
+                </div>
+              </td>
+              <td class="px-6 py-5 text-[#616f89] dark:text-gray-400 text-sm align-middle">Burnout and slow candidate response</td>
+              <td class="px-6 py-5 text-[#111318] dark:text-white text-sm font-semibold align-middle">
+                <div class="flex items-center gap-2 text-primary">
+                  <span class="material-symbols-outlined text-lg">settings_suggest</span>
+                  AI Orchestration
+                </div>
+              </td>
+              <td class="px-6 py-5 align-middle">
+                <div class="flex flex-col">
+                  <span class="text-xl font-bold text-[#111318] dark:text-white">20-30%</span>
+                  <span class="text-xs font-medium text-green-600 dark:text-green-400 flex items-center uppercase tracking-tight">
+                    <span class="material-symbols-outlined text-xs mr-1">savings</span>Lower Cost
+                  </span>
+                </div>
+              </td>
+            </tr>
+            <!-- Row 5 -->
+            <tr class="hover:bg-gray-50/50 dark:hover:bg-gray-800/30 transition-colors">
+              <td class="px-6 py-5 text-[#616f89] dark:text-gray-400 text-sm align-middle">
+                <div class="flex items-center gap-2">
+                  <span class="material-symbols-outlined text-gray-400 text-lg">query_stats</span>
+                  Performance prediction
+                </div>
+              </td>
+              <td class="px-6 py-5 text-[#616f89] dark:text-gray-400 text-sm align-middle">High turnover from poor fit</td>
+              <td class="px-6 py-5 text-[#111318] dark:text-white text-sm font-semibold align-middle">
+                <div class="flex items-center gap-2 text-primary">
+                  <span class="material-symbols-outlined text-lg">map</span>
+                  AI Competency Mapping
+                </div>
+              </td>
+              <td class="px-6 py-5 align-middle">
+                <div class="flex flex-col">
+                  <span class="text-xl font-bold text-[#111318] dark:text-white">25-40%</span>
+                  <span class="text-xs font-medium text-green-600 dark:text-green-400 flex items-center uppercase tracking-tight">
+                    <span class="material-symbols-outlined text-xs mr-1">handshake</span>Lower Attrition
+                  </span>
+                </div>
+              </td>
+            </tr>
+            <!-- Row 6 -->
+            <tr class="hover:bg-gray-50/50 dark:hover:bg-gray-800/30 transition-colors">
+              <td class="px-6 py-5 text-[#616f89] dark:text-gray-400 text-sm align-middle">
+                <div class="flex items-center gap-2">
+                  <span class="material-symbols-outlined text-gray-400 text-lg">timer</span>
+                  Slow decisions
+                </div>
+              </td>
+              <td class="px-6 py-5 text-[#616f89] dark:text-gray-400 text-sm align-middle">Top talent lost to competitors</td>
+              <td class="px-6 py-5 text-[#111318] dark:text-white text-sm font-semibold align-middle">
+                <div class="flex items-center gap-2 text-primary">
+                  <span class="material-symbols-outlined text-lg">dashboard</span>
+                  Shared AI Dashboards
+                </div>
+              </td>
+              <td class="px-6 py-5 align-middle">
+                <div class="flex flex-col">
+                  <span class="text-xl font-bold text-[#111318] dark:text-white">50%</span>
+                  <span class="text-xs font-medium text-green-600 dark:text-green-400 flex items-center uppercase tracking-tight">
+                    <span class="material-symbols-outlined text-xs mr-1">bolt</span>Faster Decisions
+                  </span>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
     <!-- Contact Section -->
     <section class="contact-section" id="contact">
       <div class="container">
@@ -1417,24 +1424,24 @@ Decision insights are securely shared via APIs with ATS and HR systems for revie
                           <div class="panel-benefits">
                               <div class="benefit-item">
                                   <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                      <circle cx="10" cy="10" r="9" stroke="#0083C3" stroke-width="2" />
-                                      <path d="M6 10 L9 13 L14 7" stroke="#0083C3" stroke-width="2"
+                                      <circle cx="10" cy="10" r="9" stroke="#0284C7" stroke-width="2" />
+                                      <path d="M6 10 L9 13 L14 7" stroke="#0284C7" stroke-width="2"
                                           stroke-linecap="round" stroke-linejoin="round" />
                                   </svg>
                                   <span>30-minute personalized demo</span>
                       </div>
                               <div class="benefit-item">
                                   <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                      <circle cx="10" cy="10" r="9" stroke="#0083C3" stroke-width="2" />
-                                      <path d="M6 10 L9 13 L14 7" stroke="#0083C3" stroke-width="2"
+                                      <circle cx="10" cy="10" r="9" stroke="#0284C7" stroke-width="2" />
+                                      <path d="M6 10 L9 13 L14 7" stroke="#0284C7" stroke-width="2"
                                           stroke-linecap="round" stroke-linejoin="round" />
                       </svg>
                                   <span>See it work with your workflow</span>
                   </div>
                               <div class="benefit-item">
                                   <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                      <circle cx="10" cy="10" r="9" stroke="#0083C3" stroke-width="2" />
-                                      <path d="M6 10 L9 13 L14 7" stroke="#0083C3" stroke-width="2"
+                                      <circle cx="10" cy="10" r="9" stroke="#0284C7" stroke-width="2" />
+                                      <path d="M6 10 L9 13 L14 7" stroke="#0284C7" stroke-width="2"
                                           stroke-linecap="round" stroke-linejoin="round" />
                       </svg>
                                   <span>No commitment required</span>
@@ -1443,35 +1450,22 @@ Decision insights are securely shared via APIs with ATS and HR systems for revie
               <div class="panel-trust">
                   <a href="roi.html" class="trust-metric-link">
                       <div class="trust-metric">
-                          <div class="metric-value">60%</div>
-                          <div class="metric-label">Faster<br/>Hiring</div>
+                          <div class="metric-value" style="color: #0284C7;">60%</div>
+                          <div class="metric-label" style="color: #0284C7;font-size: x-small;">Faster Hiring</div>
                       </div>
                   </a>
               
                   <a href="roi.html" class="trust-metric-link">
                       <div class="trust-metric">
-                          <div class="metric-value">50%</div>
-                          <div class="metric-label">High<br/>Accuracy</div>
+                          <div class="metric-value" style="color: #0284C7;">50%</div>
+                          <div class="metric-label" style="color: #0284C7;font-size: x-small;">High Accuracy</div>
                       </div>
                   </a>
               
-                  <!-- <a href="roi.html" class="trust-metric-link">
-                      <div class="trust-metric">
-                          <div class="metric-value">3×</div>
-                          <div class="metric-label">More Candidates Evaluated</div>
-                      </div>
-                  </a> -->
-              
-                  <!-- <a href="roi.html" class="trust-metric-link">
-                      <div class="trust-metric">
-                          <div class="metric-value">40%</div>
-                          <div class="metric-label">Lower Cost-Per-Hire</div>
-                      </div>
-                  </a> -->
-                  <a href="roi.html" class="trust-metric-link">
+                    <a href="roi.html" class="trust-metric-link">
                   <div class="trust-metric">
-                      <div class="metric-value">40%</div>
-                      <div class="metric-label">Cost<br/>Reduction</div>
+                      <div class="metric-value" style="color: #0284C7;">40%</div>
+                      <div class="metric-label" style="color: #0284C7; font-size: x-small;">Cost Reduction</div>
                   </div></a>
               
                   <!-- <div class="trust-metric">
@@ -1490,11 +1484,68 @@ Decision insights are securely shared via APIs with ATS and HR systems for revie
                   </div>
               </div>
               <div class="contact-form-container">
+  <form
+    class="contact-form"
+    id="contactForm"
+    method="POST"
+  >
+
+    <!-- REQUIRED Web3Forms key -->
+    <input type="hidden" name="access_key" value="dc9a0cba-80ff-48f3-bb4c-2a3f32355474">
+
+    <!-- Optional but recommended -->
+    <input type="hidden" name="subject" value="New Contact Form Submission">
+    <input type="hidden" name="from_name" value="Website Contact Form">
+
+    <div class="form-group">
+      <label for="email">Email Address</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        required
+        placeholder="Enter your email address"
+      >
+    </div>
+
+    <div class="form-group">
+      <label for="company">Company Name</label>
+      <input
+        type="text"
+        id="company"
+        name="company"
+      >
+    </div>
+
+    <div class="form-group">
+      <label for="message">Message</label>
+      <textarea
+        id="message"
+        name="message"
+        rows="5"
+        required
+      ></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary btn-large" id="contactSubmitBtn">
+      <span class="btn-text">Send Message</span>
+      <span class="btn-loading" style="display: none;">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" class="spinner">
+          <circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="2"
+            stroke-dasharray="50" stroke-dashoffset="25" stroke-linecap="round">
+            <animateTransform attributeName="transform" type="rotate" values="0 10 10;360 10 10"
+              dur="1s" repeatCount="indefinite" />
+          </circle>
+        </svg>
+      </span>
+    </button>
+  </form>
+</div>
+
+              <!-- <div class="contact-form-container">
                   <form class="contact-form" id="contactForm" onsubmit="handleContactSubmit(event)">
-                      <!-- <div class="form-group">
-                          <label for="name">Full Name</label>
-                          <input type="text" id="name" name="name" required>
-                      </div> -->
+                     
+
                       <div class="form-group">
                           <label for="email">Email Address</label>
                           <input type="email" id="email" name="email" required placeholder="Enter your email address">
@@ -1509,50 +1560,100 @@ Decision insights are securely shared via APIs with ATS and HR systems for revie
                       </div>
                       <button type="submit" class="btn btn-primary btn-large">Send Message</button>
                   </form>
-              </div>
+              </div> -->
           </div>
       </div>
   </section>
 
         <!-- Subscribe Section -->
-    <section class="subscribe-section" id="subscribe">
-        <div class="container">
-            <div class="subscribe-content">
-                <div class="subscribe-icon">
-                    <span class="material-symbols-outlined">notifications_active</span>
-                </div>
-                <h2 class="subscribe-title">Stay Updated with Hiring Insights</h2>
-                <p class="subscribe-subtitle">Get the latest tips, case studies, and product updates delivered to your inbox</p>
-                <form class="subscribe-form" id="subscribeForm" onsubmit="handleSubscribeSubmit(event)">
-                    <div class="subscribe-input-wrapper">
-                        <input type="email" id="subscribeEmail" class="subscribe-input" placeholder="Enter your work email" required aria-label="Email address">
-                        <button type="submit" class="subscribe-btn">
-                            <span class="subscribe-btn-text">Subscribe</span>
-                            <span class="subscribe-btn-loading" style="display: none;">
-                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" class="spinner">
-                                    <circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="2"
-                                        stroke-dasharray="50" stroke-dashoffset="25" stroke-linecap="round">
-                                        <animateTransform attributeName="transform" type="rotate" values="0 10 10;360 10 10"
-                                            dur="1s" repeatCount="indefinite" />
-                                    </circle>
-                                </svg>
-                            </span>
-                        </button>
-                    </div>
-                    <p class="subscribe-privacy">🔒 We respect your privacy. Unsubscribe anytime.</p>
-                </form>
-                <div class="subscribe-success" id="subscribeSuccess" style="display: none;">
-                    <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-                        <circle cx="24" cy="24" r="24" fill="#0083C3" />
-                        <path d="M16 24 L22 30 L32 18" stroke="white" stroke-width="3" stroke-linecap="round"
-                            stroke-linejoin="round" />
-                    </svg>
-                    <h3>Thank you for subscribing!</h3>
-                    <p>Check your email to confirm your subscription.</p>
-                </div>
-            </div>
+   <section class="subscribe-section" id="subscribe">
+  <div class="container">
+    <div class="subscribe-content">
+
+      <div class="subscribe-icon">
+        <span class="material-symbols-outlined">notifications_active</span>
+      </div>
+
+      <h2 class="subscribe-title">Stay Updated with Hiring Insights</h2>
+      <p class="subscribe-subtitle">
+        Get the latest tips, case studies, and product updates delivered to your inbox
+      </p>
+
+      <!-- FORM START -->
+      <form
+        class="subscribe-form"
+        id="subscribeForm"
+        method="POST"
+      >
+
+        <!-- REQUIRED: Web3Forms -->
+        <input type="hidden" name="access_key" value="dc9a0cba-80ff-48f3-bb4c-2a3f32355474">
+        <input type="hidden" name="subject" value="Newsletter Subscription">
+        <input type="hidden" name="from_name" value="Website Subscribe Form">
+
+        <div class="subscribe-input-wrapper">
+          <input
+            type="email"
+            name="email"
+            id="subscribeEmail"
+            class="subscribe-input"
+            placeholder="Enter your work email"
+            required
+            aria-label="Email address"
+          >
+
+          <button type="submit" class="subscribe-btn">
+            <span class="subscribe-btn-text">Subscribe</span>
+            <span class="subscribe-btn-loading" style="display: none;">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" class="spinner">
+                <circle
+                  cx="10"
+                  cy="10"
+                  r="8"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-dasharray="50"
+                  stroke-dashoffset="25"
+                  stroke-linecap="round"
+                >
+                  <animateTransform
+                    attributeName="transform"
+                    type="rotate"
+                    values="0 10 10;360 10 10"
+                    dur="1s"
+                    repeatCount="indefinite"
+                  />
+                </circle>
+              </svg>
+            </span>
+          </button>
         </div>
-    </section>
+
+        <p class="subscribe-privacy">
+          🔒 We respect your privacy. Unsubscribe anytime.
+        </p>
+      </form>
+      <!-- FORM END -->
+
+      <!-- SUCCESS STATE (unchanged) -->
+      <div class="subscribe-success" id="subscribeSuccess" style="display: none;">
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+          <circle cx="24" cy="24" r="24" fill="#0284C7" />
+          <path
+            d="M16 24 L22 30 L32 18"
+            stroke="white"
+            stroke-width="3"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+        <h3>Thank you for subscribing!</h3>
+        <p>Check your email to confirm your subscription.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
 
     <!-- Footer loaded via components.js -->
 
@@ -1600,7 +1701,7 @@ Decision insights are securely shared via APIs with ATS and HR systems for revie
 
     <!-- Calendar Modal -->
     <div id="booking-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 9999; padding: 20px; box-sizing: border-box; align-items: center; justify-content: center;" onclick="if(event.target === this) closeBookingModal();">
-        <div style="position: relative; width: 100%; max-width: 1050px; height: 90%; max-height: 800px; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 50px rgba(0,0,0,0.3);">
+        <div style="position: relative; width: 100%; max-width: 1050px; height: 50%; max-height: 600px; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 50px rgba(0,0,0,0.3);">
             <button id="close-booking" onclick="closeBookingModal()" style="position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 28px; cursor: pointer; z-index: 10000; color: #666; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: rgba(0,0,0,0.1); transition: all 0.3s ease;" onmouseover="this.style.background='rgba(0,0,0,0.2)';" onmouseout="this.style.background='rgba(0,0,0,0.1)';">
                 &times;
             </button>
@@ -1649,7 +1750,7 @@ Decision insights are securely shared via APIs with ATS and HR systems for revie
                 <p class="exit-intent-privacy">🔒 No spam. Unsubscribe anytime.</p>
                 <div class="exit-intent-success" id="exitIntentSuccess" style="display: none;">
                     <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-                        <circle cx="24" cy="24" r="24" fill="#0083C3" />
+                        <circle cx="24" cy="24" r="24" fill="#0284C7" />
                         <path d="M16 24 L22 30 L32 18" stroke="white" stroke-width="3" stroke-linecap="round"
                             stroke-linejoin="round" />
                     </svg>
@@ -1732,10 +1833,370 @@ Decision insights are securely shared via APIs with ATS and HR systems for revie
         </div>
     </div>
 
+    <!-- Pricing Success Modal -->
+    <div class="success-modal" id="pricingSuccessModal" role="dialog" aria-modal="true" aria-labelledby="pricingSuccessModalTitle">
+        <div class="success-modal-overlay" onclick="closePricingSuccessModal()"></div>
+        <div class="success-modal-content">
+            <button class="success-modal-close" onclick="closePricingSuccessModal()" aria-label="Close modal">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            
+            <div class="success-modal-icon">
+                <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+                    <circle cx="32" cy="32" r="32" fill="#10B981" />
+                    <path
+                        d="M20 32 L28 40 L44 24"
+                        stroke="white"
+                        stroke-width="4"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    />
+                </svg>
+            </div>
+            
+            <h2 class="success-modal-title" id="pricingSuccessModalTitle">Thanks! Your custom plan is on the way</h2>
+            <p class="success-modal-description">
+                Our team is reviewing your hiring needs and will email you shortly with a recommended setup.
+            </p>
+            
+            <button type="button" class="success-modal-btn" onclick="closePricingSuccessModal()">
+                Go Back
+            </button>
+        </div>
+    </div>
+
+    <!-- Contact Success Modal -->
+    <div class="success-modal" id="contactSuccessModal" role="dialog" aria-modal="true" aria-labelledby="contactSuccessModalTitle">
+        <div class="success-modal-overlay" onclick="closeContactSuccessModal()"></div>
+        <div class="success-modal-content">
+            <button class="success-modal-close" onclick="closeContactSuccessModal()" aria-label="Close modal">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            
+            <div class="success-modal-icon">
+                <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+                    <circle cx="32" cy="32" r="32" fill="#10B981" />
+                    <path
+                        d="M20 32 L28 40 L44 24"
+                        stroke="white"
+                        stroke-width="4"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    />
+                </svg>
+            </div>
+            
+            <!-- <h2 class="success-modal-title" id="contactSuccessModalTitle">Message sent successfully!</h2> -->
+            <p class="success-modal-description">
+                Thanks for contacting us. Our team will reach out shortly.
+            </p>
+            
+            <button type="button" class="success-modal-btn" onclick="closeContactSuccessModal()">
+                Close
+            </button>
+        </div>
+    </div>
+
+    <!-- Success Modal for Newsletter Subscription -->
+    <div class="success-modal" id="successModal" role="dialog" aria-modal="true" aria-labelledby="successModalTitle">
+        <div class="success-modal-overlay" onclick="closeSuccessModal()"></div>
+        <div class="success-modal-content">
+            <button class="success-modal-close" onclick="closeSuccessModal()" aria-label="Close modal">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            
+            <div class="success-modal-icon">
+                <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+                    <circle cx="32" cy="32" r="32" fill="#10B981" />
+                    <path
+                        d="M20 32 L28 40 L44 24"
+                        stroke="white"
+                        stroke-width="4"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    />
+                </svg>
+            </div>
+            
+            <!-- <h2 class="success-modal-title" id="successModalTitle">Form submitted successfully!</h2> -->
+            <p class="success-modal-description">
+                Thank you for reaching out to us. We'll review your submission and get back to you soon.
+            </p>
+            
+            <button type="button" class="success-modal-btn" onclick="closeSuccessModal()">
+                Go Back
+            </button>
+        </div>
+    </div>
+
     <script src="components.js"></script>
     <script src="script.js?v=3"></script>
     <script>
-        // Subscribe form handler
+        // Pricing Success Modal Functions
+        function showPricingSuccessModal() {
+            const modal = document.getElementById('pricingSuccessModal');
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden'; // Prevent background scroll
+        }
+
+        function closePricingSuccessModal() {
+            const modal = document.getElementById('pricingSuccessModal');
+            modal.classList.remove('show');
+            document.body.style.overflow = ''; // Restore scroll
+        }
+
+        // Pricing form handler with Web3Forms API
+        function handlePricingSubmit(event) {
+            event.preventDefault();
+            const form = event.target;
+            const emailInput = document.getElementById('setupEmail');
+            const companyInput = document.getElementById('setupCompanyName');
+            const countryInput = document.getElementById('setupCountry');
+            const hiresInput = document.getElementById('hiresInput');
+            const focusInput = document.getElementById('focusSelect');
+            const submitButton = document.getElementById('pricingSubmitBtn');
+            const btnText = submitButton.querySelector('.btn-text');
+            const btnLoading = submitButton.querySelector('.btn-loading');
+
+            // Validate form
+            const email = emailInput.value.trim();
+            const company = companyInput.value.trim();
+            const country = countryInput.value;
+
+            if (!validateEmail(email)) {
+                emailInput.focus();
+                emailInput.style.borderColor = '#ef4444';
+                setTimeout(() => {
+                    emailInput.style.borderColor = '';
+                }, 2000);
+                return;
+            }
+
+            if (!company) {
+                companyInput.focus();
+                companyInput.style.borderColor = '#ef4444';
+                setTimeout(() => {
+                    companyInput.style.borderColor = '';
+                }, 2000);
+                return;
+            }
+
+            if (!country) {
+                countryInput.focus();
+                countryInput.style.borderColor = '#ef4444';
+                setTimeout(() => {
+                    countryInput.style.borderColor = '';
+                }, 2000);
+                return;
+            }
+
+            // Show loading state
+            btnText.style.display = 'none';
+            btnLoading.style.display = 'flex';
+            submitButton.disabled = true;
+
+            // Prepare form data for Web3Forms
+            const formData = new FormData(form);
+            
+            // Submit to Web3Forms using fetch API
+            fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Pricing form success:', data);
+                
+                // Track event if analytics function exists
+                if (typeof trackEvent === 'function') {
+                    trackEvent('pricing_submit', {
+                        email: email,
+                        company: company,
+                        country: country,
+                        hires_per_year: hiresInput.value,
+                        hiring_focus: focusInput.value,
+                        status: 'success'
+                    });
+                }
+
+                // Show success modal
+                showPricingSuccessModal();
+                
+                // Reset form
+                form.reset();
+            })
+            .catch(error => {
+                console.error('Pricing form error:', error);
+                
+                // Show error state
+                alert('Sorry, there was an error submitting your request. Please try again later.');
+                
+                // Track error if analytics function exists
+                if (typeof trackEvent === 'function') {
+                    trackEvent('pricing_submit', {
+                        email: email,
+                        company: company,
+                        country: country,
+                        status: 'error',
+                        error: error.message
+                    });
+                }
+            })
+            .finally(() => {
+                // Reset button state
+                btnText.style.display = 'inline';
+                btnLoading.style.display = 'none';
+                submitButton.disabled = false;
+            });
+        }
+
+        // Contact Success Modal Functions
+        function showContactSuccessModal() {
+            const modal = document.getElementById('contactSuccessModal');
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden'; // Prevent background scroll
+        }
+
+        function closeContactSuccessModal() {
+            const modal = document.getElementById('contactSuccessModal');
+            modal.classList.remove('show');
+            document.body.style.overflow = ''; // Restore scroll
+        }
+
+        // Contact form handler with Web3Forms API
+        function handleContactSubmit(event) {
+            event.preventDefault();
+            const form = event.target;
+            const emailInput = document.getElementById('email');
+            const companyInput = document.getElementById('company');
+            const messageInput = document.getElementById('message');
+            const submitButton = document.getElementById('contactSubmitBtn');
+            const btnText = submitButton.querySelector('.btn-text');
+            const btnLoading = submitButton.querySelector('.btn-loading');
+
+            // Validate form
+            const email = emailInput.value.trim();
+            const message = messageInput.value.trim();
+
+            if (!validateEmail(email)) {
+                emailInput.focus();
+                emailInput.style.borderColor = '#ef4444';
+                setTimeout(() => {
+                    emailInput.style.borderColor = '';
+                }, 2000);
+                return;
+            }
+
+            if (!message) {
+                messageInput.focus();
+                messageInput.style.borderColor = '#ef4444';
+                setTimeout(() => {
+                    messageInput.style.borderColor = '';
+                }, 2000);
+                return;
+            }
+
+            // Show loading state
+            btnText.style.display = 'none';
+            btnLoading.style.display = 'flex';
+            submitButton.disabled = true;
+
+            // Prepare form data for Web3Forms
+            const formData = new FormData(form);
+            
+            // Submit to Web3Forms using fetch API
+            fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Contact form success:', data);
+                
+                // Track event if analytics function exists
+                if (typeof trackEvent === 'function') {
+                    trackEvent('contact_submit', {
+                        email: email,
+                        company: companyInput.value.trim(),
+                        status: 'success'
+                    });
+                }
+
+                // Show success modal
+                showContactSuccessModal();
+                
+                // Reset form
+                form.reset();
+            })
+            .catch(error => {
+                console.error('Contact form error:', error);
+                
+                // Show error state
+                alert('Sorry, there was an error sending your message. Please try again later.');
+                
+                // Track error if analytics function exists
+                if (typeof trackEvent === 'function') {
+                    trackEvent('contact_submit', {
+                        email: email,
+                        company: companyInput.value.trim(),
+                        status: 'error',
+                        error: error.message
+                    });
+                }
+            })
+            .finally(() => {
+                // Reset button state
+                btnText.style.display = 'inline';
+                btnLoading.style.display = 'none';
+                submitButton.disabled = false;
+            });
+        }
+
+        // Success Modal Functions
+        function showSuccessModal() {
+            const modal = document.getElementById('successModal');
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden'; // Prevent background scroll
+        }
+
+        function closeSuccessModal() {
+            const modal = document.getElementById('successModal');
+            modal.classList.remove('show');
+            document.body.style.overflow = ''; // Restore scroll
+        }
+
+        // Email validation helper
+        function validateEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        // Enhanced Subscribe form handler with Web3Forms API
         function handleSubscribeSubmit(event) {
             event.preventDefault();
             const form = event.target;
@@ -1743,7 +2204,6 @@ Decision insights are securely shared via APIs with ATS and HR systems for revie
             const submitButton = form.querySelector('.subscribe-btn');
             const btnText = submitButton.querySelector('.subscribe-btn-text');
             const btnLoading = submitButton.querySelector('.subscribe-btn-loading');
-            const successDiv = document.getElementById('subscribeSuccess');
             const email = emailInput.value.trim();
 
             // Validate email
@@ -1761,74 +2221,209 @@ Decision insights are securely shared via APIs with ATS and HR systems for revie
             btnLoading.style.display = 'flex';
             submitButton.disabled = true;
 
-            // Simulate API call (replace with actual API endpoint)
-            setTimeout(() => {
-                // Log email (replace with actual API call)
-                console.log('Subscribe email captured:', email);
+            // Prepare form data for Web3Forms
+            const formData = new FormData(form);
+            
+            // Submit to Web3Forms using fetch API
+            fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Success:', data);
                 
-                // Track event
+                // Track event if analytics function exists
                 if (typeof trackEvent === 'function') {
                     trackEvent('subscribe_submit', {
-                        email: email
+                        email: email,
+                        status: 'success'
                     });
                 }
 
-                // Hide form, show success
-                form.style.display = 'none';
-                if (successDiv) {
-                    successDiv.style.display = 'block';
-                }
+                // Show success modal
+                showSuccessModal();
                 
+                // Reset form
+                form.reset();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                
+                // Show error state
+                emailInput.style.borderColor = '#ef4444';
+                emailInput.placeholder = 'Submission failed. Please try again.';
+                
+                // Track error if analytics function exists
+                if (typeof trackEvent === 'function') {
+                    trackEvent('subscribe_submit', {
+                        email: email,
+                        status: 'error',
+                        error: error.message
+                    });
+                }
+            })
+            .finally(() => {
                 // Reset button state
                 btnText.style.display = 'inline';
                 btnLoading.style.display = 'none';
                 submitButton.disabled = false;
-
-                // Optional: Reset form after 5 seconds
+                
+                // Clear any error styling after 3 seconds
                 setTimeout(() => {
-                    form.style.display = 'block';
-                    if (successDiv) {
-                        successDiv.style.display = 'none';
-                    }
-                    form.reset();
-                }, 5000);
-            }, 1500);
+                    emailInput.style.borderColor = '';
+                    emailInput.placeholder = 'Enter your work email';
+                }, 3000);
+            });
         }
-    
-   
-   </script>
-    <style>
-        /* Calendar Modal Styles */
-        #booking-modal {
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-        }
-        
-        #booking-modal[style*="display: flex"] {
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        /* Make the modal responsive */
-        @media (max-width: 768px) {
-            #booking-modal > div {
-                width: 95% !important;
-                height: 95% !important;
-                margin: 10px auto !important;
+
+        function handlePricingSubmit(event) {
+            event.preventDefault();
+            const form = event.target;
+            const emailInput = document.getElementById('pricingEmail');
+            const submitButton = form.querySelector('.pricing-btn');
+            const btnText = submitButton.querySelector('.pricing-btn-text');
+            const btnLoading = submitButton.querySelector('.pricing-btn-loading');
+            const email = emailInput.value.trim();
+
+            // Validate email
+            if (!validateEmail(email)) {
+                emailInput.focus();
+                emailInput.style.borderColor = '#ef4444';
+                setTimeout(() => {
+                    emailInput.style.borderColor = '';
+                }, 2000);
+                return;
             }
+
+            // Show loading state
+            btnText.style.display = 'none';
+            btnLoading.style.display = 'flex';
+            submitButton.disabled = true;
+
+            // Prepare form data for Web3Forms
+            const formData = new FormData(form);
             
-            #my-cal-inline-30-min-meeting {
-                min-height: 500px;
+            // Submit to Web3Forms using fetch API
+            fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Success:', data);
+                
+                // Track event if analytics function exists
+                if (typeof trackEvent === 'function') {
+                    trackEvent('pricing_submit', {
+                        email: email,
+                        status: 'success'
+                    });
+                }
+
+                // Show success modal
+                showPricingSuccessModal();
+                
+                // Reset form
+                form.reset();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                
+                // Show error state
+                emailInput.style.borderColor = '#ef4444';
+                emailInput.placeholder = 'Submission failed. Please try again.';
+                
+                // Track error if analytics function exists
+                if (typeof trackEvent === 'function') {
+                    trackEvent('pricing_submit', {
+                        email: email,
+                        status: 'error',
+                        error: error.message
+                    });
+                }
+            })
+            .finally(() => {
+                // Reset button state
+                btnText.style.display = 'inline';
+                btnLoading.style.display = 'none';
+                submitButton.disabled = false;
+                
+                // Clear any error styling after 3 seconds
+                setTimeout(() => {
+                    emailInput.style.borderColor = '';
+                    emailInput.placeholder = 'Enter your work email';
+                }, 3000);
+            });
+        }
+
+        // Add event listeners when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Subscribe form
+            const subscribeForm = document.getElementById('subscribeForm');
+            if (subscribeForm) {
+                subscribeForm.addEventListener('submit', handleSubscribeSubmit);
             }
-        }
-        
-        /* Ensure the calendar is properly contained */
-        #my-cal-inline-30-min-meeting {
-            border: none;
-            min-height: 600px;
-        }
-    </style>
+
+            // Contact form
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', handleContactSubmit);
+            }
+
+            // Pricing form
+            const pricingForm = document.getElementById('pricingForm');
+            if (pricingForm) {
+                pricingForm.addEventListener('submit', handlePricingSubmit);
+            }
+        });
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeSuccessModal();
+                closeContactSuccessModal();
+                closePricingSuccessModal();
+            }
+        });
+
+        // Close modal when clicking outside (overlay)
+        document.addEventListener('click', function(event) {
+            // Newsletter success modal
+            const successModal = document.getElementById('successModal');
+            if (event.target === successModal || event.target.classList.contains('success-modal-overlay')) {
+                closeSuccessModal();
+            }
+
+            // Contact success modal
+            const contactSuccessModal = document.getElementById('contactSuccessModal');
+            if (event.target === contactSuccessModal || event.target.classList.contains('success-modal-overlay')) {
+                closeContactSuccessModal();
+            }
+
+            // Pricing success modal
+            const pricingSuccessModal = document.getElementById('pricingSuccessModal');
+            if (event.target === pricingSuccessModal || event.target.classList.contains('success-modal-overlay')) {
+                closePricingSuccessModal();
+            }
+        });
+    </script>
     
     <!-- Floating Chatbot Button -->
     <button class="floating-chatbot-btn" id="floatingChatbotBtn" aria-label="Open chatbot" onclick="openProactiveChatbot()">
@@ -1907,7 +2502,7 @@ Decision insights are securely shared via APIs with ATS and HR systems for revie
 
     .proactive-chatbot-header {
         padding: 24px;
-        background: linear-gradient(135deg, #0083C3 0%, #006ba3 100%);
+        background: linear-gradient(135deg, #0284C7 0%, #0284C7 100%);
         color: white;
         display: flex;
         justify-content: space-between;
@@ -2020,9 +2615,9 @@ Decision insights are securely shared via APIs with ATS and HR systems for revie
     }
 
     .proactive-chatbot-action-btn:hover {
-        background: #0083C3;
+        background: #0284C7;
         color: white;
-        border-color: #0083C3;
+        border-color: #0284C7;
         transform: translateX(4px);
         box-shadow: 0 4px 12px rgba(0, 131, 195, 0.2);
     }
@@ -2047,7 +2642,7 @@ Decision insights are securely shared via APIs with ATS and HR systems for revie
         right: 24px;
         width: 64px;
         height: 64px;
-        background: #0083C3;
+        background: #0284C7;
         border: none;
         border-radius: 50%;
         display: flex;
@@ -2062,7 +2657,7 @@ Decision insights are securely shared via APIs with ATS and HR systems for revie
     .floating-chatbot-btn:hover {
         transform: scale(1.1);
         box-shadow: 0 6px 24px rgba(0, 131, 195, 0.5);
-        background: #006ba3;
+        background: #0284C7;
     }
 
     .floating-chatbot-btn:active {
