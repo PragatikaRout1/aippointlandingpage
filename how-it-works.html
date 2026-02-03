@@ -18,7 +18,7 @@
         theme: {
           extend: {
             colors: {
-              "primary": "#0083C3",
+              "primary": "#0284C7",
               "background-light": "#f6f7f8",
               "background-dark": "#101922",
             },
@@ -35,6 +35,8 @@
         body { 
             font-family: 'Inter', sans-serif; 
             font-weight: 400;
+            background: #f8fafc;
+            color: #1e293b;
         }
         h1, h2, h3, h4, h5, h6 {
             font-family: 'Work Sans', sans-serif;
@@ -45,538 +47,246 @@
         h2, h3 {
             font-weight: 600;
         }
-        .sticky-nav-active { border-bottom: 2px solid #0083C3; color: #0083C3; }
+        .sticky-nav-active { border-bottom: 2px solid #0284C7; color: #0284C7; }
         
-        /* Workflow Steps Dark Theme */
-        .workflow-steps-section {
+        /* Horizontal Workflow Timeline */
+        .workflow-timeline-section {
+            padding: 10px 24px;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
             font-family: 'Inter', sans-serif;
         }
         
-        .workflow-step-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 14px;
-            padding: 32px;
-            margin-bottom: 24px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 32px;
-            align-items: center;
-            transition: all 0.3s ease;
+        .workflow-timeline-container {
+            max-width: 1200px;
+            margin: 0 auto;
         }
         
-        .workflow-step-card:hover {
-            transform: translateY(-2px);
-            background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(0, 212, 255, 0.4);
-        }
-        
-        .step-content {
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            padding-bottom: 50px;
-        }
-        
-        .step-no {
-            font-size: 0.75rem;
-            color: rgba(255, 255, 255, 0.4);
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-        
-        .step-title {
-            font-size: 2rem;
-            font-weight: 700;
-            color: white;
-            margin: 12px 0 16px;
-        }
-        
-        .step-description {
-            font-size: 1rem;
-            color: rgba(255, 255, 255, 0.7);
-            line-height: 1.6;
-            margin-bottom: 16px;
-        }
-        
-        .step-features {
-            list-style: none;
-            padding: 0;
-            margin: 16px 0;
-        }
-        
-        .step-features li {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 12px;
-            font-size: 0.9rem;
-            text-decoration: none !important;
-        }
-        
-        .step-features li a,
-        .step-features li span,
-        .step-features li * {
-            text-decoration: none !important;
-            color: inherit;
-        }
-        
-        .step-features li a:hover,
-        .step-features li:hover {
-            text-decoration: none !important;
-        }
-        
-        .step-features li .material-icons {
-            color: #0083C3;
-            font-size: 20px;
-        }
-        
-        .badge {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            background: #0083C3;
-            color: #001018;
-            font-size: 0.7rem;
-            font-weight: 700;
-            padding: 4px 10px;
-            border-radius: 10px;
-        }
-        
-        .step-image {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .image-container-dark {
-            width: 100%;
-            height: 300px;
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-        
-        .step-image-content {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 12px;
-        }
-        
-        .dark-theme-placeholder {
+        .workflow-header {
             text-align: center;
-            color: rgba(255, 255, 255, 0.5);
+            margin-bottom: 30px;
         }
         
-        /* Resume Screening Preview */
-        .resume-screening-preview {
-            width: 100%;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-        
-        .resume-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 16px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-        }
-        
-        .resume-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-        }
-        
-        .resume-info {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-        
-        .resume-line {
-            height: 8px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 4px;
-            width: 60%;
-        }
-        
-        .resume-line.short {
-            width: 40%;
-            height: 6px;
-        }
-        
-        .match-score {
-            font-size: 0.75rem;
+        .workflow-title {
+            font-size: clamp(28px, 4vw, 36px);
             font-weight: 700;
-            padding: 4px 12px;
-            border-radius: 6px;
-        }
-        
-        .match-score.high {
-            background: rgba(34, 197, 94, 0.2);
-            color: #22c55e;
-        }
-        
-        .match-score.medium {
-            background: rgba(0, 131, 195, 0.2);
-            color: #0083C3;
-        }
-        
-        /* Match Metrics */
-        .match-metrics {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            margin: 16px 0;
-        }
-        
-        @media (max-width: 768px) {
-            .match-metrics {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        .metric-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            padding: 16px;
-            min-width: 0;
-            flex: 1;
-        }
-        
-        .metric-label {
-            display: block;
-            font-size: 0.7rem;
-            color: rgba(255, 255, 255, 0.6);
-            font-weight: 600;
-            text-transform: uppercase;
-            margin-bottom: 8px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        
-        .metric-value {
-            display: block;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: white;
-        }
-        
-        /* Match Visualization */
-        .match-visualization {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: flex-end;
-            justify-content: center;
-            gap: 20px;
-            padding: 20px;
-        }
-        
-        .match-chart {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            height: 100%;
-        }
-        
-        .chart-bar {
-            width: 100%;
-            border-radius: 8px 8px 0 0;
-            display: flex;
-            align-items: flex-start;
-            justify-content: center;
-            padding-top: 8px;
-            position: relative;
-            min-height: 40px;
-        }
-        
-        .chart-label {
-            color: white;
-            font-size: 0.85rem;
-            font-weight: 700;
-            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-        }
-        
-        .chart-label-bottom {
-            margin-top: 8px;
-            font-size: 0.75rem;
-            color: rgba(255, 255, 255, 0.7);
-            font-weight: 600;
-        }
-        
-        /* Assessment Preview */
-        .assessment-preview {
-            width: 100%;
-            height: 100%;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-        
-        .assessment-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            padding: 16px;
-        }
-        
-        .assessment-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
+            color: #0f172a;
             margin-bottom: 12px;
+            line-height: 1.2;
         }
         
-        .assessment-icon {
-            font-size: 24px;
+        .workflow-subtitle {
+            font-size: 16px;
+            color: #64748b;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.5;
         }
         
-        .assessment-title {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: white;
-        }
-        
-        .assessment-progress {
+        /* Horizontal Timeline */
+        .workflow-timeline {
+            position: relative;
             display: flex;
-            align-items: center;
-            gap: 12px;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 20px 0;
+            overflow-x: auto;
+            overflow-y: visible;
         }
         
-        .progress-bar {
-            flex: 1;
-            height: 8px;
-            background: linear-gradient(90deg, #0083C3, #006ba3);
-            border-radius: 4px;
+        .workflow-timeline::before {
+            content: '';
+            position: absolute;
+            top: 65px;
+            left: 40px;
+            right: 40px;
+            height: 2px;
+            background: linear-gradient(90deg, #0284C7, #0ea5e9, #0284c7);
+            z-index: 1;
         }
         
-        .progress-text {
-            font-size: 0.75rem;
-            color: rgba(255, 255, 255, 0.7);
-            font-weight: 600;
+        /* Workflow Step Card */
+        .workflow-step {
+            flex: 0 0 200px;
+            background: white;
+            border-radius: 10px;
+            padding: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 2;
         }
         
-        /* Interview Preview */
-        .interview-preview {
-            width: 100%;
-            height: 100%;
-            padding: 20px;
+        .workflow-step:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 131, 195, 0.1);
+            border-color: #0284C7;
+        }
+        
+        .step-number {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #0284C7, #0ea5e9);
+            color: white;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            margin: 0 auto 4px;
+            box-shadow: 0 2px 8px rgba(0, 131, 195, 0.2);
+            position: relative;
         }
         
-        .video-frame {
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
-        
-        .video-header {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 12px;
-            background: rgba(0, 0, 0, 0.3);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .recording-indicator {
-            width: 8px;
-            height: 8px;
-            background: #ef4444;
+        .step-number::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
+            background: rgba(0, 131, 195, 0.06);
+            z-index: -1;
             animation: pulse 2s infinite;
         }
         
-        .video-status {
-            font-size: 0.75rem;
-            color: rgba(255, 255, 255, 0.8);
+        @keyframes pulse {
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+            50% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.7; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        }
+        
+        .step-title {
+            font-size: 14px;
             font-weight: 600;
+            color: #0f172a;
+            margin-bottom: 4px;
+            text-align: center;
         }
         
-        .video-content {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: rgba(255, 255, 255, 0.3);
+        .step-description {
+            font-size: 14px;
+            color: #000;
+            line-height: 1.3;
+            text-align: center;
+            margin-bottom: 6px;
         }
         
-        .video-footer {
-            padding: 12px;
-            background: rgba(0, 0, 0, 0.3);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            display: flex;
-            justify-content: center;
-        }
-        
-        .timer {
-            font-family: 'Courier New', monospace;
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.8);
-            font-weight: 600;
-        }
-        
-        /* Compare Preview */
-        .compare-preview {
-            width: 100%;
-            height: 100%;
-            padding: 20px;
-        }
-        
-        .compare-candidates {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-            height: 100%;
-        }
-        
-        .candidate-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        .step-badge {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            display: inline-block;
+            padding: 2px 6px;
             border-radius: 8px;
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-        
-        .candidate-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        
-        .candidate-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-        }
-        
-        .candidate-name {
-            font-size: 0.9rem;
+            font-size: 8px;
             font-weight: 600;
+            text-align: center;
+            white-space: nowrap;
+        }
+        
+        .step-badge.ai {
+            background: linear-gradient(135deg, #0284C7, #0ea5e9);
             color: white;
         }
         
-        .candidate-scores {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
+        .step-badge.api {
+            background: linear-gradient(135deg, #10b981, #34d399);
+            color: white;
         }
         
-        .score-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8px 12px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 6px;
-        }
-        
-        .score-label {
-            font-size: 0.75rem;
-            color: rgba(255, 255, 255, 0.7);
+        /* Phase Labels */
+        .phase-label {
+            text-align: center;
+            font-size: 12px;
             font-weight: 600;
+            color: #0284C7;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 20px;
+            position: relative;
         }
         
-        .score-value {
-            font-size: 0.9rem;
-            font-weight: 700;
-            color: #0083C3;
+        .phase-label::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 2px;
+            background: linear-gradient(90deg, #0284C7, #0ea5e9);
+            border-radius: 2px;
         }
         
-        .score-value.pass {
-            color: #22c55e;
+        /* Legend */
+        .workflow-legend {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+            padding: 16px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 6px rgba(0, 0, 0, 0.04);
         }
         
-        .video-indicator {
+        .legend-item {
             display: flex;
             align-items: center;
             gap: 6px;
-            font-size: 0.75rem;
-            color: rgba(255, 255, 255, 0.7);
-            margin-top: auto;
-            padding-top: 8px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 12px;
+            color: #64748b;
         }
         
-        .video-indicator .material-icons {
-            font-size: 16px;
-            color: #0083C3;
+        .legend-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
         }
         
-        /* Responsive */
-        @media (max-width: 968px) {
-            .workflow-step-card {
-                grid-template-columns: 1fr;
-                gap: 24px;
-            }
-            
-            .step-image {
-                order: -1;
-            }
-            
-            .image-container-dark {
-                height: 250px;
+        .legend-dot.ai {
+            background: linear-gradient(135deg, #0284C7, #0ea5e9);
+        }
+        
+        .legend-dot.api {
+            background: linear-gradient(135deg, #10b981, #34d399);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .workflow-step {
+                flex: 0 0 180px;
             }
         }
         
         @media (max-width: 768px) {
-            .workflow-steps-section {
-                padding: 50px 20px;
+            .workflow-timeline-section {
+                padding: 30px 20px;
             }
             
-            .workflow-step-card {
-                padding: 24px;
+            .workflow-timeline::before {
+                display: none;
             }
             
-            .step-title {
-                font-size: 1.5rem;
-            }
-            
-            .step-description {
-                font-size: 0.9rem;
-            }
-            
-            .compare-candidates {
-                grid-template-columns: 1fr;
-            }
-            
-            .match-visualization {
+            .workflow-timeline {
                 flex-direction: column;
                 align-items: center;
                 gap: 16px;
             }
             
-            .match-chart {
-                width: 100%;
+            .workflow-step {
+                flex: 1 1 100%;
+                max-width: 300px;
+            }
+            
+            .workflow-legend {
+                flex-direction: column;
+                gap: 12px;
             }
         }
     </style>
@@ -584,430 +294,375 @@
 <body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-body transition-colors duration-300">
     <!-- Navigation loaded via components.js -->
 
-<section class="pt-16 pb-20 px-6" style="margin-top: 80px;">
+<section class="pt-26 pb-20 px-6" style="margin-top: 60px;">
 <div class="max-w-4xl mx-auto text-center mb-12">
 <h1 class="text-5xl md:text-6xl font-bold mb-6 tracking-tight text-slate-900 dark:text-white">How <img src="img/aippoint logo 1.png" alt="Aippoint" class="inline-block h-12 md:h-16 align-middle" style="vertical-align: middle;"> Works</h1>
-<p class="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
+<p class="text-xl  width-full " style="color: #64748b;">
                 From job intake to signed offer, our platform streamlines every phase of the hiring lifecycle with precision-engineered AI and human oversight.
             </p>
 </div>
-<div class="max-w-6xl mx-auto relative flex justify-center">
-<div class="aspect-[21/9] max-h-[600px] w-full bg-white dark:bg-slate-900 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 flex items-center justify-center relative group shadow-2xl">
-<video
-  class="absolute inset-0 w-full h-full object-cover"
-  autoplay
-  muted
-  loop
-  playsinline
-  controls
->
-    <source src="img/howitwork\Video Project 1.mp4" type="video/mp4">
-
-</video>
-
+<div class="max-w-6xl mx-auto">
+  <video
+    class="w-full max-h-[420px] object-contain"
+    autoplay
+    muted
+    loop
+    playsinline
+    controls
+  >
+    <source src="img/howitwork/howitworks.mp4" type="video/mp4">
+  </video>
+  <p class="text-xl  width-full " style="color: #64748b; text-align: center;">
+                From job intake to signed offer, our platform streamlines every phase of the hiring lifecycle with precision-engineered AI and human oversight.
+            </p>
 </div>
-</div>
+
 </section>
-<!-- Steps 1-7: Unified Dark Theme -->
-<section class="py-20 bg-gradient-to-br from-slate-50 via-white to-blue-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 relative overflow-hidden">
-  <!-- Background Elements -->
-  <div class="absolute inset-0 opacity-5">
-    <div class="absolute top-10 left-10 w-72 h-72 bg-primary rounded-full blur-3xl"></div>
-    <div class="absolute bottom-10 right-10 w-96 h-96 bg-blue-500 rounded-full blur-3xl"></div>
-  </div>
-  
-  <div class="max-w-7xl mx-auto px-6 relative z-10">
+<!-- Horizontal Workflow Timeline -->
+  <section class="how-it-works">
+  <div class="container">
 
-    <!-- Section Header -->
-    <div class="text-center mb-16">
-      <div class="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-semibold mb-6">
-        <span class="material-symbols-outlined text-lg">auto_awesome</span>
-        AI-Powered Workflow
-      </div>
-      <h2 class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-slate-900 to-slate-600 dark:from-white dark:to-slate-300 bg-clip-text text-transparent mb-6">
-        End-to-End Hiring Workflow
-      </h2>
-      <p class="text-lg text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed">
-        Our AI-powered platform transforms hiring through <span class="font-semibold text-primary">8 intelligent steps</span> that deliver exceptional results
+    <div style="text-align:center;">
+      <!-- <span class="badge">REFINING RECRUITMENT</span> -->
+      <h1 class="setup-title">Intelligent Workflow</h1>
+      <p class="setup-subtitle" style="color: #fff;">
+       Transform your recruitment funnel from manual job intake to automated, data-driven hiring decisions with our end-to-end AI engine.
       </p>
     </div>
 
-    <!-- Workflow Steps -->
-    <div class="relative">
-      <!-- Connection Line -->
-      <div class="hidden lg:block absolute top-1/2 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-primary/20 to-transparent -translate-y-1/2"></div>
-      
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
-        <!-- Step 1: Intake -->
-        <div class="group relative">
-          <div class="absolute -inset-1 bg-gradient-to-r from-primary/20 to-blue-500/20 rounded-2xl blur opacity-0 group-hover:opacity-75 transition duration-300"></div>
-          <div class="relative bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
-            <!-- Step Number -->
-            <div class="absolute -top-3 -right-3 w-8 h-8 bg-gradient-to-r from-primary to-blue-500 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg">
-              1
-            </div>
-            
-            <!-- Icon -->
-            <div class="w-14 h-14 mx-auto mb-4 bg-gradient-to-br from-primary/10 to-blue-500/10 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
-              <span class="material-symbols-outlined text-primary text-2xl">description</span>
-            </div>
-            
-            <!-- Content -->
-            <div class="text-center">
-              <h3 class="font-bold text-lg text-slate-900 dark:text-white mb-2">Intake</h3>
-              <div class="inline-flex items-center gap-1 text-xs font-bold bg-primary/10 text-primary px-3 py-1 rounded-full mb-3">
-                <span class="material-symbols-outlined text-xs">smart_toy</span>
-                AI-Powered
-              </div>
-              <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                AI analyzes job requirements and creates comprehensive hiring blueprint
-              </p>
-            </div>
+    <section class="workflow">
+
+      <!-- TALENT DISCOVERY -->
+      <div class="column">
+        <div class="column-title">🔍 Talent Discovery</div>
+
+        <div class="step">
+          <div class="step-number">01</div>
+          <div class="step-content">
+            <div class="step-title">Intake</div>
+            <div class="step-desc">Creates structured candidate profiles from role requirements.</div>
           </div>
+          <span class="tag">AI</span>
         </div>
 
-        <!-- Step 2: Source -->
-        <div class="group relative">
-          <div class="absolute -inset-1 bg-gradient-to-r from-primary/20 to-blue-500/20 rounded-2xl blur opacity-0 group-hover:opacity-75 transition duration-300"></div>
-          <div class="relative bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
-            <div class="absolute -top-3 -right-3 w-8 h-8 bg-gradient-to-r from-primary to-blue-500 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg">
-              2
-            </div>
-            
-            <div class="w-14 h-14 mx-auto mb-4 bg-gradient-to-br from-primary/10 to-blue-500/10 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
-              <span class="material-symbols-outlined text-primary text-2xl">search</span>
-            </div>
-            
-            <div class="text-center">
-              <h3 class="font-bold text-lg text-slate-900 dark:text-white mb-2">Source</h3>
-              <div class="inline-flex items-center gap-1 text-xs font-bold bg-primary/10 text-primary px-3 py-1 rounded-full mb-3">
-                <span class="material-symbols-outlined text-xs">smart_toy</span>
-                AI-Powered
-              </div>
-              <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                Identifies qualified candidates across multiple platforms automatically
-              </p>
-            </div>
+        <div class="step">
+          <div class="step-number">02</div>
+          <div class="step-content">
+            <div class="step-title">Source</div>
+            <div class="step-desc">Finds qualified and passive talent across multiple channels.</div>
           </div>
+          <span class="tag">AI</span>
         </div>
 
-        <!-- Step 3: Screen -->
-        <div class="group relative">
-          <div class="absolute -inset-1 bg-gradient-to-r from-primary/20 to-blue-500/20 rounded-2xl blur opacity-0 group-hover:opacity-75 transition duration-300"></div>
-          <div class="relative bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
-            <div class="absolute -top-3 -right-3 w-8 h-8 bg-gradient-to-r from-primary to-blue-500 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg">
-              3
-            </div>
-            
-            <div class="w-14 h-14 mx-auto mb-4 bg-gradient-to-br from-primary/10 to-blue-500/10 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
-              <span class="material-symbols-outlined text-primary text-2xl">filter_list</span>
-            </div>
-            
-            <div class="text-center">
-              <h3 class="font-bold text-lg text-slate-900 dark:text-white mb-2">Screen</h3>
-              <div class="inline-flex items-center gap-1 text-xs font-bold bg-primary/10 text-primary px-3 py-1 rounded-full mb-3">
-                <span class="material-symbols-outlined text-xs">smart_toy</span>
-                AI-Powered
-              </div>
-              <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                Reviews resumes and profiles for relevance and skills with precision
-              </p>
-            </div>
+        <div class="step">
+          <div class="step-number">03</div>
+          <div class="step-content">
+            <div class="step-title">Screen</div>
+            <div class="step-desc">Shortlists the most relevant candidates from profiles.</div>
           </div>
-        </div>
-
-        <!-- Step 4: Match -->
-        <div class="group relative">
-          <div class="absolute -inset-1 bg-gradient-to-r from-primary/20 to-blue-500/20 rounded-2xl blur opacity-0 group-hover:opacity-75 transition duration-300"></div>
-          <div class="relative bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
-            <div class="absolute -top-3 -right-3 w-8 h-8 bg-gradient-to-r from-primary to-blue-500 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg">
-              4
-            </div>
-            
-            <div class="w-14 h-14 mx-auto mb-4 bg-gradient-to-br from-primary/10 to-blue-500/10 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
-              <span class="material-symbols-outlined text-primary text-2xl">handshake</span>
-            </div>
-            
-            <div class="text-center">
-              <h3 class="font-bold text-lg text-slate-900 dark:text-white mb-2">Match</h3>
-              <div class="inline-flex items-center gap-1 text-xs font-bold bg-primary/10 text-primary px-3 py-1 rounded-full mb-3">
-                <span class="material-symbols-outlined text-xs">smart_toy</span>
-                AI-Powered
-              </div>
-              <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                Multidimensional scoring across skills and experience metrics
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Step 5: Evaluate -->
-        <div class="group relative">
-          <div class="absolute -inset-1 bg-gradient-to-r from-primary/20 to-blue-500/20 rounded-2xl blur opacity-0 group-hover:opacity-75 transition duration-300"></div>
-          <div class="relative bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
-            <div class="absolute -top-3 -right-3 w-8 h-8 bg-gradient-to-r from-primary to-blue-500 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg">
-              5
-            </div>
-            
-            <div class="w-14 h-14 mx-auto mb-4 bg-gradient-to-br from-primary/10 to-blue-500/10 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
-              <span class="material-symbols-outlined text-primary text-2xl">assessment</span>
-            </div>
-            
-            <div class="text-center">
-              <h3 class="font-bold text-lg text-slate-900 dark:text-white mb-2">Evaluate</h3>
-              <div class="inline-flex items-center gap-1 text-xs font-bold bg-primary/10 text-primary px-3 py-1 rounded-full mb-3">
-                <span class="material-symbols-outlined text-xs">smart_toy</span>
-                AI-Powered
-              </div>
-              <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                Structured assessments and AI-powered interview evaluations
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Step 6: Compare -->
-        <div class="group relative">
-          <div class="absolute -inset-1 bg-gradient-to-r from-primary/20 to-blue-500/20 rounded-2xl blur opacity-0 group-hover:opacity-75 transition duration-300"></div>
-          <div class="relative bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
-            <div class="absolute -top-3 -right-3 w-8 h-8 bg-gradient-to-r from-primary to-blue-500 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg">
-              6
-            </div>
-            
-            <div class="w-14 h-14 mx-auto mb-4 bg-gradient-to-br from-primary/10 to-blue-500/10 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
-              <span class="material-symbols-outlined text-primary text-2xl">compare</span>
-            </div>
-            
-            <div class="text-center">
-              <h3 class="font-bold text-lg text-slate-900 dark:text-white mb-2">Compare</h3>
-              <div class="inline-flex items-center gap-1 text-xs font-bold bg-primary/10 text-primary px-3 py-1 rounded-full mb-3">
-                <span class="material-symbols-outlined text-xs">smart_toy</span>
-                AI-Powered
-              </div>
-              <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                Side-by-side candidate comparisons with intelligent insights
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Step 7: Decide -->
-        <div class="group relative">
-          <div class="absolute -inset-1 bg-gradient-to-r from-primary/20 to-blue-500/20 rounded-2xl blur opacity-0 group-hover:opacity-75 transition duration-300"></div>
-          <div class="relative bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
-            <div class="absolute -top-3 -right-3 w-8 h-8 bg-gradient-to-r from-primary to-blue-500 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg">
-              7
-            </div>
-            
-            <div class="w-14 h-14 mx-auto mb-4 bg-gradient-to-br from-primary/10 to-blue-500/10 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
-              <span class="material-symbols-outlined text-primary text-2xl">gavel</span>
-            </div>
-            
-            <div class="text-center">
-              <h3 class="font-bold text-lg text-slate-900 dark:text-white mb-2">Decide</h3>
-              <div class="inline-flex items-center gap-1 text-xs font-bold bg-primary/10 text-primary px-3 py-1 rounded-full mb-3">
-                <span class="material-symbols-outlined text-xs">smart_toy</span>
-                AI-Powered
-              </div>
-              <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                Data-driven hiring decisions with AI recommendations
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Step 8: Onboard -->
-        <div class="group relative">
-          <div class="absolute -inset-1 bg-gradient-to-r from-primary/20 to-blue-500/20 rounded-2xl blur opacity-0 group-hover:opacity-75 transition duration-300"></div>
-          <div class="relative bg-gradient-to-br from-primary/5 to-blue-500/5 dark:from-primary/10 dark:to-blue-500/10 rounded-2xl border border-primary/20 dark:border-primary/30 p-6 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
-            <div class="absolute -top-3 -right-3 w-8 h-8 bg-gradient-to-r from-primary to-blue-500 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg">
-              8
-            </div>
-            
-            <div class="w-14 h-14 mx-auto mb-4 bg-gradient-to-br from-primary to-blue-500 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
-              <span class="material-symbols-outlined text-white text-2xl">rocket_launch</span>
-            </div>
-            
-            <div class="text-center">
-              <h3 class="font-bold text-lg text-slate-900 dark:text-white mb-2">Onboard</h3>
-              <div class="inline-flex items-center gap-1 text-xs font-bold bg-gradient-to-r from-primary/20 to-blue-500/20 text-primary px-3 py-1 rounded-full mb-3">
-                <span class="material-symbols-outlined text-xs">stars</span>
-                Complete
-              </div>
-              <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                Seamless integration and automated onboarding workflows
-              </p>
-            </div>
-          </div>
+          <span class="tag">AI</span>
         </div>
       </div>
+
+      <!-- EVALUATION -->
+      <div class="column">
+        <div class="column-title">🧠 Evaluation</div>
+
+        <div class="step">
+          <div class="step-number">04</div>
+          <div class="step-content">
+            <div class="step-title">Matching</div>
+            <div class="step-desc">Scores candidates by skill match and role fit.</div>
+          </div>
+          <span class="tag">AI</span>
+        </div>
+
+        <div class="step">
+          <div class="step-number">05</div>
+          <div class="step-content">
+            <div class="step-title">Assess</div>
+            <div class="step-desc">Assesses technical and behavioral capabilities.</div>
+          </div>
+          <span class="tag">AI</span>
+        </div>
+
+        <div class="step">
+          <div class="step-number">06</div>
+          <div class="step-content">
+            <div class="step-title">Interview</div>
+            <div class="step-desc">Captures consistent interview insights using AI.</div>
+          </div>
+          <span class="tag">AI</span>
+        </div>
+      </div>
+
+      <!-- OFFER & DECISION -->
+      <div class="column">
+        <div class="column-title">🤝 Offer & Decision</div>
+
+        <div class="step">
+          <div class="step-number">07</div>
+          <div class="step-content">
+            <div class="step-title">Compare</div>
+            <div class="step-desc">Compares finalists to highlight strengths and potential.</div>
+          </div>
+          <span class="tag">AI</span>
+        </div>
+
+        <div class="step">
+          <div class="step-number">08</div>
+          <div class="step-content">
+            <div class="step-title">Human Review</div>
+            <div class="step-desc">Shares decision insights via secure ATS integrations.</div>
+          </div>
+          <span class="tag human">API</span>
+        </div>
+
+        <div class="step">
+          <div class="step-number">09</div>
+          <div class="step-content">
+            <div class="step-title">Offer</div>
+            <div class="step-desc">Generates compliant, market-aligned job offers.</div>
+          </div>
+          <span class="tag">AI</span>
+        </div>
+      </div>
+
+    </section>
+
+    <div class="legend">
+      <span>AI — Automated Data-driven AI efficiency</span>
+      <span>API-Integrated — Decision data shared across ATS & HR systems</span>
     </div>
 
-    <!-- Bottom CTA -->
-    <div class="text-center mt-16">
-      <div class="inline-flex items-center gap-4 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-2xl border border-slate-200 dark:border-slate-700 p-6 shadow-xl">
-        <div class="text-left">
-          <h4 class="font-bold text-slate-900 dark:text-white mb-1">Ready to transform your hiring?</h4>
-          <p class="text-sm text-slate-600 dark:text-slate-400">Join 500+ companies using AI to hire better</p>
+  </div>
+</section>
+
+<style>
+/* ---------- HOW IT WORKS SECTION ---------- */
+.how-it-works {
+  margin: 0;
+  padding: 0;
+  background: radial-gradient(1200px 600px at 50% -10%, #0d2c6c, #050b1d);
+  color: #e9f1ff;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+.how-it-works .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 24px 80px;
+}
+
+/* ---------- HEADER ---------- */
+.badge {
+  display: inline-block;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(62,160,255,0.12);
+  color: #0284C7;
+  margin-bottom: 10px;
+}
+
+.how-it-works h1 {
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 700;
+  margin: 0 0 10px;
+  text-align: center;
+  color: #e9f1ff;
+}
+
+.subtitle {
+  max-width: 760px;
+  margin: 0 auto 40px;
+  text-align: center;
+  color: #a8b6d8;
+  font-size: 16px;
+}
+
+/* ---------- GRID ---------- */
+.workflow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  margin-top: 20px;
+}
+
+@media (max-width: 900px) {
+  .workflow {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+/* ---------- COLUMN ---------- */
+.column-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #0284C7;
+  margin-bottom: 15px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.column {
+  position: relative;
+}
+
+/* ---------- STEP ---------- */
+.step {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 10px;
+  margin-bottom: 10px;
+  position: relative;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(62,160,255,0.2);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.step:hover {
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(62,160,255,0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+}
+
+.step:last-child {
+  margin-bottom: 0;
+}
+
+.step-number {
+  font-size: 20px;
+  font-weight: 700;
+  color: #3ea0ff;
+  line-height: 1;
+  background: rgba(62,160,255,0.1);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid rgba(148, 182, 216, 0.3);
+  position: relative;
+  z-index: 2;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  margin-left: 16px;
+}
+
+.step:hover .step-number {
+  background: rgba(62,160,255,0.2);
+  border-color: rgba(62,160,255,0.6);
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(62,160,255,0.4);
+}
+
+.step-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.step-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #e9f1ff;
+  transition: color 0.3s ease;
+}
+
+.step:hover .step-title {
+  color: #ffffff;
+}
+
+.step-desc {
+  font-size: 15px;
+  color: #a8b6d8;
+  max-width: 320px;
+  line-height: 1.6;
+  transition: color 0.3s ease;
+}
+
+.step:hover .step-desc {
+  color: #c4d4e8;
+}
+
+.tag {
+  display: inline-block;
+  font-size: 12px;
+  padding: 5px 10px;
+  border-radius: 6px;
+  background: rgba(255,255,255,0.06);
+  color: #a8b6d8;
+  flex-shrink: 0;
+  margin-left: 12px;
+}
+
+.tag.human {
+  background: rgba(62,160,255,0.18);
+  color: #d8ebff;
+  font-weight: 500;
+}
+
+/* ---------- LEGEND ---------- */
+.legend {
+  display: flex;
+  justify-content: center;
+  gap: 28px;
+  margin-top: 15px;
+  font-size: 13px;
+  color: #a8b6d8;
+  flex-wrap: wrap;
+}
+
+.legend span::before {
+  content: "•";
+  margin-right: 8px;
+  color: #3ea0ff;
+}
+</style>
+<!-- Metrics Section -->
+<section class="metrics-section">
+  <div class="px-4 md:px-20 lg:px-40 pb-20 pt-8">
+    <div class="max-w-[960px] mx-auto">
+      <div class="flex flex-wrap justify-center gap-6 p-8 bg-white dark:bg-gray-900 rounded-2xl border border-[#dbdfe6] dark:border-gray-700 shadow-sm">
+        <div class="flex min-w-[200px] flex-1 flex-col items-center gap-2 text-center border-r border-gray-100 dark:border-gray-800 last:border-r-0 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg p-4 transition-all duration-300" onclick="window.location.href='roi.html'">
+          <div class="bg-primary/10 p-2 rounded-full mb-2">
+            <span class="material-symbols-outlined text-primary">check_circle</span>
+          </div>
+          <p class="text-[#616f89] dark:text-gray-400 text-sm font-medium leading-normal">Faster Cycles</p>
+          <p class="text-primary tracking-tight text-3xl font-bold leading-tight">40%</p>
+          <p class="text-green-600 dark:text-green-400 text-sm font-bold leading-normal">+40% Efficiency</p>
         </div>
-        <a href="index.html#contact" class="bg-gradient-to-r from-primary to-blue-500 text-white px-6 py-3 rounded-xl font-semibold hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-          Get Started
-        </a>
+        <div class="flex min-w-[200px] flex-1 flex-col items-center gap-2 text-center border-r border-gray-100 dark:border-gray-800 last:border-r-0 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg p-4 transition-all duration-300" onclick="window.location.href='roi.html'">
+          <div class="bg-primary/10 p-2 rounded-full mb-2">
+            <span class="material-symbols-outlined text-primary">check_circle</span>
+          </div>
+          <p class="text-[#616f89] dark:text-gray-400 text-sm font-medium leading-normal">Lower Costs</p>
+          <p class="text-primary tracking-tight text-3xl font-bold leading-tight">30%</p>
+          <p class="text-red-500 text-sm font-bold leading-normal">-30% Spending</p>
+        </div>
+        <div class="flex min-w-[200px] flex-1 flex-col items-center gap-2 text-center border-r border-gray-100 dark:border-gray-800 last:border-r-0 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg p-4 transition-all duration-300" onclick="window.location.href='roi.html'">
+          <div class="bg-primary/10 p-2 rounded-full mb-2">
+            <span class="material-symbols-outlined text-primary">check_circle</span>
+          </div>
+          <p class="text-[#616f89] dark:text-gray-400 text-sm font-medium leading-normal">Retention Boost</p>
+          <p class="text-primary tracking-tight text-3xl font-bold leading-tight">25%</p>
+          <p class="text-green-600 dark:text-green-400 text-sm font-bold leading-normal">+25% Longevity</p>
+        </div>
       </div>
     </div>
   </div>
 </section>
-
-<!-- Final CTA -->
-<!-- <section class="how-it-works-cta-section">
-    <div class="how-it-works-cta-container">
-        <div class="how-it-works-cta-content">
-            <h2 class="how-it-works-cta-title">Ready to Transform Your Hiring Process?</h2>
-            <p class="how-it-works-cta-subtitle">
-                Join 500+ forward-thinking companies already using <span style="color: #0083C3;">aipponi</span> to build world-class teams.
-            </p>
-            <div class="how-it-works-cta-buttons">
-                <a href="index.html#contact" class="how-it-works-cta-btn how-it-works-cta-btn-primary">
-                    Try aiipoint Free
-                    <span class="material-symbols-outlined">arrow_forward</span>
-                </a>
-                <a href="javascript:void(0)" onclick="window.openCalendarModal && openCalendarModal()" class="how-it-works-cta-btn how-it-works-cta-btn-secondary">
-                    Book a Demo
-                </a>
-            </div>
-        </div>
-    </div>
-</section> -->
-
-<style>
-    .how-it-works-cta-section {
-        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-        padding: 20px 24px;
-        margin-top: 30px;
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .how-it-works-cta-section::before {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 800px;
-        height: 400px;
-        background: rgba(0, 131, 195, 0.1);
-        border-radius: 50%;
-        filter: blur(100px);
-        z-index: 0;
-    }
-    
-    .how-it-works-cta-container {
-        max-width: 1200px;
-        margin: 0 auto;
-        position: relative;
-        z-index: 1;
-    }
-    
-    .how-it-works-cta-content {
-        text-align: center;
-        max-width: 700px;
-        margin: 0 auto;
-    }
-    
-    .how-it-works-cta-title {
-        font-size: clamp(32px, 5vw, 48px);
-        font-weight: 700;
-        color: #0f172a;
-        margin-bottom: 20px;
-        line-height: 1.2;
-    }
-    
-    .how-it-works-cta-subtitle {
-        font-size: clamp(16px, 2vw, 18px);
-        color: #475569;
-        margin-bottom: 40px;
-        line-height: 1.6;
-    }
-    
-    .how-it-works-cta-logo {
-        height: 24px;
-        width: auto;
-        vertical-align: middle;
-        margin: 0 4px;
-    }
-    
-    .how-it-works-cta-buttons {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 16px;
-        justify-content: center;
-        align-items: center;
-    }
-    
-    .how-it-works-cta-btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        padding: 14px 32px;
-        font-size: 16px;
-        font-weight: 600;
-        border-radius: 12px;
-        text-decoration: none;
-        transition: all 0.3s ease;
-        white-space: nowrap;
-    }
-    
-    .how-it-works-cta-btn-primary {
-        background: #0083C3;
-        color: white;
-        box-shadow: 0 4px 12px rgba(0, 131, 195, 0.3);
-    }
-    
-    .how-it-works-cta-btn-primary:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(0, 131, 195, 0.4);
-        background: #006ba3;
-    }
-    
-    .how-it-works-cta-btn-secondary {
-        background: white;
-        color: #0f172a;
-        border: 2px solid #e2e8f0;
-    }
-    
-    .how-it-works-cta-btn-secondary:hover {
-        background: #f8fafc;
-        border-color: #cbd5e1;
-    }
-    
-    .how-it-works-cta-btn-logo {
-        height: 20px;
-        width: auto;
-        vertical-align: middle;
-    }
-    
-    .how-it-works-cta-btn .material-symbols-outlined {
-        font-size: 20px;
-    }
-    
-    @media (max-width: 768px) {
-        .how-it-works-cta-section {
-            padding: 60px 20px;
-        }
-        
-        .how-it-works-cta-buttons {
-            flex-direction: column;
-            width: 100%;
-        }
-        
-        .how-it-works-cta-btn {
-            width: 100%;
-            max-width: 300px;
-        }
-    }
-</style>
 
     <!-- Footer loaded via components.js -->
 

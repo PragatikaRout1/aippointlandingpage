@@ -1037,7 +1037,7 @@ function handleContactSubmit(event) {
     const email = formData.get('email');
     const message = formData.get('message');
     
-    // Send email to hr@aippoint.ai
+    // Send email to pragatika.r@iosyssoftware.com
     fetch('http://127.0.0.1:3000/api/send-contact-email', {
         method: 'POST',
         headers: {
@@ -2553,7 +2553,7 @@ function getFeatureDarkVisual(type) {
                 <div class="feature-dark-visual-score">
                     <svg class="feature-dark-score-ring" width="128" height="128" viewBox="0 0 128 128">
                         <circle cx="64" cy="64" r="50" fill="transparent" stroke="currentColor" stroke-width="8" class="feature-dark-score-track"/>
-                        <circle cx="64" cy="64" r="50" fill="transparent" stroke="#0083C3" stroke-width="8" 
+                        <circle cx="64" cy="64" r="50" fill="transparent" stroke="#0284C7" stroke-width="8" 
                                 stroke-dasharray="314" stroke-dashoffset="19" transform="rotate(-90 64 64)" class="feature-dark-score-fill"/>
                     </svg>
                     <div class="feature-dark-score-text">
@@ -2746,7 +2746,7 @@ function updateStepperDetailPanel(stepIndex) {
                     <div class="stepper-score-ring">
                         <svg class="stepper-score-svg" width="192" height="192" viewBox="0 0 192 192">
                             <circle cx="96" cy="96" r="90" fill="transparent" stroke="rgba(255,255,255,0.1)" stroke-width="12"/>
-                            <circle cx="96" cy="96" r="90" fill="transparent" stroke="#0083C3" stroke-width="12" 
+                            <circle cx="96" cy="96" r="90" fill="transparent" stroke="#0284C7" stroke-width="12" 
                                     stroke-dasharray="565" stroke-dashoffset="34" transform="rotate(-90 96 96)"/>
                         </svg>
                         <div class="stepper-score-content">

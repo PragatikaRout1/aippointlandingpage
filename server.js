@@ -1,4 +1,5 @@
-// Express server for interview API endpoints
+// Express server for AI Interview platform
+// Production-ready Node.js + Express server
 // Run with: node server.js
 
 const express = require('express');
@@ -12,364 +13,361 @@ const PORT = process.env.PORT || 3000;
 // Middleware
 app.use(cors());
 app.use(express.json());
-app.use(express.static('.')); // Serve static files
+app.use(express.static('.')); // Serve static files from root directory
 
-// Storage file path
-const STORAGE_FILE = path.join(__dirname, 'interview-attempts.json');
+// Storage file paths
+const ATTEMPTS_FILE = path.join(__dirname, 'interview-attempts.json');
+const FEEDBACK_FILE = path.join(__dirname, 'interview-feedback.json');
 
-// In-memory store (loaded from file)
+// In-memory stores (loaded from files)
 let attemptsStore = new Map();
+let feedbackStore = [];
 
-// Load attempts from file on startup
+// Configuration
+const MAX_ATTEMPTS = 3;
+
+// Utility functions
+function normalizeEmail(email) {
+    return email ? email.toLowerCase().trim() : '';
+}
+
+function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+}
+
+function logAttempt(action, email, details = {}) {
+    console.log(`[${new Date().toISOString()}] ${action.toUpperCase()}: ${email}`, details);
+}
+
+// Load data from files on startup
 async function loadAttempts() {
     try {
-        const data = await fs.readFile(STORAGE_FILE, 'utf8');
+        const data = await fs.readFile(ATTEMPTS_FILE, 'utf8');
         const parsed = JSON.parse(data);
         attemptsStore = new Map(Object.entries(parsed));
-        console.log('Loaded interview attempts from file');
+        console.log(`✅ Loaded interview attempts from ${ATTEMPTS_FILE}`);
+        console.log(`📊 Active users: ${attemptsStore.size}`);
     } catch (error) {
         if (error.code === 'ENOENT') {
-            console.log('No existing attempts file, starting fresh');
+            console.log(`ℹ️  No existing attempts file, starting fresh`);
+            attemptsStore = new Map();
         } else {
-            console.error('Error loading attempts:', error);
+            console.error(`❌ Error loading attempts file:`, error);
+            attemptsStore = new Map();
         }
     }
 }
 
-// Save attempts to file
-async function saveAttempts() {
+async function loadFeedback() {
     try {
-        const data = Object.fromEntries(attemptsStore);
-        await fs.writeFile(STORAGE_FILE, JSON.stringify(data, null, 2));
+        const data = await fs.readFile(FEEDBACK_FILE, 'utf8');
+        feedbackStore = JSON.parse(data);
+        console.log(`✅ Loaded interview feedback from ${FEEDBACK_FILE}`);
+        console.log(`📝 Total feedback entries: ${feedbackStore.length}`);
     } catch (error) {
-        console.error('Error saving attempts:', error);
+        if (error.code === 'ENOENT') {
+            console.log(`ℹ️  No existing feedback file, starting fresh`);
+            feedbackStore = [];
+        } else {
+            console.error(`❌ Error loading feedback file:`, error);
+            feedbackStore = [];
+        }
     }
 }
 
-// Interview Attempts API
+// Save data to files
+async function saveAttempts() {
+    try {
+        const data = Object.fromEntries(attemptsStore);
+        await fs.writeFile(ATTEMPTS_FILE, JSON.stringify(data, null, 2));
+    } catch (error) {
+        console.error(`❌ Error saving attempts file:`, error);
+    }
+}
+
+async function saveFeedback() {
+    try {
+        await fs.writeFile(FEEDBACK_FILE, JSON.stringify(feedbackStore, null, 2));
+    } catch (error) {
+        console.error(`❌ Error saving feedback file:`, error);
+    }
+}
+
+// ==========================================================
+// FEATURE 1: INTERVIEW ATTEMPT LIMIT (CRITICAL)
+// ==========================================================
 app.post('/api/interview-attempts/check', async (req, res) => {
     try {
         const { email, action } = req.body;
 
-        // Validate email format
-        if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-            return res.status(400).json({ error: 'Invalid email format' });
+        // Validate input
+        if (!email || !action) {
+            return res.status(400).json({
+                error: 'Email and action are required'
+            });
         }
 
-        const normalizedEmail = email.toLowerCase().trim();
+        if (!isValidEmail(email)) {
+            return res.status(400).json({
+                error: 'Invalid email format'
+            });
+        }
 
-        // Get current attempt count
-        const currentAttempts = attemptsStore.get(normalizedEmail) || {
+        if (!['check', 'increment'].includes(action)) {
+            return res.status(400).json({
+                error: 'Action must be "check" or "increment"'
+            });
+        }
+
+        const normalizedEmail = normalizeEmail(email);
+        const existingData = attemptsStore.get(normalizedEmail) || {
             count: 0,
             attempts: []
         };
 
+        const isDisabled = existingData.count >= MAX_ATTEMPTS;
+
         if (action === 'check') {
-            // Check if user can start interview
-            const canStart = currentAttempts.count < 3;
-            return res.status(200).json({
+            const canStart = existingData.count < MAX_ATTEMPTS;
+            
+            logAttempt('check', normalizedEmail, {
+                currentAttempts: existingData.count,
                 canStart,
-                attempts: currentAttempts.count,
-                maxAttempts: 3,
-                message: canStart 
-                    ? null 
-                    : 'You have reached the maximum number of interview attempts for this email address.'
+                disabled: isDisabled
+            });
+
+            return res.json({
+                canStart,
+                attempts: existingData.count,
+                maxAttempts: MAX_ATTEMPTS,
+                disabled: isDisabled,
+                message: isDisabled ? 'Interview limit reached' : null
             });
         }
 
         if (action === 'increment') {
-            // Increment attempt count
-            const newCount = currentAttempts.count + 1;
-            
-            if (newCount > 3) {
+            if (existingData.count >= MAX_ATTEMPTS) {
+                logAttempt('blocked', normalizedEmail, {
+                    currentAttempts: existingData.count,
+                    reason: 'Limit reached'
+                });
+
                 return res.status(403).json({
-                    error: 'Maximum attempts reached',
-                    attempts: currentAttempts.count,
-                    maxAttempts: 3
+                    error: 'Interview limit reached',
+                    attempts: existingData.count,
+                    maxAttempts: MAX_ATTEMPTS,
+                    disabled: true
                 });
             }
 
-            // Log attempt
-            const attemptLog = {
+            // Increment attempt
+            existingData.count += 1;
+            const newAttempt = {
                 email: normalizedEmail,
                 timestamp: new Date().toISOString(),
-                attemptNumber: newCount
+                attemptNumber: existingData.count
             };
 
-            attemptsStore.set(normalizedEmail, {
-                count: newCount,
-                attempts: [...currentAttempts.attempts, attemptLog]
-            });
+            existingData.attempts.push(newAttempt);
+            attemptsStore.set(normalizedEmail, existingData);
 
-            // Save to file
+            // Persist immediately
             await saveAttempts();
 
-            // Log server-side for audit
-            console.log('[INTERVIEW ATTEMPT]', JSON.stringify({
-                email: normalizedEmail,
-                attemptCount: newCount,
-                timestamp: attemptLog.timestamp,
-                status: 'started'
-            }));
+            logAttempt('increment', normalizedEmail, {
+                newCount: existingData.count,
+                attemptNumber: newAttempt.attemptNumber
+            });
 
-            return res.status(200).json({
+            const isNowDisabled = existingData.count >= MAX_ATTEMPTS;
+
+            return res.json({
                 success: true,
-                attempts: newCount,
-                maxAttempts: 3
+                attempts: existingData.count,
+                maxAttempts: MAX_ATTEMPTS,
+                disabled: isNowDisabled,
+                attemptNumber: newAttempt.attemptNumber,
+                timestamp: newAttempt.timestamp
             });
         }
 
-        return res.status(400).json({ error: 'Invalid action' });
     } catch (error) {
-        console.error('[API ERROR]', error);
-        return res.status(500).json({ error: 'Internal server error' });
+        console.error(`❌ Error in interview attempts check:`, error);
+        return res.status(500).json({
+            error: 'Internal server error'
+        });
     }
 });
 
-// Contact Form Email API
-app.post('/api/send-contact-email', async (req, res) => {
+// ==========================================================
+// FEATURE 3: INTERVIEW FEEDBACK API (NO EMAIL)
+// ==========================================================
+app.post('/api/interview-feedback', async (req, res) => {
     try {
-        const { name, email, company, message, formType, formData } = req.body;
+        const {
+            email,
+            candidateName,
+            role,
+            duration,
+            questions,
+            scores,
+            submittedAt
+        } = req.body;
 
-        // Email service configuration
-        const EMAIL_SERVICE = {
-            apiKey: process.env.RESEND_API_KEY,
-            fromEmail: process.env.FROM_EMAIL || 'noreply@aippoint.ai',
-            apiUrl: 'https://api.resend.com/emails'
+        // Validate required fields
+        if (!email || !candidateName || !role) {
+            return res.status(400).json({
+                error: 'Email, candidateName, and role are required'
+            });
+        }
+
+        if (!isValidEmail(email)) {
+            return res.status(400).json({
+                error: 'Invalid email format'
+            });
+        }
+
+        if (!Array.isArray(questions) || questions.length === 0) {
+            return res.status(400).json({
+                error: 'Questions array is required and cannot be empty'
+            });
+        }
+
+        if (!scores || typeof scores !== 'object') {
+            return res.status(400).json({
+                error: 'Scores object is required'
+            });
+        }
+
+        // Create feedback entry
+        const feedbackEntry = {
+            id: `feedback_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+            email: normalizeEmail(email),
+            candidateName,
+            role,
+            duration: duration || null,
+            questions: questions.map(q => ({
+                question: q.question || '',
+                answer: q.answer || ''
+            })),
+            scores: {
+                communication: scores.communication || 0,
+                technical: scores.technical || 0,
+                confidence: scores.confidence || 0,
+                overall: scores.overall || 0
+            },
+            submittedAt: submittedAt || new Date().toISOString(),
+            serverTimestamp: new Date().toISOString()
         };
 
-        // Create email content based on form type
-        let emailSubject = '';
-        let emailContent = '';
+        // Add to feedback store
+        feedbackStore.push(feedbackEntry);
 
-        if (formType === 'pricing') {
-            emailSubject = 'New Pricing Inquiry - AI Interview Platform';
-            emailContent = `
-                <h2>New Pricing Form Submission</h2>
-                <p><strong>Name:</strong> ${name || 'N/A'}</p>
-                <p><strong>Email:</strong> ${email}</p>
-                <p><strong>Company:</strong> ${company || 'N/A'}</p>
-                <p><strong>Hires per year:</strong> ${formData?.hires || 'N/A'}</p>
-                <p><strong>Primary focus:</strong> ${formData?.focus || 'N/A'}</p>
-                <p><strong>Country:</strong> ${formData?.country || 'N/A'}</p>
-                <p><strong>Message:</strong> ${message || 'No additional message'}</p>
-                <hr>
-                <p><em>Submitted on: ${new Date().toLocaleString()}</em></p>
-            `;
-        } else {
-            emailSubject = 'New Contact Form Submission - AI Interview Platform';
-            emailContent = `
-                <h2>New Contact Form Submission</h2>
-                <p><strong>Name:</strong> ${name || 'N/A'}</p>
-                <p><strong>Email:</strong> ${email}</p>
-                <p><strong>Company:</strong> ${company || 'N/A'}</p>
-                <p><strong>Message:</strong> ${message || 'No message provided'}</p>
-                <hr>
-                <p><em>Submitted on: ${new Date().toLocaleString()}</em></p>
-            `;
-        }
+        // Persist immediately
+        await saveFeedback();
 
-        // Send email to hr@aippoint.ai
-        if (EMAIL_SERVICE.apiKey && EMAIL_SERVICE.apiKey !== 'your-api-key') {
-            try {
-                const emailResponse = await fetch(EMAIL_SERVICE.apiUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${EMAIL_SERVICE.apiKey}`,
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        from: EMAIL_SERVICE.fromEmail,
-                        to: 'hr@aippoint.ai',
-                        subject: emailSubject,
-                        html: emailContent
-                    })
-                });
-
-                if (!emailResponse.ok) {
-                    const errorData = await emailResponse.json().catch(() => ({}));
-                    throw new Error(errorData.message || 'Failed to send email');
-                }
-
-                console.log('[CONTACT EMAIL SENT]', JSON.stringify({
-                    to: 'hr@aippoint.ai',
-                    from: email,
-                    subject: emailSubject,
-                    timestamp: new Date().toISOString(),
-                    status: 'sent',
-                    service: 'Resend'
-                }));
-
-                return res.status(200).json({ 
-                    success: true, 
-                    message: 'Email sent successfully' 
-                });
-            } catch (emailError) {
-                console.error('[EMAIL SERVICE ERROR]', emailError);
-                // Fall through to log-only mode
-            }
-        }
-
-        // Log-only mode (no email service configured)
-        console.log('[CONTACT EMAIL LOGGED]', JSON.stringify({
-            to: 'hr@aippoint.ai',
-            from: email,
-            subject: emailSubject,
-            timestamp: new Date().toISOString(),
-            status: 'logged (no email service configured)',
-            note: 'Set RESEND_API_KEY environment variable to enable email sending'
-        }));
-
-        return res.status(200).json({ 
-            success: true, 
-            message: 'Form submitted (email logged - configure RESEND_API_KEY to send emails)' 
+        logAttempt('feedback', normalizeEmail(email), {
+            candidateName,
+            role,
+            overallScore: scores.overall
         });
+
+        return res.json({
+            success: true,
+            id: feedbackEntry.id,
+            message: 'Feedback saved successfully'
+        });
+
     } catch (error) {
-        console.error('[CONTACT EMAIL ERROR]', error);
-        return res.status(500).json({ 
-            success: false, 
-            message: 'Failed to process form submission' 
+        console.error(`❌ Error saving interview feedback:`, error);
+        return res.status(500).json({
+            error: 'Internal server error'
         });
     }
 });
 
-// Send Confirmation Email API
-app.post('/api/send-confirmation', async (req, res) => {
+// ==========================================================
+// FEATURE 4: FETCH FEEDBACK (OPTIONAL ADMIN)
+// ==========================================================
+app.get('/api/interview-feedback', (req, res) => {
     try {
-        const { email, candidateName } = req.body;
-
-        if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-            return res.status(400).json({ error: 'Invalid email format' });
-        }
-
-        const normalizedEmail = email.toLowerCase().trim();
-
-        // Email service configuration
-        const EMAIL_SERVICE = {
-            apiKey: process.env.RESEND_API_KEY,
-            fromEmail: process.env.FROM_EMAIL || 'noreply@aippoint.ai',
-            apiUrl: 'https://api.resend.com/emails'
-        };
-
-        // Email HTML template
-        const emailHtml = `
-            <!DOCTYPE html>
-            <html>
-            <head>
-                <meta charset="utf-8">
-                <style>
-                    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; line-height: 1.6; color: #333; }
-                    .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-                    .header { background: #0083C3; color: white; padding: 30px; text-align: center; border-radius: 8px 8px 0 0; }
-                    .content { background: #f9fafb; padding: 30px; border-radius: 0 0 8px 8px; }
-                    ul { margin: 16px 0; padding-left: 24px; }
-                    li { margin-bottom: 8px; }
-                </style>
-            </head>
-            <body>
-                <div class="container">
-                    <div class="header">
-                        <h1>Interview Submitted Successfully</h1>
-                    </div>
-                    <div class="content">
-                        <p>Hi ${candidateName || 'there'},</p>
-                        <p>Thank you for completing your AI interview with aippoint. Your responses have been successfully submitted and are now under review.</p>
-                        <p><strong>What happens next?</strong></p>
-                        <ul>
-                            <li>Our team will review your interview responses</li>
-                            <li>You'll receive feedback and next steps via email</li>
-                            <li>We typically respond within 2-3 business days</li>
-                        </ul>
-                        <p>If you have any questions, feel free to reach out to us.</p>
-                        <p>Best regards,<br>The aippoint Team</p>
-                    </div>
-                </div>
-            </body>
-            </html>
-        `;
-
-        // If Resend API key is configured, send real email
-        if (EMAIL_SERVICE.apiKey && EMAIL_SERVICE.apiKey !== 'your-api-key') {
-            try {
-                const emailResponse = await fetch(EMAIL_SERVICE.apiUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${EMAIL_SERVICE.apiKey}`,
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        from: EMAIL_SERVICE.fromEmail,
-                        to: normalizedEmail,
-                        subject: 'Your AI Interview Has Been Successfully Submitted',
-                        html: emailHtml
-                    })
-                });
-
-                if (!emailResponse.ok) {
-                    const errorData = await emailResponse.json().catch(() => ({}));
-                    throw new Error(errorData.message || 'Failed to send email');
-                }
-
-                console.log('[CONFIRMATION EMAIL SENT]', JSON.stringify({
-                    email: normalizedEmail,
-                    timestamp: new Date().toISOString(),
-                    status: 'sent',
-                    service: 'Resend'
-                }));
-
-                return res.status(200).json({ 
-                    success: true, 
-                    message: 'Confirmation email sent' 
-                });
-            } catch (emailError) {
-                console.error('[EMAIL SERVICE ERROR]', emailError);
-                // Fall through to log-only mode
-            }
-        }
-
-        // Log-only mode (no email service configured)
-        console.log('[CONFIRMATION EMAIL LOGGED]', JSON.stringify({
-            email: normalizedEmail,
-            candidateName: candidateName || 'N/A',
-            timestamp: new Date().toISOString(),
-            status: 'logged (no email service configured)',
-            note: 'Set RESEND_API_KEY environment variable to enable email sending'
-        }));
-
-        // Return success even in log-only mode (don't fail the interview submission)
-        return res.status(200).json({ 
-            success: true, 
-            message: 'Interview submitted (email logged - configure RESEND_API_KEY to send emails)' 
+        logAttempt('fetch_feedback', 'admin', {
+            totalEntries: feedbackStore.length
         });
+
+        return res.json({
+            success: true,
+            count: feedbackStore.length,
+            data: feedbackStore
+        });
+
     } catch (error) {
-        console.error('[EMAIL ERROR]', error);
-        // Don't fail the interview submission if email fails
-        return res.status(200).json({ 
-            success: true, 
-            message: 'Interview submitted (email service unavailable)' 
+        console.error(`❌ Error fetching interview feedback:`, error);
+        return res.status(500).json({
+            error: 'Internal server error'
         });
     }
 });
 
-// Health check endpoint
+// ==========================================================
+// FEATURE 5: HEALTH CHECK
+// ==========================================================
 app.get('/api/health', (req, res) => {
-    res.json({ status: 'ok', timestamp: new Date().toISOString() });
+    return res.json({
+        status: 'ok',
+        timestamp: new Date().toISOString(),
+        uptime: process.uptime(),
+        memory: process.memoryUsage(),
+        stats: {
+            activeUsers: attemptsStore.size,
+            totalFeedback: feedbackStore.length
+        }
+    });
 });
 
-// Start server
+// ==========================================================
+// STARTUP
+// ==========================================================
 async function startServer() {
-    await loadAttempts();
+    console.log(`🚀 Starting AI Interview Platform Server...`);
     
+    // Load persistent data
+    await loadAttempts();
+    await loadFeedback();
+    
+    // Start listening
     app.listen(PORT, () => {
-        console.log(`\n🚀 Interview API Server running on http://localhost:${PORT}`);
-        console.log(`📧 Email service: ${process.env.RESEND_API_KEY ? 'Enabled (Resend)' : 'Disabled (log-only mode)'}`);
-        console.log(`💾 Storage: ${STORAGE_FILE}`);
-        console.log(`\nEndpoints:`);
+        console.log(`\n✅ Server running on http://localhost:${PORT}`);
+        console.log(`📁 Serving static files from: ${__dirname}`);
+        console.log(`💾 Attempts storage: ${ATTEMPTS_FILE}`);
+        console.log(`📝 Feedback storage: ${FEEDBACK_FILE}`);
+        console.log(`\n📡 Available endpoints:`);
         console.log(`  POST /api/interview-attempts/check`);
-        console.log(`  POST /api/send-confirmation`);
-        console.log(`  GET  /api/health\n`);
+        console.log(`  POST /api/interview-feedback`);
+        console.log(`  GET  /api/interview-feedback`);
+        console.log(`  GET  /api/health`);
+        console.log(`\n⚙️  Configuration:`);
+        console.log(`  Max attempts per email: ${MAX_ATTEMPTS}`);
+        console.log(`  Email sending: DISABLED`);
+        console.log(`  Database: FILE-BASED`);
+        console.log(`\n🎯 Server is ready for production!`);
     });
 }
 
-startServer().catch(console.error);
+// Handle graceful shutdown
+process.on('SIGINT', () => {
+    console.log(`\n🛑 Shutting down gracefully...`);
+    process.exit(0);
+});
 
+process.on('SIGTERM', () => {
+    console.log(`\n🛑 Shutting down gracefully...`);
+    process.exit(0);
+});
+
+// Start the server
+startServer().catch(error => {
+    console.error(`❌ Failed to start server:`, error);
+    process.exit(1);
+});

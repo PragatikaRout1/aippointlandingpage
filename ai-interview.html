@@ -404,6 +404,24 @@
             display: flex;
         }
 
+        /* Interview Limit Modal - Highest Priority */
+        #interviewLimitModal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        #interviewLimitModal.active {
+            display: flex;
+        }
+
         .modal-dialog {
             background: white;
             border-radius: 16px;
@@ -478,7 +496,7 @@
         }
 
         .modal-btn-primary {
-            background: #0083C3;
+            background: #0284C7;
             color: white;
             border: none;
             padding: 12px 24px;
@@ -489,7 +507,7 @@
         }
 
         .modal-btn-primary:hover {
-            background: #006ba3;
+            background: #0284C7;
             transform: translateY(-1px);
             box-shadow: 0 4px 12px rgba(0, 131, 195, 0.3);
         }
@@ -962,11 +980,11 @@
     </div>
 
     <!-- Interview Limit Reached Modal -->
-    <div class="modal-overlay" id="interviewLimitModal" style="display: none;">
+    <div class="modal-overlay" id="interviewLimitModal" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="interviewLimitTitle" aria-describedby="interviewLimitMessage">
         <div class="modal-dialog interview-limit-modal">
-            <div class="modal-title interview-limit-title">Interview Limit Reached</div>
+            <div class="modal-title interview-limit-title" id="interviewLimitTitle">Interview Limit Reached</div>
             <div class="modal-content interview-limit-content">
-                <p class="interview-limit-message">You have used all 3 free interview attempts for this email address.</p>
+                <p class="interview-limit-message" id="interviewLimitMessage">You have used all 3 free interview attempts for this email address.</p>
                 <p class="interview-limit-helper">Upgrade your plan to unlock unlimited AI interviews.</p>
             </div>
             <div class="modal-actions interview-limit-actions">
@@ -1018,14 +1036,12 @@
             questions: [
                 { question: "Tell me about yourself and your background.", answer: "" },
                 { question: "What are your greatest strengths as a developer?", answer: "" },
-                { question: "Describe a challenging project you worked on.", answer: "" },
-                { question: "How do you stay updated with new technologies?", answer: "" },
-                { question: "Where do you see yourself in 5 years?", answer: "" }
+                { question: "Describe a challenging project you worked on.", answer: "" }
             ],
             isRecording: false,
             isReadingQuestion: false,
             isProcessing: false,
-            uploadStatus: [false, false, false, false, false],
+            uploadStatus: [false, false, false],
             transcript: "",
             interimTranscript: "",
             recognition: null,
@@ -1041,7 +1057,8 @@
             },
             notificationCallback: null,
             freeTrialTimer: null,
-            freeTrialStarted: false
+            freeTrialStarted: false,
+            startTime: Date.now()
         };
 
         // Question Bank for different roles
@@ -1049,44 +1066,32 @@
             nonTechnical: [
                 "Tell me about yourself and your background.",
                 "What are your greatest strengths?",
-                "Describe a challenging situation you faced.",
-                "How do you handle stress and pressure?",
-                "Where do you see yourself in 5 years?"
+                "Describe a challenging situation you faced."
             ],
             technicalGeneral: [
                 "What programming languages are you most comfortable with?",
                 "Describe your experience with version control systems.",
-                "How do you approach debugging complex issues?",
-                "What's your experience with database design?",
-                "How do you ensure code quality and testing?"
+                "How do you approach debugging complex issues?"
             ],
             salesBDE: [
                 "How do you approach lead generation?",
                 "Describe your most successful sales deal.",
-                "How do you handle objections from clients?",
-                "What strategies do you use for market research?",
-                "How do you build long-term client relationships?"
+                "How do you handle objections from clients?"
             ],
             javaDeveloper: [
                 "Explain the difference between ArrayList and LinkedList.",
                 "What is the Java Memory Model?",
-                "Describe Spring Boot and its advantages.",
-                "How do you handle concurrency in Java?",
-                "What is Java 8 Stream API and how do you use it?"
+                "Describe Spring Boot and its advantages."
             ],
             pythonDeveloper: [
                 "Explain Python's GIL and its implications.",
                 "What are decorators in Python?",
-                "Describe Django vs Flask.",
-                "How do you handle asynchronous operations in Python?",
-                "What is list comprehension and when would you use it?"
+                "Describe Django vs Flask."
             ],
             aiMLEngineer: [
                 "Explain the bias-variance tradeoff.",
                 "What's the difference between supervised and unsupervised learning?",
-                "Describe neural network architecture.",
-                "How do you handle overfitting in ML models?",
-                "What experience do you have with deep learning frameworks?"
+                "Describe neural network architecture."
             ]
         };
 
@@ -1130,10 +1135,33 @@
 
         // Interview Limit Modal
         function showInterviewLimitModal() {
+            // Hide all other modals first
+            hideAllModals();
+            
             const modal = document.getElementById('interviewLimitModal');
             if (modal) {
                 modal.style.display = 'flex';
                 modal.classList.add('active');
+                modal.style.zIndex = '9999';
+                
+                // Set focus trap for accessibility
+                setFocusTrap(modal);
+                
+                // Prevent background interactions
+                document.body.style.overflow = 'hidden';
+                
+                // Add escape key handler (but prevent reopening interview flow)
+                const escapeHandler = (e) => {
+                    if (e.key === 'Escape') {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        // Don't close on escape - user must take action
+                    }
+                };
+                document.addEventListener('keydown', escapeHandler);
+                
+                // Store handler for cleanup
+                modal._escapeHandler = escapeHandler;
             }
         }
 
@@ -1142,6 +1170,67 @@
             if (modal) {
                 modal.style.display = 'none';
                 modal.classList.remove('active');
+                modal.style.zIndex = '';
+                
+                // Restore body scroll
+                document.body.style.overflow = '';
+                
+                // Remove escape handler
+                if (modal._escapeHandler) {
+                    document.removeEventListener('keydown', modal._escapeHandler);
+                    delete modal._escapeHandler;
+                }
+                
+                // Remove focus trap
+                removeFocusTrap(modal);
+            }
+        }
+
+        // Hide all modals function
+        function hideAllModals() {
+            const allModals = document.querySelectorAll('.modal-overlay, .pre-modal-overlay, .loading-overlay, .editor-modal');
+            allModals.forEach(modal => {
+                modal.style.display = 'none';
+                modal.classList.remove('active');
+            });
+        }
+
+        // Focus trap for accessibility
+        function setFocusTrap(modal) {
+            const focusableElements = modal.querySelectorAll(
+                'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+            );
+            const firstElement = focusableElements[0];
+            const lastElement = focusableElements[focusableElements.length - 1];
+            
+            modal._focusTrapHandler = (e) => {
+                if (e.key === 'Tab') {
+                    if (e.shiftKey) {
+                        if (document.activeElement === firstElement) {
+                            lastElement.focus();
+                            e.preventDefault();
+                        }
+                    } else {
+                        if (document.activeElement === lastElement) {
+                            firstElement.focus();
+                            e.preventDefault();
+                        }
+                    }
+                }
+            };
+            
+            modal.addEventListener('keydown', modal._focusTrapHandler);
+            
+            // Set initial focus
+            if (firstElement) {
+                setTimeout(() => firstElement.focus(), 100);
+            }
+        }
+
+        function removeFocusTrap(modal) {
+            if (modal._focusTrapHandler) {
+                modal.removeEventListener('keydown', modal._focusTrapHandler);
+                delete modal._focusTrapHandler;
             }
         }
 
@@ -1152,7 +1241,7 @@
         if (interviewLimitSubscribeBtn) {
             interviewLimitSubscribeBtn.addEventListener('click', () => {
                 hideInterviewLimitModal();
-                // Navigate to pricing or subscription page
+                // Navigate to pricing page
                 window.location.href = 'pricing.html';
             });
         }
@@ -1160,7 +1249,7 @@
         if (interviewLimitContactBtn) {
             interviewLimitContactBtn.addEventListener('click', () => {
                 hideInterviewLimitModal();
-                // Navigate to contact section or contact page
+                // Navigate to contact section on index page
                 window.location.href = 'index.html#contact';
             });
         }
@@ -1489,10 +1578,15 @@
         endBtn.addEventListener('click', () => {
             stopRecording();
             state.earlyEnd = true;
-            submitModalTitle.textContent = 'End Interview';
-            submitModalMessage.textContent = 'Are you sure you want to end the interview and return home? Your current progress will not be processed.';
-            submitModalSubtext.style.display = 'none';
-            submitModal.classList.add('active');
+            
+            // Show popup and redirect to index.html
+            showNotification(
+                'Interview Ended', 
+                'You have ended the interview early. You will be redirected to the home page.', 
+                () => {
+                    window.location.href = 'index.html';
+                }
+            );
         });
 
         document.getElementById('submitConfirmBtn').addEventListener('click', async () => {
@@ -1535,48 +1629,45 @@
                 updateProgress(((i + 1) / apis.length) * 100);
             }
 
-            // Send confirmation email only after successful submission
+            // Send feedback email to candidate
             const candidateEmail = state.candidate.email;
             const candidateName = state.candidate.name;
             
             if (candidateEmail) {
                 try {
-                    loaderMessage.textContent = 'Sending confirmation email...';
+                    loaderMessage.textContent = 'Sending feedback email...';
                     const apiBaseUrl = 'http://127.0.0.1:3000';
                     
-                    // Send confirmation to candidate
-                    const emailResponse = await fetch(`${apiBaseUrl}/api/send-confirmation`, {
+                    // Send feedback to candidate
+                    const feedbackResponse = await fetch(`${apiBaseUrl}/api/send-feedback`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
                         },
                         body: JSON.stringify({
                             email: candidateEmail,
-                            candidateName: candidateName
+                            candidateName: candidateName,
+                            interviewData: {
+                                questionsAnswered: state.questions.length,
+                                duration: Math.round((Date.now() - state.startTime) / 60000),
+                                answers: state.questions.map(q => ({
+                                    question: q.question,
+                                    answer: q.answer
+                                }))
+                            }
                         })
                     });
 
-                    if (emailResponse.ok) {
-                        const contentType = emailResponse.headers.get('content-type');
-                        if (contentType && contentType.includes('application/json')) {
-                            try {
-                                const emailData = await emailResponse.json();
-                                console.log('Confirmation email sent successfully', emailData);
-                            } catch (e) {
-                                console.log('Confirmation email sent (non-JSON response)');
-                            }
-                        } else {
-                            console.log('Confirmation email sent successfully');
-                        }
+                    if (feedbackResponse.ok) {
+                        console.log('Feedback email sent successfully');
                     } else {
-                        console.warn('Failed to send confirmation email, but interview was submitted');
+                        console.warn('Failed to send feedback email');
                     }
                 } catch (error) {
-                    console.error('Error sending confirmation email:', error);
-                    // Don't fail the submission if email fails
+                    console.error('Error sending feedback email:', error);
                 }
 
-                // Send notification to hr@aippoint.ai
+                // Send notification to pragatika.r@iosyssoftware.com
                 try {
                     loaderMessage.textContent = 'Notifying hiring team...';
                     const notifyResponse = await fetch(`${apiBaseUrl}/api/send-contact-email`, {
@@ -1588,7 +1679,7 @@
                             name: candidateName,
                             email: candidateEmail,
                             company: state.candidate.company || 'N/A',
-                            message: `AI Interview Completed\nRole: ${state.candidate.role || 'N/A'}\nPhone: ${state.candidate.phone || 'N/A'}\nQuestions Answered: ${state.answers.length}\nDuration: ${Math.round((Date.now() - state.startTime) / 60000)} minutes`,
+                            message: `AI Interview Completed\nRole: ${state.candidate.role || 'N/A'}\nPhone: ${state.candidate.phone || 'N/A'}\nQuestions Answered: ${state.questions.length}\nDuration: ${Math.round((Date.now() - state.startTime) / 60000)} minutes`,
                             formType: 'interview'
                         })
                     });
@@ -1622,10 +1713,14 @@
                 modal.classList.remove('active');
             });
             
-            // Show notification and redirect
-            showNotification('Interview Submitted', 'Interview submitted successfully! Thank you.', () => {
-                window.location.href = 'index.html';
-            });
+            // Show success notification and redirect
+            showNotification(
+                'Interview Completed Successfully!', 
+                'Thank you for completing the interview. Feedback has been sent to your email.', 
+                () => {
+                    window.location.href = 'index.html';
+                }
+            );
         }
 
         // Code Editor
@@ -1781,10 +1876,14 @@
 
                 const checkData = await checkResponse.json();
 
-                if (!checkData.canStart) {
+                // Check if limit reached (disabled: true OR attempts >= 3)
+                if (checkData.disabled === true || checkData.attempts >= 3 || !checkData.canStart) {
+                    // Hide all existing modals
+                    hideAllModals();
+                    
                     // Show interview limit modal
                     showInterviewLimitModal();
-                    return; // Block interview initialization
+                    return; // Block interview initialization completely
                 }
 
                 // Increment attempt count (interview is starting)
@@ -1810,11 +1909,12 @@
 
                 const incrementData = await incrementResponse.json();
 
-                if (incrementData.error) {
-                    // If increment fails (e.g., max reached between check and increment)
-                    alert('Unable to start interview. Please contact support.');
-                return;
-            }
+                if (incrementData.error || incrementData.disabled === true || incrementData.attempts >= 3) {
+                    // If increment fails or limit reached, show limit modal
+                    hideAllModals();
+                    showInterviewLimitModal();
+                    return; // Block interview initialization
+                }
 
             // Replace state.questions with selected role's questions
             state.questions = QUESTION_BANK[selectedRole].map(q => ({
@@ -1950,8 +2050,40 @@
                 webcamVideo.srcObject.getTracks().forEach(track => track.stop());
             }
             
-            // Show free trial over modal
-            freeTrialModal.style.display = 'flex';
+            // Check if user has reached max attempts
+            const candidateEmail = state.candidate.email;
+            if (candidateEmail) {
+                // Check attempts and show appropriate modal
+                fetch('http://127.0.0.1:3000/api/interview-attempts/check', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email: candidateEmail,
+                        action: 'check'
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.disabled === true || data.attempts >= 3) {
+                        // Hide all modals and show interview limit modal
+                        hideAllModals();
+                        showInterviewLimitModal();
+                    } else {
+                        // Show regular free trial over modal
+                        freeTrialModal.style.display = 'flex';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error checking attempts:', error);
+                    // Fallback to regular free trial modal
+                    freeTrialModal.style.display = 'flex';
+                });
+            } else {
+                // No email, show regular modal
+                freeTrialModal.style.display = 'flex';
+            }
         }
 
         function endFreeTrial() {
@@ -1985,6 +2117,15 @@
                 speechSynthesis.getVoices();
             };
 
+            // Check if user was redirected due to limit reached
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('limit') === 'reached') {
+                // Hide all modals and show limit modal
+                hideAllModals();
+                showInterviewLimitModal();
+                return;
+            }
+
             // Show pre-interview modal by default
             preInterviewModal.style.display = 'flex';
         });
@@ -2002,3 +2143,9 @@
     </script>
 </body>
 </html>
+<!-- You have ended the interview early. You will be redirected to the home page. -->
+ <!-- Request URL
+http://127.0.0.1:3000/api/send-feedback
+Referrer Policy
+strict-origin-when-cross-origin -->
+<!-- after submitting when the send feedback  -->
