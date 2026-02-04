@@ -3,7 +3,7 @@
 
 import { connectToDatabase, COLLECTIONS } from '../lib/mongodb.js';
 
-const MAX_ATTEMPTS = 3;
+const MAX_ATTEMPTS = 4;
 
 // Utility functions
 function normalizeEmail(email) {
