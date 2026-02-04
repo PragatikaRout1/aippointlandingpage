@@ -1669,10 +1669,10 @@
             if (candidateEmail) {
                 try {
                     loaderMessage.textContent = 'Sending feedback email...';
-                    const apiBaseUrl = 'http://127.0.0.1:3000';
+                    const apiBaseUrl = window.location.origin; // Use production domain
                     
-                    // Send feedback to candidate
-                    const feedbackResponse = await fetch(`${apiBaseUrl}/api/send-feedback`, {
+                    // Save feedback to MongoDB first
+                    const feedbackResponse = await fetch(`${apiBaseUrl}/api/interview-feedback`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
@@ -1680,21 +1680,56 @@
                         body: JSON.stringify({
                             email: candidateEmail,
                             candidateName: candidateName,
-                            interviewData: {
-                                questionsAnswered: state.questions.length,
-                                duration: Math.round((Date.now() - state.startTime) / 60000),
-                                answers: state.questions.map(q => ({
-                                    question: q.question,
-                                    answer: q.answer
-                                }))
-                            }
+                            role: state.candidate.role || 'N/A',
+                            company: state.candidate.company || 'N/A',
+                            phone: state.candidate.phone || 'N/A',
+                            duration: Math.round((Date.now() - state.startTime) / 60000),
+                            questions: state.questions.map(q => ({
+                                question: q.question,
+                                answer: q.answer
+                            })),
+                            scores: {
+                                communication: 85, // Placeholder scores
+                                technical: 80,
+                                confidence: 90,
+                                overall: 85
+                            },
+                            submittedAt: new Date().toISOString()
                         })
                     });
 
                     if (feedbackResponse.ok) {
-                        console.log('Feedback email sent successfully');
+                        console.log('Feedback saved successfully to MongoDB');
+                        
+                        // Send feedback email to candidate
+                        const emailResponse = await fetch(`${apiBaseUrl}/api/send-feedback`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                email: candidateEmail,
+                                candidateName: candidateName,
+                                interviewData: {
+                                    scores: {
+                                        communication: 85,
+                                        technical: 80,
+                                        confidence: 90,
+                                        overall: 85
+                                    },
+                                    duration: Math.round((Date.now() - state.startTime) / 60000),
+                                    questionsAnswered: state.questions.length
+                                }
+                            })
+                        });
+
+                        if (emailResponse.ok) {
+                            console.log('Feedback email sent successfully');
+                        } else {
+                            console.warn('Failed to send feedback email');
+                        }
                     } else {
-                        console.warn('Failed to send feedback email');
+                        console.warn('Failed to save feedback to MongoDB');
                     }
                 } catch (error) {
                     console.error('Error sending feedback email:', error);
@@ -1885,8 +1920,8 @@
 
             try {
                 // Check if user can start interview (max 3 attempts)
-                const apiBaseUrl = 'http://127.0.0.1:3000';
-                const checkResponse = await fetch(`${apiBaseUrl}/api/interview-attempts/check`, {
+                const apiBaseUrl = window.location.origin; // Use production domain
+                const checkResponse = await fetch(`${apiBaseUrl}/api/interview-attempts`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -1920,7 +1955,7 @@
                 }
 
                 // Increment attempt count (interview is starting)
-                const incrementResponse = await fetch(`${apiBaseUrl}/api/interview-attempts/check`, {
+                const incrementResponse = await fetch(`${apiBaseUrl}/api/interview-attempts`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -2087,7 +2122,7 @@
             const candidateEmail = state.candidate.email;
             if (candidateEmail) {
                 // Check attempts and show appropriate modal
-                fetch('http://127.0.0.1:3000/api/interview-attempts/check', {
+                fetch(`${window.location.origin}/api/interview-attempts`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

@@ -1,27 +1,32 @@
 {
   "name": "aippoint-interview-api",
   "version": "1.0.0",
-  "description": "API server for interview attempt tracking and email confirmation",
+  "description": "MongoDB-based API server for interview attempt tracking and feedback",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "node server.js"
+    "start": "node local-server.js",
+    "dev": "node local-server.js",
+    "vercel": "vercel dev"
   },
   "keywords": [
     "interview",
     "api",
-    "express"
+    "vercel",
+    "mongodb"
   ],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.6",
-    "express": "^4.22.1"
+    "dotenv": "^17.2.3",
+    "express": "^4.22.1",
+    "mongodb": "^6.3.0",
+    "mongoose": "^8.0.3"
   },
   "engines": {
     "node": ">=14.0.0"
   },
-  "type": "commonjs",
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/PragatikaRout1/iosyslandingpage.git"

@@ -1,95 +1,174 @@
-// Serverless function for interview attempt tracking
-// Deploy to: Vercel (/api/interview-attempts.js) or Netlify (/netlify/functions/interview-attempts.js)
+// MongoDB-based interview attempt tracking for Vercel serverless functions
+// Replaces file-based storage with MongoDB for production persistence
 
-// For production, replace Map with database (Supabase, Firestore, Redis, etc.)
-const attemptsStore = new Map();
+import { connectToDatabase, COLLECTIONS } from '../lib/mongodb.js';
+
+const MAX_ATTEMPTS = 3;
+
+// Utility functions
+function normalizeEmail(email) {
+    return email ? email.toLowerCase().trim() : '';
+}
+
+function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+}
+
+function generateResponse(statusCode, data) {
+    return {
+        statusCode,
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'POST, OPTIONS',
+            'Access-Control-Allow-Headers': 'Content-Type',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+    };
+}
 
 export default async function handler(req, res) {
-  // Enable CORS
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-
-  if (req.method === 'OPTIONS') {
-    return res.status(200).end();
-  }
-
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
-  }
-
-  try {
-    const { email, action } = req.body;
-
-    // Validate email format
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      return res.status(400).json({ error: 'Invalid email format' });
+    // Handle CORS preflight
+    if (req.method === 'OPTIONS') {
+        return res.status(200).end();
     }
 
-    const normalizedEmail = email.toLowerCase().trim();
-
-    // Get current attempt count
-    const currentAttempts = attemptsStore.get(normalizedEmail) || {
-      count: 0,
-      attempts: []
-    };
-
-    if (action === 'check') {
-      // Check if user can start interview
-      const canStart = currentAttempts.count < 3;
-      return res.status(200).json({
-        canStart,
-        attempts: currentAttempts.count,
-        maxAttempts: 3,
-        message: canStart 
-          ? null 
-          : 'You have reached the maximum number of interview attempts for this email address.'
-      });
+    if (req.method !== 'POST') {
+        return res.status(405).json({ error: 'Method not allowed' });
     }
 
-    if (action === 'increment') {
-      // Increment attempt count
-      const newCount = currentAttempts.count + 1;
-      
-      if (newCount > 3) {
-        return res.status(403).json({
-          error: 'Maximum attempts reached',
-          attempts: currentAttempts.count,
-          maxAttempts: 3
+    let client;
+    try {
+        const { email, action } = req.body;
+
+        // Validate input
+        if (!email || !action) {
+            return res.status(400).json({
+                error: 'Email and action are required'
+            });
+        }
+
+        if (!isValidEmail(email)) {
+            return res.status(400).json({
+                error: 'Invalid email format'
+            });
+        }
+
+        if (!['check', 'increment'].includes(action)) {
+            return res.status(400).json({
+                error: 'Action must be "check" or "increment"'
+            });
+        }
+
+        const normalizedEmail = normalizeEmail(email);
+
+        // Connect to MongoDB
+        const { db } = await connectToDatabase();
+        client = db.client;
+
+        const attemptsCollection = db.collection(COLLECTIONS.ATTEMPTS);
+
+        // Find or create user attempt record
+        let userAttempts = await attemptsCollection.findOne({ email: normalizedEmail });
+
+        if (!userAttempts) {
+            // Create new user record
+            userAttempts = {
+                email: normalizedEmail,
+                count: 0,
+                attempts: [],
+                createdAt: new Date(),
+                updatedAt: new Date()
+            };
+            await attemptsCollection.insertOne(userAttempts);
+        }
+
+        const isDisabled = userAttempts.count >= MAX_ATTEMPTS;
+
+        if (action === 'check') {
+            const canStart = userAttempts.count < MAX_ATTEMPTS;
+            
+            console.log(`[ATTEMPT_CHECK] ${normalizedEmail}`, {
+                currentAttempts: userAttempts.count,
+                canStart,
+                disabled: isDisabled
+            });
+
+            return res.json({
+                canStart,
+                attempts: userAttempts.count,
+                maxAttempts: MAX_ATTEMPTS,
+                disabled: isDisabled,
+                message: isDisabled ? 'Interview limit reached' : null
+            });
+        }
+
+        if (action === 'increment') {
+            if (userAttempts.count >= MAX_ATTEMPTS) {
+                console.log(`[ATTEMPT_BLOCKED] ${normalizedEmail}`, {
+                    currentAttempts: userAttempts.count,
+                    reason: 'Limit reached'
+                });
+
+                return res.status(403).json({
+                    error: 'Interview limit reached',
+                    attempts: userAttempts.count,
+                    maxAttempts: MAX_ATTEMPTS,
+                    disabled: true
+                });
+            }
+
+            // Increment attempt
+            const newCount = userAttempts.count + 1;
+            const newAttempt = {
+                timestamp: new Date(),
+                attemptNumber: newCount,
+                completed: false
+            };
+
+            // Update user record
+            await attemptsCollection.updateOne(
+                { email: normalizedEmail },
+                {
+                    $set: {
+                        count: newCount,
+                        updatedAt: new Date()
+                    },
+                    $push: {
+                        attempts: newAttempt
+                    }
+                }
+            );
+
+            console.log(`[ATTEMPT_INCREMENT] ${normalizedEmail}`, {
+                newCount,
+                attemptNumber: newAttempt.attemptNumber
+            });
+
+            const isNowDisabled = newCount >= MAX_ATTEMPTS;
+
+            return res.json({
+                success: true,
+                attempts: newCount,
+                maxAttempts: MAX_ATTEMPTS,
+                disabled: isNowDisabled,
+                attemptNumber: newAttempt.attemptNumber,
+                timestamp: newAttempt.timestamp
+            });
+        }
+
+        return res.status(400).json({ error: 'Invalid action' });
+
+    } catch (error) {
+        console.error('[ATTEMPT_ERROR]', error);
+        return res.status(500).json({
+            error: 'Internal server error',
+            message: error.message
         });
-      }
-
-      // Log attempt
-      const attemptLog = {
-        email: normalizedEmail,
-        timestamp: new Date().toISOString(),
-        attemptNumber: newCount
-      };
-
-      attemptsStore.set(normalizedEmail, {
-        count: newCount,
-        attempts: [...currentAttempts.attempts, attemptLog]
-      });
-
-      // Log server-side for audit
-      console.log('[INTERVIEW ATTEMPT]', JSON.stringify({
-        email: normalizedEmail,
-        attemptCount: newCount,
-        timestamp: attemptLog.timestamp,
-        status: 'started'
-      }));
-
-      return res.status(200).json({
-        success: true,
-        attempts: newCount,
-        maxAttempts: 3
-      });
+    } finally {
+        // Note: In serverless environments, we don't typically close connections
+        // as they are reused across invocations. The connection will be cached.
     }
-
-    return res.status(400).json({ error: 'Invalid action' });
-  } catch (error) {
-    console.error('[API ERROR]', error);
-    return res.status(500).json({ error: 'Internal server error' });
-  }
 }
 
