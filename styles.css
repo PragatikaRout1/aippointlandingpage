@@ -9164,11 +9164,31 @@ give a subscribe option to catch the attention */
             text-align: left;
             font-weight: 600;
             font-size: 0.875rem;
-            color: #0f172a;
+            color: #1e293b;
+            background: linear-gradient(to bottom, #f8fafc, #f1f5f9);
             border-bottom: 2px solid #e2e8f0;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
             white-space: nowrap;
+        }
+
+        th:nth-child(1), td:nth-child(1) {
+            width: 22%;
+            min-width: 200px;
+        }
+
+        th:nth-child(2), td:nth-child(2) {
+            width: 23%;
+            min-width: 180px;
+        }
+
+        th:nth-child(3), td:nth-child(3) {
+            width: 30%;
+            min-width: 220px;
+        }
+
+        th:nth-child(4), td:nth-child(4) {
+            width: 25%;
+            min-width: 160px;
+            text-align: center;
         }
 
         th:nth-child(3) {
