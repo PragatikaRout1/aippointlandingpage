@@ -12,18 +12,26 @@ export default async function handler(req, res) {
         const startTime = Date.now();
         
         // Test database connection
-        const { db } = await connectToDatabase();
+        const connection = await connectToDatabase();
+        const { db, isMock, collections } = connection;
         
-        // Test database operations
-        const attemptsCollection = db.collection(COLLECTIONS.ATTEMPTS);
-        const feedbackCollection = db.collection(COLLECTIONS.FEEDBACK);
+        let attemptsCount = 0;
+        let feedbackCount = 0;
+        let dbStatus = 'connected';
         
-        // Get collection stats
-        const attemptsCount = await attemptsCollection.countDocuments();
-        const feedbackCount = await feedbackCollection.countDocuments();
-        
-        // Test write operation (optional - can be disabled for production)
-        const testResult = await attemptsCollection.findOne({ email: '__health_check__' });
+        if (isMock) {
+            // Mock database - get counts from maps
+            attemptsCount = collections.attempts.size;
+            feedbackCount = collections.feedback.size;
+            dbStatus = 'mock_mode';
+        } else {
+            // Real MongoDB - get collection stats
+            const attemptsCollection = db.collection(COLLECTIONS.ATTEMPTS);
+            const feedbackCollection = db.collection(COLLECTIONS.FEEDBACK);
+            
+            attemptsCount = await attemptsCollection.countDocuments();
+            feedbackCount = await feedbackCollection.countDocuments();
+        }
         
         const responseTime = Date.now() - startTime;
         
@@ -33,7 +41,7 @@ export default async function handler(req, res) {
             uptime: process.uptime(),
             responseTime: `${responseTime}ms`,
             database: {
-                status: 'connected',
+                status: dbStatus,
                 collections: {
                     attempts: {
                         count: attemptsCount,
