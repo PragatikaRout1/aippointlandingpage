@@ -1426,10 +1426,27 @@
             const femaleVoice = voices.find(voice => 
                 voice.name.includes('Female') || 
                 voice.name.includes('Samantha') ||
-                voice.name.includes('Google US English')
+                voice.name.includes('Karen') ||
+                voice.name.includes('Moira') ||
+                voice.name.includes('Tessa') ||
+                voice.name.includes('Nicky') ||
+                voice.name.includes('Allison') ||
+                voice.name.includes('Ava') ||
+                voice.name.includes('Susan') ||
+                voice.name.includes('Google US English Female') ||
+                (voice.lang.includes('en-US') && voice.name.includes('Female'))
             );
             if (femaleVoice) {
                 utterance.voice = femaleVoice;
+            } else {
+                // Fallback to any English female voice
+                const fallbackVoice = voices.find(voice => 
+                    voice.lang.includes('en') && 
+                    (voice.name.includes('Female') || voice.gender === 'female')
+                );
+                if (fallbackVoice) {
+                    utterance.voice = fallbackVoice;
+                }
             }
 
             utterance.onstart = () => {
@@ -1569,10 +1586,26 @@
         submitBtn.addEventListener('click', () => {
             stopRecording();
             state.earlyEnd = false;
-            submitModalTitle.textContent = 'Submit Interview';
-            submitModalMessage.textContent = 'Are you sure you want to submit your interview? This action cannot be undone.';
-            submitModalSubtext.style.display = 'block';
-            submitModal.classList.add('active');
+            
+            // Clear free trial timer if running
+            if (state.freeTrialTimer) {
+                clearInterval(state.freeTrialTimer);
+                state.freeTrialTimer = null;
+            }
+            
+            // Hide timer display
+            if (timerDisplay) {
+                timerDisplay.style.display = 'none';
+            }
+            
+            // Show thank you popup immediately and redirect
+            showNotification(
+                'Interview Completed Successfully!', 
+                'Thank you for attending the interview. Feedback has been sent to your email.', 
+                () => {
+                    window.location.href = 'index.html';
+                }
+            );
         });
 
         endBtn.addEventListener('click', () => {
@@ -1716,7 +1749,7 @@
             // Show success notification and redirect
             showNotification(
                 'Interview Completed Successfully!', 
-                'Thank you for completing the interview. Feedback has been sent to your email.', 
+                'Thank you for attending the interview. Feedback has been sent to your email.', 
                 () => {
                     window.location.href = 'index.html';
                 }
