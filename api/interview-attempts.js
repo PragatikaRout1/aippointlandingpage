@@ -64,7 +64,69 @@ export default async function handler(req, res) {
         const normalizedEmail = normalizeEmail(email);
 
         // Connect to MongoDB
-        const { db } = await connectToDatabase();
+        const connection = await connectToDatabase();
+        const { db, isMock, collections } = connection;
+        
+        if (isMock) {
+            // Handle mock database operations
+            const attemptsMap = collections.attempts;
+            let userAttempts = attemptsMap.get(normalizedEmail);
+
+            if (!userAttempts) {
+                userAttempts = {
+                    email: normalizedEmail,
+                    count: 0,
+                    createdAt: new Date(),
+                    updatedAt: new Date()
+                };
+                attemptsMap.set(normalizedEmail, userAttempts);
+            }
+
+            if (action === 'check') {
+                const canStart = userAttempts.count < MAX_ATTEMPTS;
+                const disabled = userAttempts.count >= MAX_ATTEMPTS;
+
+                return res.status(200).json({
+                    email: normalizedEmail,
+                    attempts: userAttempts.count,
+                    maxAttempts: MAX_ATTEMPTS,
+                    canStart,
+                    disabled,
+                    remainingAttempts: Math.max(0, MAX_ATTEMPTS - userAttempts.count)
+                });
+            }
+
+            if (action === 'increment') {
+                if (userAttempts.count >= MAX_ATTEMPTS) {
+                    return res.status(429).json({
+                        error: 'Maximum attempts reached',
+                        attempts: userAttempts.count,
+                        maxAttempts: MAX_ATTEMPTS,
+                        canStart: false,
+                        disabled: true
+                    });
+                }
+
+                userAttempts.count += 1;
+                userAttempts.updatedAt = new Date();
+                attemptsMap.set(normalizedEmail, userAttempts);
+
+                const canStart = userAttempts.count < MAX_ATTEMPTS;
+                const disabled = userAttempts.count >= MAX_ATTEMPTS;
+
+                return res.status(200).json({
+                    email: normalizedEmail,
+                    attempts: userAttempts.count,
+                    maxAttempts: MAX_ATTEMPTS,
+                    canStart,
+                    disabled,
+                    remainingAttempts: Math.max(0, MAX_ATTEMPTS - userAttempts.count),
+                    message: 'Attempt incremented successfully (mock mode)'
+                });
+            }
+        }
+
+        // Real MongoDB operations
         client = db.client;
 
         const attemptsCollection = db.collection(COLLECTIONS.ATTEMPTS);
