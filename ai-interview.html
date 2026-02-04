@@ -1944,8 +1944,8 @@
 
                 const checkData = await checkResponse.json();
 
-                // Check if limit reached (disabled: true OR attempts >= 3)
-                if (checkData.disabled === true || checkData.attempts >= 3 || !checkData.canStart) {
+                // Check if limit reached (disabled: true OR attempts >= 4)
+                if (checkData.disabled === true || checkData.attempts >= 4 || !checkData.canStart) {
                     // Hide all existing modals
                     hideAllModals();
                     
@@ -1977,7 +1977,7 @@
 
                 const incrementData = await incrementResponse.json();
 
-                if (incrementData.error || incrementData.disabled === true || incrementData.attempts >= 3) {
+                if (incrementData.error || incrementData.disabled === true || incrementData.attempts >= 4) {
                     // If increment fails or limit reached, show limit modal
                     hideAllModals();
                     showInterviewLimitModal();
@@ -2134,7 +2134,7 @@
                 })
                 .then(response => response.json())
                 .then(data => {
-                    if (data.disabled === true || data.attempts >= 3) {
+                    if (data.disabled === true || data.attempts >= 4) {
                         // Hide all modals and show interview limit modal
                         hideAllModals();
                         showInterviewLimitModal();
