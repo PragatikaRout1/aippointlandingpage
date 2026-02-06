@@ -22,113 +22,102 @@
     <!-- Pricing Section (Personalized Setup) -->
      <div style="margin-top: 40px;">
         <section class="personalized-setup" id="pricing">
-  <div class="container">
+<div class="container">
 
-    <div class="setup-header">
-      <h2 class="setup-title">Find the right setup for how you hire</h2>
-      <p class="setup-subtitle">
-        Tell us about your team to get a recommended plan card.
-      </p>
+<div class="setup-header">
+  <h2 class="setup-title">Build Your Custom Hiring Plan</h2>
+  <p class="setup-subtitle">
+    Tell us about your team to get a recommended plan card.
+  </p>
+</div>
+
+<form class="setup-form-card" id="pricingForm" method="POST">
+
+  <!-- Web3Forms -->
+  <input type="hidden" name="access_key" value="dc9a0cba-80ff-48f3-bb4c-2a3f32355474">
+  <input type="hidden" name="subject" value="New Custom Plan Request">
+  <input type="hidden" name="from_name" value="Pricing Setup Form">
+
+  <!-- GRID WRAPPER -->
+  <div class="pricing-form-grid">
+
+    <!-- Row 1 -->
+    <div class="form-question">
+      <label class="question-label">How many hires do you make per year? <span class="required-asterisk">*</span></label>
+      <select name="hires_per_year" id="hiresInput" class="pricing-input" required>
+        <option value="">Select hiring volume</option>
+        <option value="1-10">1–10 hires per year</option>
+        <option value="11-50">11–50 hires per year</option>
+        <option value="51-200">51–200 hires per year</option>
+        <option value="200+">200+ hires per year</option>
+      </select>
     </div>
 
-    <!-- FORM START -->
-    <form
-      class="setup-form-card"
-      id="pricingForm"
-      method="POST"
-    >
+    <div class="form-question">
+      <label class="question-label">Primary hiring focus? <span class="required-asterisk">*</span></label>
+      <select name="hiring_focus" id="focusSelect" class="pricing-input" onchange="handleFocusChange(this)" required>
+        <option value="">Select hiring focus</option>
+        <option value="Technology / Product">Technology / Product</option>
+        <option value="Sales & Marketing">Sales & Marketing</option>
+        <option value="Operations">Operations</option>
+        <option value="Customer Support">Customer Support</option>
+        <option value="Finance & Accounting">Finance & Accounting</option>
+        <option value="HR & People">HR & People</option>
+        <option value="Design & Creative">Design & Creative</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
 
-      <!-- REQUIRED: Web3Forms -->
-      <input type="hidden" name="access_key" value="dc9a0cba-80ff-48f3-bb4c-2a3f32355474">
-      <input type="hidden" name="subject" value="New Custom Plan Request">
-      <input type="hidden" name="from_name" value="Pricing Setup Form">
+    <!-- Row 2 -->
+    <div class="form-question">
+      <label class="question-label">Company name <span class="required-asterisk">*</span></label>
+      <input
+        type="text"
+        name="company"
+        id="setupCompanyName"
+        class="pricing-input"
+        placeholder="Your company name"
+        required
+      >
+    </div>
 
-      <!-- Hire Count -->
-      <div class="form-question">
-        <label class="question-label">How many hires do you make per year?</label>
-        <select name="hires_per_year" id="hiresInput" class="pricing-input">
-          <option value="">Select hiring volume</option>
-          <option value="1-10">1–10 hires per year</option>
-          <option value="11-50">11–50 hires per year</option>
-          <option value="51-200">51–200 hires per year</option>
-          <option value="200+">200+ hires per year</option>
-        </select>
-      </div>
+    <div class="form-question">
+      <label class="question-label">Country <span class="required-asterisk">*</span></label>
+      <select name="country" id="setupCountry" class="pricing-input" required>
+        <option value="">Select your country</option>
+        <option value="India">India</option>
+        <option value="United States">United States</option>
+        <option value="United Kingdom">United Kingdom</option>
+        <option value="Canada">Canada</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
 
-      <!-- Hiring Focus -->
-      <div class="form-question">
-        <label class="question-label">Primary hiring focus?</label>
-        <select name="hiring_focus" id="focusSelect" class="pricing-input" onchange="handleFocusChange(this)">
-          <option value="">Select hiring focus</option>
-          <option value="Technology / Product">Technology / Product</option>
-          <option value="Sales & Marketing">Sales & Marketing</option>
-          <option value="Operations">Operations</option>
-          <option value="Customer Support">Customer Support</option>
-          <option value="Finance & Accounting">Finance & Accounting</option>
-          <option value="HR & People">HR & People</option>
-          <option value="Design & Creative">Design & Creative</option>
-          <option value="Other">Other</option>
-        </select>
-      </div>
-
-      <!-- Company -->
-      <div class="form-question">
-        <label class="question-label">Company name <span class="required-asterisk">*</span></label>
-        <input
-          type="text"
-          name="company"
-          id="setupCompanyName"
-          class="pricing-input"
-          placeholder="Your company name"
-          required
-        >
-      </div>
-
-      <!-- Country -->
-      <div class="form-question">
-        <label class="question-label">Country <span class="required-asterisk">*</span></label>
-        <select name="country" id="setupCountry" class="pricing-input" required>
-          <option value="">Select your country</option>
-          <option value="India">India</option>
-          <option value="United States">United States</option>
-          <option value="United Kingdom">United Kingdom</option>
-          <option value="Canada">Canada</option>
-          <option value="Other">Other</option>
-        </select>
-      </div>
-
-      <!-- Email -->
-      <div class="form-question">
-        <label class="question-label">Work email <span class="required-asterisk">*</span></label>
-        <input
-          type="email"
-          name="email"
-          id="setupEmail"
-          class="pricing-input"
-          placeholder="you@company.com"
-          required
-        >
-      </div>
-
-      <!-- SUBMIT -->
-      <button type="submit" class="setup-cta-btn" id="pricingSubmitBtn">
-        <span class="btn-text">Get a Custom Plan</span>
-        <span class="btn-loading" style="display: none;">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" class="spinner">
-            <circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="2"
-              stroke-dasharray="50" stroke-dashoffset="25" stroke-linecap="round">
-              <animateTransform attributeName="transform" type="rotate" values="0 10 10;360 10 10"
-                dur="1s" repeatCount="indefinite" />
-            </circle>
-          </svg>
-        </span>
-      </button>
-
-    </form>
-    <!-- FORM END -->
+    <!-- Row 3 -->
+    <div class="form-question full-width">
+      <label class="question-label">Work email <span class="required-asterisk">*</span></label>
+      <input
+        type="email"
+        name="email"
+        id="setupEmail"
+        class="pricing-input"
+        placeholder="you@company.com"
+        required
+      >
+    </div>
 
   </div>
-</section></div>
+
+  <button type="submit" class="setup-cta-btn" id="pricingSubmitBtn">
+    <span class="btn-text">Get a Custom Plan</span>
+    <span class="btn-loading" style="display:none;"></span>
+  </button>
+
+</form>
+
+</div>
+</section>
+</div>
 
     <!-- Pricing Success Modal -->
     <div class="success-modal" id="pricingSuccessModal" role="dialog" aria-modal="true" aria-labelledby="pricingSuccessModalTitle">
@@ -452,19 +441,31 @@
         .pricing-section .setup-cta-btn {
             margin-top: 4px;
         }
+
+        /* ===== ONLY LAYOUT ADDITIONS ===== */
+
+        .pricing-form-grid {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 12px; /* Reduced gap for tighter spacing */
+        }
+
+        .pricing-form-grid .full-width {
+          grid-column: span 2;
+        }
+
+        /* Mobile & tablet */
+        @media (max-width: 768px) {
+          .pricing-form-grid {
+            grid-template-columns: 1fr;
+          }
+
+          .pricing-form-grid .full-width {
+            grid-column: span 1;
+          }
+        }
     </style>
 </body>
 </html>
 
-<!-- 1. Typography 
-Fonts:
-Space Grotesk for headings (H1, H2, H3)
-Plus Jakarta Sans for body text, buttons, labels
-Typography scale:
-H1: clamp(44px, 5vw, 64px) with -0.02em letter-spacing
-H2: clamp(28px, 3vw, 36px) with -0.015em letter-spacing
-H3: clamp(20px, 2vw, 24px)
-Body: clamp(16px, 1.5vw, 18px) with 1.6 line-height
-Buttons: clamp(15px, 1.2vw, 16px) with 0.02em letter-spacing
-Applied globally to headings, paragraphs, buttons, labels, testimonials, and footer -->
-<!-- </html> -->
+

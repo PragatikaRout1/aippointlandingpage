@@ -414,7 +414,7 @@
 .orb-1 {
   width: 300px;
   height: 300px;
-  background: radial-gradient(circle, rgba(2, 132, 199, 0.3) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(0, 15, 80, 0.5) 0%, rgba(0, 28, 119, 0.3) 50%, transparent 70%);
   top: -50px;
   right: -50px;
   animation-delay: 0s;
@@ -423,7 +423,7 @@
 .orb-2 {
   width: 250px;
   height: 250px;
-  background: radial-gradient(circle, rgba(59, 130, 246, 0.25) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(8, 35, 95, 0.45) 0%, rgba(15, 55, 119, 0.25) 50%, transparent 70%);
   bottom: 50px;
   left: -80px;
   animation-delay: 2s;
@@ -432,7 +432,7 @@
 .orb-3 {
   width: 200px;
   height: 200px;
-  background: radial-gradient(circle, rgba(14, 165, 233, 0.2) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(2, 25, 85, 0.4) 0%, rgba(4, 41, 122, 0.2) 50%, transparent 70%);
   top: 50%;
   right: -100px;
   animation-delay: 4s;
@@ -1310,17 +1310,13 @@ document.addEventListener("keydown", (e) => {
 }
 </style>
 
-
-
-
-
     
     <!-- Personalized Setup Section -->
     <section class="personalized-setup" id="pricing">
   <div class="container">
 
     <div class="setup-header">
-      <h2 class="setup-title">Find the right setup for how you hire</h2>
+      <h2 class="setup-title">Build Your Custom Hiring Plan</h2>
       <p class="setup-subtitle">
         Tell us about your team to get a recommended plan card.
       </p>
@@ -1338,71 +1334,74 @@ document.addEventListener("keydown", (e) => {
       <input type="hidden" name="subject" value="New Custom Plan Request">
       <input type="hidden" name="from_name" value="Pricing Setup Form">
 
-      <!-- Hire Count -->
-      <div class="form-question">
-        <label class="question-label">How many hires do you make per year?</label>
-        <select name="hires_per_year" id="hiresInput" class="pricing-input">
-          <option value="">Select hiring volume</option>
-          <option value="1-10">1–10 hires per year</option>
-          <option value="11-50">11–50 hires per year</option>
-          <option value="51-200">51–200 hires per year</option>
-          <option value="200+">200+ hires per year</option>
-        </select>
-      </div>
+      <!-- GRID WRAPPER -->
+      <div class="pricing-form-grid">
 
-      <!-- Hiring Focus -->
-      <div class="form-question">
-        <label class="question-label">Primary hiring focus?</label>
-        <select name="hiring_focus" id="focusSelect" class="pricing-input" onchange="handleFocusChange(this)">
-          <option value="">Select hiring focus</option>
-          <option value="Technology / Product">Technology / Product</option>
-          <option value="Sales & Marketing">Sales & Marketing</option>
-          <option value="Operations">Operations</option>
-          <option value="Customer Support">Customer Support</option>
-          <option value="Finance & Accounting">Finance & Accounting</option>
-          <option value="HR & People">HR & People</option>
-          <option value="Design & Creative">Design & Creative</option>
-          <option value="Other">Other</option>
-        </select>
-      </div>
+        <!-- Row 1 -->
+        <div class="form-question">
+          <label class="question-label">How many hires do you make per year? <span class="required-asterisk">*</span></label>
+          <select name="hires_per_year" id="hiresInput" class="pricing-input" required>
+            <option value="">Select hiring volume</option>
+            <option value="1-10">1–10 hires per year</option>
+            <option value="11-50">11–50 hires per year</option>
+            <option value="51-200">51–200 hires per year</option>
+            <option value="200+">200+ hires per year</option>
+          </select>
+        </div>
 
-      <!-- Company -->
-      <div class="form-question">
-        <label class="question-label">Company name <span class="required-asterisk">*</span></label>
-        <input
-          type="text"
-          name="company"
-          id="setupCompanyName"
-          class="pricing-input"
-          placeholder="Your company name"
-          required
-        >
-      </div>
+        <div class="form-question">
+          <label class="question-label">Primary hiring focus? <span class="required-asterisk">*</span></label>
+          <select name="hiring_focus" id="focusSelect" class="pricing-input" onchange="handleFocusChange(this)" required>
+            <option value="">Select hiring focus</option>
+            <option value="Technology / Product">Technology / Product</option>
+            <option value="Sales & Marketing">Sales & Marketing</option>
+            <option value="Operations">Operations</option>
+            <option value="Customer Support">Customer Support</option>
+            <option value="Finance & Accounting">Finance & Accounting</option>
+            <option value="HR & People">HR & People</option>
+            <option value="Design & Creative">Design & Creative</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
 
-      <!-- Country -->
-      <div class="form-question">
-        <label class="question-label">Country <span class="required-asterisk">*</span></label>
-        <select name="country" id="setupCountry" class="pricing-input" required>
-          <option value="">Select your country</option>
-          <option value="India">India</option>
-          <option value="United States">United States</option>
-          <option value="United Kingdom">United Kingdom</option>
-          <option value="Canada">Canada</option>
-          <option value="Other">Other</option>
-        </select>
-      </div>
+        <!-- Row 2 -->
+        <div class="form-question">
+          <label class="question-label">Company name <span class="required-asterisk">*</span></label>
+          <input
+            type="text"
+            name="company"
+            id="setupCompanyName"
+            class="pricing-input"
+            placeholder="Your company name"
+            required
+          >
+        </div>
 
-      <!-- Email -->
-      <div class="form-question">
-        <label class="question-label">Work email <span class="required-asterisk">*</span></label>
-        <input
-          type="email"
-          name="email"
-          id="setupEmail"
-          class="pricing-input"
-          placeholder="you@company.com"
-          required
-        >
+        <div class="form-question">
+          <label class="question-label">Country <span class="required-asterisk">*</span></label>
+          <select name="country" id="setupCountry" class="pricing-input" required>
+            <option value="">Select your country</option>
+            <option value="India">India</option>
+            <option value="United States">United States</option>
+            <option value="United Kingdom">United Kingdom</option>
+            <option value="Canada">Canada</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <!-- Row 3 -->
+        <div class="form-question full-width">
+          <label class="question-label">Work email <span class="required-asterisk">*</span></label>
+          <input
+            type="email"
+            name="email"
+            id="setupEmail"
+            class="pricing-input"
+            placeholder="you@company.com"
+            required
+          >
+        </div>
+
       </div>
 
       <!-- SUBMIT -->
@@ -1425,17 +1424,15 @@ document.addEventListener("keydown", (e) => {
   </div>
 </section>
 
- <!-- Enterprise Comparison Section -->
-
-<section class="ps-section">
-  <div class="setup-header">
-    <h1 class="setup-title">
-      Traditional Hiring vs. <span class="text-primary">AI-Powered Excellence</span>
-    </h1>
-    <p class="setup-subtitle">
-      See how Appoint.ai transforms the friction of legacy recruiting into measurable business growth through advanced orchestration.
-    </p>
-  </div>
+    <!-- Comparison Section -->
+    <div class="setup-header">
+      <h1 class="setup-title">
+        Traditional Hiring vs. <span class="text-primary">AI-Powered Excellence</span>
+      </h1>
+      <p class="setup-subtitle">
+        See how Appoint.ai transforms the friction of legacy recruiting into measurable business growth through advanced orchestration.
+      </p>
+    </div>
 
 <!-- Comparison Table Section -->
         <div class="table-container">
@@ -3103,6 +3100,30 @@ document.addEventListener("keydown", (e) => {
         };
     })();
     </script>
+    <style>
+        /* ===== PRICING FORM GRID LAYOUT ===== */
+        
+        .pricing-form-grid {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 12px; /* Reduced gap for tighter spacing */
+        }
+        
+        .pricing-form-grid .full-width {
+          grid-column: span 2;
+        }
+        
+        /* Mobile & tablet */
+        @media (max-width: 768px) {
+          .pricing-form-grid {
+            grid-template-columns: 1fr;
+          }
+        
+          .pricing-form-grid .full-width {
+            grid-column: span 1;
+          }
+        }
+    </style>
 </body>
 
 </html>
