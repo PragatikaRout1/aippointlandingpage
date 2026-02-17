@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Auto-scroll functionality with seamless loop
     let scrollPosition = 0;
-    const scrollSpeed = 0.5; // pixels per frame
+    const scrollSpeed = 1.5; // pixels per frame (increased from 0.5 for faster sliding)
     let animationId;
     let isPaused = false;
     
