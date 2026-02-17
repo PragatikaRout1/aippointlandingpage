@@ -1,92 +1,128 @@
-#AIPPoint Landing Page
+# aippoint-ai-interview
 
-A modern, conversion-focused landing page forAIPPoint - an AI-powered interview assessment platform.
+AI Interview application with backend API - ready for Vercel deployment
 
-## Features
-
-- **Modern Design**: Clean, professional design with smooth animations
-- **Fully Responsive**: Works perfectly on desktop, tablet, and mobile devices
-- **Interactive ROI Calculator**: Calculate your potential savings with real-time updates
-- **Smooth Animations**: Scroll-triggered animations and micro-interactions
-- **AI-Themed Graphics**: Custom SVG graphics and animated elements
-- **Accessibility**: WCAG compliant with keyboard navigation support
-- **Performance Optimized**: Fast loading times and optimized assets
-
-## Sections
-
-1. **Hero Section**: Eye-catching introduction with key value propositions
-2. **Features Section**: Showcase of 4 main platform features
-3. **How It Works**: 3-step process visualization
-4. **ROI Calculator**: Interactive calculator to show potential savings
-5. **Testimonials**: Social proof from satisfied clients
-6. **FAQ**: Accordion-style frequently asked questions
-7. **Final CTA**: Strong call-to-action section
-8. **Footer**: Complete site navigation and links
-
-## Getting Started
-
-1. Open `index.html` in your web browser
-2. No build process required - it's pure HTML, CSS, and JavaScript
-3. All files are self-contained and ready to use
-
-## File Structure
+## 📁 Structure
 
 ```
-├── index.html      # Main HTML structure
-├── styles.css      # All styling and animations
-├── script.js       # Interactivity and functionality
-└── README.md       # This file
+├── ai-interview.html       # Main interview interface
+├── server.js               # Express server
+├── local-server.js         # Local development
+├── package.json            # Dependencies
+├── vercel.json             # Vercel configuration
+├── .env.example            # Environment variables
+├── api/                    # API routes
+│   ├── health.js
+│   ├── interview-attempts.js
+│   ├── interview-feedback.js
+│   ├── send-confirmation.js
+│   └── send-feedback.js
+├── lib/                    # MongoDB helpers
+│   ├── mongodb.js
+│   └── schemas.js
+├── script.js               # Interview logic
+├── styles.css              # Interview styles
+├── components.js           # UI components
+├── img/                    # Images and assets
+└── js/                     # Additional JavaScript
 ```
 
-## Customization
+## 🚀 Quick Start
 
-### Colors
-Edit the CSS variables in `styles.css`:
-```css
-:root {
-    --primary: #1976d2;
-    --secondary: #dc004e;
-    --success: #10b981;
-    /* ... */
-}
+1. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+2. **Set up environment variables:**
+   ```bash
+   cp .env.example .env
+   # Edit .env with your MongoDB URI and other secrets
+   ```
+
+3. **Run locally:**
+   ```bash
+   npm start
+   # or
+   node local-server.js
+   ```
+
+4. **Deploy to Vercel:**
+   ```bash
+   vercel --prod
+   ```
+
+## 🔗 API Endpoints
+
+- `POST /api/interview-attempts` - Track interview attempts
+- `POST /api/interview-feedback` - Save feedback
+- `POST /api/send-feedback` - Send feedback emails
+- `POST /api/send-contact-email` - Contact form submissions
+- `GET /api/health` - Health check
+
+## 🎯 Features
+
+- ✅ AI-powered interviews with real-time feedback
+- ✅ Video/audio recording and analysis
+- ✅ Attempt limiting (max 4 per email)
+- ✅ MongoDB data persistence
+- ✅ Email notifications via Resend
+- ✅ CORS enabled for external domains
+- ✅ Mobile-responsive design
+- ✅ Production-ready deployment
+
+## 🛠️ Technologies
+
+- **Frontend:** HTML5, CSS3, Vanilla JavaScript
+- **Backend:** Node.js, Express.js
+- **Database:** MongoDB (MongoDB Atlas)
+- **Media:** WebRTC for video/audio recording
+- **Email:** Resend API
+- **Deployment:** Vercel (serverless)
+
+## 📦 Environment Variables
+
+Create `.env` file with:
+
+```env
+MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/aippoint_interviews
+NODE_ENV=production
+MAX_ATTEMPTS=4
+RESEND_API_KEY=your_resend_api_key
+FROM_EMAIL=hr@aippoint.ai
+REPLY_TO_EMAIL=hr@aippoint.ai
 ```
 
-### Content
-- Update text content directly in `index.html`
-- Modify section content in their respective sections
-- Update testimonials, FAQ items, and feature descriptions
+## 🚀 Deployment
 
-### Animations
-- Adjust animation timings in `styles.css`
-- Modify scroll-triggered animations in `script.js`
+### Vercel (Recommended)
+1. Connect your repository to Vercel
+2. Set environment variables in Vercel dashboard
+3. Deploy automatically on git push
 
-## Browser Support
+### Manual Deployment
+```bash
+npm install --production
+vercel --prod
+```
 
-- Chrome (latest)
-- Firefox (latest)
-- Safari (latest)
-- Edge (latest)
+## 📊 CORS Configuration
 
-## Performance
+Update CORS origins in `server.js` for your marketing site:
 
-- Optimized for Lighthouse scores 90+
-- Lazy loading for images
-- Efficient CSS animations
-- Minimal JavaScript footprint
+```javascript
+app.use(cors({
+    origin: ['https://your-marketing-site.com', 'http://localhost:3000'],
+    credentials: true
+}));
+```
 
-## Accessibility
+## 🔧 Development
 
-- Semantic HTML structure
-- ARIA labels where needed
-- Keyboard navigation support
-- Focus indicators
-- Screen reader friendly
+- Run `npm start` for production server
+- Run `node local-server.js` for development with hot reload
+- Visit `http://localhost:3000` to test the application
 
-## License
+## 📝 License
 
-This landing page template is provided as-is for use withAIPPoint.
-
-## Support
-
-For questions or issues, please contact the development team.
-
+ISC
